@@ -1,4 +1,4 @@
-# Hi there, I'm Iván Sevilla 👋
+# Hi there, I'm Iván J. Sevillano 👋
 
 I’m a **Software Engineering** student at the **University of Seville** with a passion for learning and solving problems. With a solid foundation in programming, I also enjoy teaching and sharing knowledge with others. Apart from coding, I am passionate about nature, teamwork, and outdoor activities.
 

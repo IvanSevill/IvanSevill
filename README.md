@@ -1,6 +1,6 @@
 # Hi there, I'm Iván Sevilla 👋
 
-I’m a **Software Engineering** student at the **University of Seville** with a passion for learning and solving problems. With a solid foundation in programming and a focus on Python, I also enjoy teaching and sharing knowledge with others. Apart from coding, I am passionate about nature, teamwork, and outdoor activities.
+I’m a **Software Engineering** student at the **University of Seville** with a passion for learning and solving problems. With a solid foundation in programming, I also enjoy teaching and sharing knowledge with others. Apart from coding, I am passionate about nature, teamwork, and outdoor activities.
 
 ## 🚀 Skills and Expertise
 - **Programming**: Python, Java, JavaScript, HTML, CSS
@@ -18,9 +18,6 @@ I’m a **Software Engineering** student at the **University of Seville** with a
 - **Spanish** (Native)
 - **English** (C1) – Fluent in listening, reading, and writing
 - **French** (A2) & **Russian** (A1)
-
-## 🌱 Current Projects
-- Contributing to **open-source projects** and working on **personal software development**.
 
 ## 🎉 Fun Facts About Me
 - I love spending time outdoors, whether hiking, walking, or enjoying nature.

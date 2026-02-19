@@ -2,7 +2,8 @@
 
 <div align="center">
 
-[![Portfolio](https://img.shields.io/badge/Portfolio-Visit_Site-2ea44f?style=for-the-badge&logo=vercel)](https://linktr.ee/ivansevill)
+[![Linktree](https://img.shields.io/badge/Linktree-Visit_Profile-39E09B?style=for-the-badge&logo=linktree&logoColor=white)](https://linktr.ee/ivansevill)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Visit_Site-2ea44f?style=for-the-badge&logo=vercel)](https://ivan-sevill-38sm4fj0g-ivansevills-projects.vercel.app/)
 [![Instagram](https://img.shields.io/badge/Instagram-Follow_Me-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/ivansevill/)
 [![Email](https://img.shields.io/badge/Email-Contact_Me-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ivansevillano2005@gmail.com)
 

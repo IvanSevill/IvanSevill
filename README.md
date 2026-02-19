@@ -62,9 +62,3 @@ I’m a **Software Engineering** student at the **University of Seville** with a
 - 🤝 I enjoy **collaborative teamwork** and have taken part in several youth exchange programs to expand my horizons.
 
 ---
-
-### 📞 Let's Connect
-
-- [Email me](mailto:ivansevillano2005@gmail.com)
-- [Visit my website](https://linktr.ee/ivansevill)
-- [Follow me on Instagram](https://www.instagram.com/ivansevill/)

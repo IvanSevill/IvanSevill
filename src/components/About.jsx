@@ -76,7 +76,7 @@ const About = () => {
                         className="grid gap-6"
                     >
                         <motion.div variants={item} className="card flex items-start gap-4 hover:border-[var(--accent-primary)]">
-                            <div className="p-3 bg-red-500/20 rounded-lg text-red-400">
+                            <div className="p-3 bg-blue-500/20 rounded-lg text-blue-400">
                                 <Zap size={24} />
                             </div>
                             <div>
@@ -86,7 +86,7 @@ const About = () => {
                         </motion.div>
 
                         <motion.div variants={item} className="card flex items-start gap-4 hover:border-[var(--accent-secondary)]">
-                            <div className="p-3 bg-orange-500/20 rounded-lg text-orange-400">
+                            <div className="p-3 bg-purple-500/20 rounded-lg text-purple-400">
                                 <User size={24} />
                             </div>
                             <div>
@@ -106,7 +106,7 @@ const About = () => {
                         </motion.div>
 
                         <motion.div variants={item} className="card flex items-start gap-4 hover:border-orange-500/50 group">
-                            <div className="p-3 bg-orange-500/20 rounded-lg text-orange-400 group-hover:bg-orange-500/30 transition-colors">
+                            <div className="p-3 bg-blue-500/20 rounded-lg text-blue-400 group-hover:bg-blue-500/30 transition-colors">
                                 <Map size={24} />
                             </div>
                             <div>

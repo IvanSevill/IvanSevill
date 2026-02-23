@@ -75,7 +75,7 @@ const Projects = () => {
     };
 
     return (
-        <section id="projects" className="section py-24">
+        <section id="projects" className="section bg-black/20 py-24">
             <div className="container px-6 mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -104,7 +104,7 @@ const Projects = () => {
                             >
                                 <div className="absolute -inset-[1px] bg-gradient-to-b from-white/10 to-transparent rounded-[2rem] transition-all duration-500 group-hover:from-[var(--accent-primary)]/40 group-hover:to-[var(--accent-secondary)]/10"></div>
 
-                                <div className="relative h-full bg-[#111111]/80 backdrop-blur-xl rounded-[2rem] overflow-hidden flex flex-col border border-white/5 shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                                <div className="relative h-full bg-[#0f172a]/80 backdrop-blur-xl rounded-[2rem] overflow-hidden flex flex-col border border-white/5 shadow-2xl transition-all duration-500 hover:-translate-y-2">
                                     <div className="relative h-48 w-full overflow-hidden">
                                         <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                                         <div className="absolute bottom-4 left-6 z-10 p-2.5 bg-black/40 backdrop-blur-md rounded-xl border border-white/10 shadow-lg text-white">

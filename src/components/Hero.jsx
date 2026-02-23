@@ -7,7 +7,7 @@ const Hero = () => {
     const { t } = useLanguage();
 
     return (
-        <section id="hero" className="min-h-screen flex items-end lg:items-center pt-24 pb-32 lg:pb-12 relative overflow-hidden bg-black">
+        <section id="hero" className="min-h-screen flex items-end lg:items-center pt-24 pb-32 lg:pb-12 relative overflow-hidden bg-[#0f172a]">
             {/* Background elements */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
                 <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-red-500/10 rounded-full blur-[120px] animate-pulse"></div>
@@ -55,13 +55,13 @@ const Hero = () => {
                         className="w-full h-full object-cover object-top scale-[1.15] -translate-y-[15%] -translate-x-[5%] lg:translate-x-[20%] lg:translate-y-0 lg:object-right lg:scale-110 brightness-90 lg:brightness-[0.8] contrast-105 transition-transform duration-1000"
                     />
                     {/* Mobile: Gradient covering only the bottom to center the "air" */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent lg:hidden"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/70 to-transparent lg:hidden"></div>
 
                     {/* Desktop: Solid black on the left that fades out to the right - NO MORE CUTS */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-black via-black via-[35%] to-transparent hidden lg:block"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0f172a] via-[#0f172a] via-[35%] to-transparent hidden lg:block"></div>
 
                     {/* Bottom blend for section continuity */}
-                    <div className="absolute inset-x-0 bottom-0 h-1/6 bg-gradient-to-t from-black to-transparent z-10"></div>
+                    <div className="absolute inset-x-0 bottom-0 h-1/6 bg-gradient-to-t from-[#0f172a] to-transparent z-10"></div>
                 </div>
             </div>
 

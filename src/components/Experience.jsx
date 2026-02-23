@@ -13,7 +13,7 @@ const Experience = () => {
             period: t.experience.student.period,
             location: t.experience.student.location,
             description: [t.experience.student.desc],
-            icon: <Building2 size={24} className="text-red-400" />,
+            icon: <Building2 size={24} className="text-blue-400" />,
             branches: [
                 {
                     title: t.experience.erasmus.company,
@@ -21,7 +21,7 @@ const Experience = () => {
                     period: t.experience.erasmus.period,
                     location: t.experience.erasmus.location,
                     description: t.experience.erasmus.desc,
-                    icon: <Building2 size={20} className="text-orange-400" />
+                    icon: <Building2 size={20} className="text-purple-400" />
                 }
             ]
         },
@@ -31,7 +31,7 @@ const Experience = () => {
             period: t.experience.freelance.period,
             location: t.experience.freelance.location,
             description: t.experience.freelance.desc,
-            icon: <Briefcase size={24} className="text-red-400" />
+            icon: <Briefcase size={24} className="text-green-400" />
         }
     ];
 
@@ -91,20 +91,20 @@ const Experience = () => {
                                                 {/* Branch Connector Hook */}
                                                 <div className="absolute left-[1.1rem] top-4 w-4 h-0.5 bg-[var(--accent-primary)]/30 group-hover:bg-[var(--accent-primary)] transition-colors"></div>
 
-                                                <div className="p-2 bg-orange-500/10 border border-orange-500/20 rounded-lg text-orange-400 self-start">
+                                                <div className="p-2 bg-purple-500/10 border border-purple-500/20 rounded-lg text-purple-400 self-start">
                                                     {branch.icon}
                                                 </div>
                                                 <div className="flex-grow">
                                                     <div className="flex justify-between items-start mb-1">
-                                                        <h5 className="font-bold text-gray-200 group-hover:text-orange-400 transition-colors">
+                                                        <h5 className="font-bold text-gray-200 group-hover:text-purple-400 transition-colors">
                                                             {branch.role}
                                                         </h5>
-                                                        <span className="text-[10px] bg-orange-500/10 text-orange-400 px-2 py-0.5 rounded-full border border-orange-500/20">
+                                                        <span className="text-[10px] bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded-full border border-purple-500/20">
                                                             {branch.period}
                                                         </span>
                                                     </div>
                                                     <p className="text-xs font-semibold text-gray-400 mb-2">{branch.title} • {branch.location}</p>
-                                                    <p className="text-xs text-gray-400 italic bg-white/5 p-2 rounded border-l-2 border-orange-500/30">
+                                                    <p className="text-xs text-gray-400 italic bg-white/5 p-2 rounded border-l-2 border-purple-500/30">
                                                         {branch.description}
                                                     </p>
                                                 </div>

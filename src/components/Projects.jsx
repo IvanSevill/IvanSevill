@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github, Monitor, Scissors, Cpu, Camera, Wallet, Database, AlertCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { ExternalLink, Github, Monitor, Scissors, Cpu, Camera, Database, ChevronDown, ChevronUp } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 const Projects = () => {
@@ -67,8 +67,15 @@ const Projects = () => {
 
     const visibleProjects = showAll ? projects : projects.slice(0, 3);
 
+    const handleShowAll = () => {
+        if (showAll) {
+            document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+        }
+        setShowAll(!showAll);
+    };
+
     return (
-        <section id="projects" className="section bg-black/20 py-24">
+        <section id="projects" className="section py-24">
             <div className="container px-6 mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -97,10 +104,9 @@ const Projects = () => {
                             >
                                 <div className="absolute -inset-[1px] bg-gradient-to-b from-white/10 to-transparent rounded-[2rem] transition-all duration-500 group-hover:from-[var(--accent-primary)]/40 group-hover:to-[var(--accent-secondary)]/10"></div>
 
-                                <div className="relative h-full bg-[#0f172a]/80 backdrop-blur-xl rounded-[2rem] overflow-hidden flex flex-col border border-white/5 shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                                <div className="relative h-full bg-[#111111]/80 backdrop-blur-xl rounded-[2rem] overflow-hidden flex flex-col border border-white/5 shadow-2xl transition-all duration-500 hover:-translate-y-2">
                                     <div className="relative h-48 w-full overflow-hidden">
                                         <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-90"></div>
                                         <div className="absolute bottom-4 left-6 z-10 p-2.5 bg-black/40 backdrop-blur-md rounded-xl border border-white/10 shadow-lg text-white">
                                             {React.cloneElement(project.icon, { size: 24, className: project.icon.props.className + " !opacity-100" })}
                                         </div>
@@ -138,7 +144,7 @@ const Projects = () => {
                 {/* View More Button */}
                 <div className="text-center mt-12 flex flex-col items-center gap-6">
                     <button
-                        onClick={() => setShowAll(!showAll)}
+                        onClick={handleShowAll}
                         className="flex items-center gap-2 px-8 py-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-[var(--accent-primary)]/30 transition-all font-bold text-sm uppercase tracking-widest text-gray-300 hover:text-white"
                     >
                         {showAll ? (

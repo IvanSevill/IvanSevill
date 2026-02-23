@@ -60,7 +60,7 @@ const About = () => {
                                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                                 />
                             </div>
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/80 via-transparent to-transparent opacity-60"></div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/80 via-transparent to-transparent opacity-60"></div>
                             <div className="absolute bottom-6 left-6">
                                 <p className="text-white font-bold text-sm tracking-wide">Problem Solver</p>
                                 <p className="text-[var(--accent-primary)] text-[10px] uppercase font-mono tracking-[0.2em]">Engineering Mindset</p>
@@ -76,7 +76,7 @@ const About = () => {
                         className="grid gap-6"
                     >
                         <motion.div variants={item} className="card flex items-start gap-4 hover:border-[var(--accent-primary)]">
-                            <div className="p-3 bg-blue-500/20 rounded-lg text-blue-400">
+                            <div className="p-3 bg-red-500/20 rounded-lg text-red-400">
                                 <Zap size={24} />
                             </div>
                             <div>
@@ -86,7 +86,7 @@ const About = () => {
                         </motion.div>
 
                         <motion.div variants={item} className="card flex items-start gap-4 hover:border-[var(--accent-secondary)]">
-                            <div className="p-3 bg-purple-500/20 rounded-lg text-purple-400">
+                            <div className="p-3 bg-orange-500/20 rounded-lg text-orange-400">
                                 <User size={24} />
                             </div>
                             <div>

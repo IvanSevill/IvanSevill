@@ -7,10 +7,10 @@ const Hero = () => {
     const { t } = useLanguage();
 
     return (
-        <section id="hero" className="min-h-screen flex items-center pt-24 pb-12 relative overflow-hidden bg-[#0f172a]">
+        <section id="hero" className="min-h-screen flex items-end lg:items-center pt-24 pb-32 lg:pb-12 relative overflow-hidden bg-black">
             {/* Background elements */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-                <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-500/10 rounded-full blur-[120px] animate-pulse"></div>
+                <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-red-500/10 rounded-full blur-[120px] animate-pulse"></div>
             </div>
 
             <div className="container mx-auto px-6 relative z-10">
@@ -46,19 +46,22 @@ const Hero = () => {
                 </div>
             </div>
 
-            {/* Cinematic Background Image - More visible and clearer */}
-            <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full z-0 opacity-60 lg:opacity-90 pointer-events-none transition-opacity duration-1000">
+            {/* Cinematic Background Image - Ajuste agresivo de posición */}
+            <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
                 <div className="relative w-full h-full">
                     <img
                         src="/images/profile.jpg"
                         alt="Iván"
-                        className="w-full h-full object-cover object-center lg:object-right brightness-50 lg:brightness-90 contrast-110"
+                        className="w-full h-full object-cover object-top scale-[1.15] -translate-y-[15%] -translate-x-[5%] lg:translate-x-[20%] lg:translate-y-0 lg:object-right lg:scale-110 brightness-90 lg:brightness-[0.8] contrast-105 transition-transform duration-1000"
                     />
-                    {/* Softer fade to make the photo pop more */}
-                    <div className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-[#0f172a] lg:via-[#0f172a]/20 to-transparent"></div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent"></div>
-                    {/* Mobile-only dark overlay for better text contrast */}
-                    <div className="absolute inset-0 bg-[#0f172a]/30 lg:hidden"></div>
+                    {/* Mobile: Gradient covering only the bottom to center the "air" */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent lg:hidden"></div>
+
+                    {/* Desktop: Solid black on the left that fades out to the right - NO MORE CUTS */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-black via-black via-[35%] to-transparent hidden lg:block"></div>
+
+                    {/* Bottom blend for section continuity */}
+                    <div className="absolute inset-x-0 bottom-0 h-1/6 bg-gradient-to-t from-black to-transparent z-10"></div>
                 </div>
             </div>
 

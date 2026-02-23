@@ -47,16 +47,18 @@ const Hero = () => {
             </div>
 
             {/* Cinematic Background Image - More visible and clearer */}
-            <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full z-0 opacity-90 pointer-events-none">
+            <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full z-0 opacity-60 lg:opacity-90 pointer-events-none transition-opacity duration-1000">
                 <div className="relative w-full h-full">
                     <img
                         src="/images/profile.jpg"
                         alt="Iván"
-                        className="w-full h-full object-cover object-center lg:object-right brightness-90 contrast-110"
+                        className="w-full h-full object-cover object-center lg:object-right brightness-50 lg:brightness-90 contrast-110"
                     />
                     {/* Softer fade to make the photo pop more */}
-                    <div className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-[#0f172a] via-[#0f172a]/20 to-transparent"></div>
+                    <div className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-[#0f172a] lg:via-[#0f172a]/20 to-transparent"></div>
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent"></div>
+                    {/* Mobile-only dark overlay for better text contrast */}
+                    <div className="absolute inset-0 bg-[#0f172a]/30 lg:hidden"></div>
                 </div>
             </div>
 

@@ -62,22 +62,6 @@ const Projects = () => {
             link: "https://github.com/IvanSevill/LensPortExtension",
             icon: <Camera size={40} className="text-red-400" />,
             image: "/images/lens-port-extension.jpg"
-        },
-        {
-            title: t.budgetBuddy.title,
-            description: {
-                en: t.budgetBuddy.description,
-                es: t.budgetBuddy.description
-            },
-            warning: {
-                en: t.budgetBuddy.warning,
-                es: t.budgetBuddy.warning
-            },
-            tags: ["Hackathon", "Finance", "Team Project"],
-            link: "https://github.com/IvanSevill/BudgetBuddy",
-            icon: <Wallet size={40} className="text-purple-400" />,
-            image: "/images/budget-buddy.jpg",
-            isEarly: true
         }
     ];
 

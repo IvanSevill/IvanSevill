@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { User, Heart, Zap } from 'lucide-react';
+import { User, Heart, Zap, Map } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 const About = () => {
@@ -39,15 +39,33 @@ const About = () => {
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        className="card"
+                        className="space-y-8"
                     >
-                        <p className="text-lg leading-relaxed text-gray-300 mb-6">
-                            {t.about.desc1} <span className="text-[var(--accent-primary)] font-semibold">{t.about.desc1_highlight}</span>
-                            {t.about.desc1_cont} <span className="text-[var(--accent-secondary)] font-semibold">{t.about.desc2_highlight}</span>.
-                        </p>
-                        <p className="text-lg leading-relaxed text-gray-300">
-                            {t.about.desc2}
-                        </p>
+                        <div className="card">
+                            <p className="text-lg leading-relaxed text-gray-300 mb-6">
+                                {t.about.desc1} <span className="text-[var(--accent-primary)] font-semibold">{t.about.desc1_highlight}</span>
+                                {t.about.desc1_cont} <span className="text-[var(--accent-secondary)] font-semibold">{t.about.desc2_highlight}</span>.
+                            </p>
+                            <p className="text-lg leading-relaxed text-gray-300">
+                                {t.about.desc2}
+                            </p>
+                        </div>
+
+                        {/* More Pictures Place - Responsive Portrait Frame */}
+                        <div className="relative group rounded-2xl border border-white/10 bg-white/5 p-3 backdrop-blur-md shadow-xl overflow-hidden">
+                            <div className="aspect-[3/4] sm:aspect-auto overflow-hidden rounded-xl">
+                                <img
+                                    src="/images/about.jpg"
+                                    alt="Professional Coding"
+                                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                                />
+                            </div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/80 via-transparent to-transparent opacity-60"></div>
+                            <div className="absolute bottom-6 left-6">
+                                <p className="text-white font-bold text-sm tracking-wide">Problem Solver</p>
+                                <p className="text-[var(--accent-primary)] text-[10px] uppercase font-mono tracking-[0.2em]">Engineering Mindset</p>
+                            </div>
+                        </div>
                     </motion.div>
 
                     <motion.div
@@ -84,6 +102,16 @@ const About = () => {
                             <div>
                                 <h3 className="text-xl font-bold mb-2">{t.about.passions}</h3>
                                 <p className="text-gray-400">{t.about.passionsDesc}</p>
+                            </div>
+                        </motion.div>
+
+                        <motion.div variants={item} className="card flex items-start gap-4 hover:border-orange-500/50 group">
+                            <div className="p-3 bg-orange-500/20 rounded-lg text-orange-400 group-hover:bg-orange-500/30 transition-colors">
+                                <Map size={24} />
+                            </div>
+                            <div>
+                                <h3 className="text-xl font-bold mb-2">{t.about.travel}</h3>
+                                <p className="text-gray-400">{t.about.travelDesc}</p>
                             </div>
                         </motion.div>
                     </motion.div>

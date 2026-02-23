@@ -1,12 +1,23 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, Monitor, Scissors, Cpu, Camera, Wallet } from 'lucide-react';
+import { ExternalLink, Github, Monitor, Scissors, Cpu, Camera, Wallet, Database, AlertCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 const Projects = () => {
     const { t, language } = useLanguage();
 
     const projects = [
+        {
+            title: t.aissMiner.title,
+            description: {
+                en: t.aissMiner.description,
+                es: t.aissMiner.description
+            },
+            tags: ["Java", "Spring Boot", "Microservices", "Docker"],
+            link: "https://github.com/IvanSevill/AISS-Miner",
+            icon: <Database size={40} className="text-orange-400" />,
+            image: "/images/aiss-miner.jpg"
+        },
         {
             title: "Usb-GPT",
             description: {
@@ -15,7 +26,8 @@ const Projects = () => {
             },
             tags: ["Python", "AI", "Local-LLM"],
             link: "https://github.com/IvanSevill/Usb-GPT",
-            icon: <Cpu size={40} className="text-blue-400" />
+            icon: <Cpu size={40} className="text-blue-400" />,
+            image: "/images/usb-gpt.jpg"
         },
         {
             title: "RockPaperScissors",
@@ -25,7 +37,8 @@ const Projects = () => {
             },
             tags: ["React", "FastAPI", "MediaPipe", "Computer Vision"],
             link: "https://github.com/IvanSevill/RockPaperScissors",
-            icon: <Scissors size={40} className="text-yellow-400" />
+            icon: <Scissors size={40} className="text-yellow-400" />,
+            image: "/images/rock-paper-scissors.jpg"
         },
         {
             title: "AI-travel-assistant",
@@ -35,7 +48,8 @@ const Projects = () => {
             },
             tags: ["Streamlit", "Gemini API", "Python", "TTS"],
             link: "https://github.com/IvanSevill/AI-travel-assistant",
-            icon: <Monitor size={40} className="text-green-400" />
+            icon: <Monitor size={40} className="text-green-400" />,
+            image: "/images/ai-travel-assistant.jpg"
         },
         {
             title: "LensPortExtension",
@@ -45,17 +59,24 @@ const Projects = () => {
             },
             tags: ["JavaScript", "Browser Extension", "OCR", "Flask"],
             link: "https://github.com/IvanSevill/LensPortExtension",
-            icon: <Camera size={40} className="text-red-400" />
+            icon: <Camera size={40} className="text-red-400" />,
+            image: "/images/lens-port-extension.jpg"
         },
         {
-            title: "BudgetBuddy",
+            title: t.budgetBuddy.title,
             description: {
-                en: "Hackathon 2023-2024 Project for University of Seville - Telefonica. Financial management tool.",
-                es: "Proyecto Hackathon 2023-2024 para la Universidad de Sevilla - Telefónica. Herramienta de gestión financiera."
+                en: t.budgetBuddy.description,
+                es: t.budgetBuddy.description
+            },
+            warning: {
+                en: t.budgetBuddy.warning,
+                es: t.budgetBuddy.warning
             },
             tags: ["Hackathon", "Finance", "Team Project"],
             link: "https://github.com/IvanSevill/BudgetBuddy",
-            icon: <Wallet size={40} className="text-purple-400" />
+            icon: <Wallet size={40} className="text-purple-400" />,
+            image: "/images/budget-buddy.jpg",
+            isEarly: true
         }
     ];
 
@@ -84,36 +105,59 @@ const Projects = () => {
                             viewport={{ once: true }}
                             whileHover={{ y: -10 }}
                             transition={{ delay: index * 0.1 }}
-                            className="card group overflow-hidden relative flex flex-col h-full"
+                            className="card group overflow-hidden relative flex flex-col h-full !p-0"
                         >
-                            <div className="absolute top-4 right-4 p-2 opacity-50 group-hover:opacity-100 transition-opacity">
-                                {project.icon}
+                            {/* Project Image Header */}
+                            <div className="h-48 w-full overflow-hidden relative">
+                                <img
+                                    src={project.image}
+                                    alt={project.title}
+                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                />
+                                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
+                                <div className="absolute top-4 right-4 p-2 bg-black/60 rounded-lg backdrop-blur-md border border-white/10 opacity-80 group-hover:opacity-100 transition-opacity">
+                                    {project.icon}
+                                </div>
                             </div>
 
-                            <h3 className="text-2xl font-bold mb-3 pr-12 group-hover:text-[var(--accent-primary)] transition-colors">
-                                {project.title}
-                            </h3>
+                            <div className="p-6 flex flex-col flex-grow">
+                                <h3 className="text-2xl font-bold mb-3 group-hover:text-[var(--accent-primary)] transition-colors flex items-center gap-2">
+                                    {project.title}
+                                    {project.isEarly && (
+                                        <span className="bg-yellow-500/10 text-yellow-500 text-[10px] px-2 py-0.5 rounded-full border border-yellow-500/20 flex items-center gap-1">
+                                            <AlertCircle size={10} />
+                                            {t.projects.earlyProject}
+                                        </span>
+                                    )}
+                                </h3>
 
-                            <p className="text-gray-300 mb-6 flex-grow text-sm">
-                                {project.description[language]}
-                            </p>
+                                <p className="text-gray-300 mb-4 flex-grow text-sm">
+                                    {project.description[language]}
+                                </p>
 
-                            <div className="flex flex-wrap gap-2 mb-6">
-                                {project.tags.map((tag, i) => (
-                                    <span key={i} className="text-xs font-mono bg-white/10 text-[var(--accent-secondary)] px-2 py-1 rounded">
-                                        {tag}
-                                    </span>
-                                ))}
+                                {project.isEarly && (
+                                    <p className="text-yellow-500/80 italic text-xs mb-6 px-3 py-2 bg-yellow-500/5 rounded border-l-2 border-yellow-500/30">
+                                        {project.warning[language]}
+                                    </p>
+                                )}
+
+                                <div className="flex flex-wrap gap-2 mb-6">
+                                    {project.tags.map((tag, i) => (
+                                        <span key={i} className="text-xs font-mono bg-white/10 text-[var(--accent-secondary)] px-2 py-1 rounded">
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+
+                                <a
+                                    href={project.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 text-[var(--accent-primary)] font-semibold hover:underline mt-auto"
+                                >
+                                    {t.projects.viewProject} <Github size={16} />
+                                </a>
                             </div>
-
-                            <a
-                                href={project.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 text-[var(--accent-primary)] font-semibold hover:underline mt-auto"
-                            >
-                                {t.projects.viewProject} <Github size={16} />
-                            </a>
                         </motion.div>
                     ))}
                 </div>

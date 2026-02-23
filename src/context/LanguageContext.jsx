@@ -19,7 +19,7 @@ export const LanguageProvider = ({ children }) => {
             },
             hero: {
                 greeting: "HELLO, I'M",
-                role: "Passionate Software Engineering Student & Aspiring Full-Stack Developer based in Seville, Spain.",
+                role: "Passionate Software Engineering Student & Aspiring Full-Stack Developer.",
                 viewWork: "View My Work",
                 contactMe: "Contact Me"
             },
@@ -35,7 +35,9 @@ export const LanguageProvider = ({ children }) => {
                 team: "Team Player",
                 teamDesc: "Collaborative mindset, valuing communication and shared success.",
                 passions: "Passions",
-                passionsDesc: "Nature lover, hiking enthusiast, and technology advocate."
+                passionsDesc: "Nature lover, hiking enthusiast, and technology advocate.",
+                travel: "Travel Enthusiast",
+                travelDesc: "Exploring new cultures and landscapes is my ultimate source of inspiration."
             },
             experience: {
                 title: "Experience",
@@ -75,7 +77,17 @@ export const LanguageProvider = ({ children }) => {
                 title: "Featured Projects",
                 subtitle: "A selection of my recent work from GitHub.",
                 viewProject: "View Project",
-                openLinktree: "Open Linktree"
+                openLinktree: "Open Linktree",
+                earlyProject: "Early Project"
+            },
+            aissMiner: {
+                title: "AISS-Miner",
+                description: "A powerful microservices-based ecosystem designed to aggregate and unify repository data from GitHub, GitLab, and BitBucket.",
+            },
+            budgetBuddy: {
+                title: "BudgetBuddy",
+                description: "Hackathon project for a national financial management competition. Focusing on modern UI and user experience.",
+                warning: "Note: This is one of my earliest academic projects, demonstrating the foundations of financial management logic."
             },
             contact: {
                 title: "Get In Touch",
@@ -95,7 +107,7 @@ export const LanguageProvider = ({ children }) => {
             },
             hero: {
                 greeting: "HOLA, SOY",
-                role: "Estudiante apasionado de Ingeniería de Software y aspirante a desarrollador Full-Stack con sede en Sevilla, España.",
+                role: "Estudiante apasionado de Ingeniería de Software y aspirante a desarrollador Full-Stack.",
                 viewWork: "Ver Mi Trabajo",
                 contactMe: "Contáctame"
             },
@@ -111,7 +123,9 @@ export const LanguageProvider = ({ children }) => {
                 team: "Trabajo en Equipo",
                 teamDesc: "Mentalidad colaborativa, valorando la comunicación y el éxito compartido.",
                 passions: "Pasiones",
-                passionsDesc: "Amante de la naturaleza, entusiasta del senderismo y defensor de la tecnología."
+                passionsDesc: "Amante de la naturaleza, entusiasta del senderismo y defensor de la tecnología.",
+                travel: "Entusiasta de los Viajes",
+                travelDesc: "Explorar nuevas culturas y paisajes es mi mayor fuente de inspiración."
             },
             experience: {
                 title: "Experiencia",
@@ -151,7 +165,17 @@ export const LanguageProvider = ({ children }) => {
                 title: "Proyectos Destacados",
                 subtitle: "Una selección de mi trabajo reciente en GitHub.",
                 viewProject: "Ver Proyecto",
-                openLinktree: "Abrir Linktree"
+                openLinktree: "Abrir Linktree",
+                earlyProject: "Proyecto Inicial"
+            },
+            aissMiner: {
+                title: "AISS-Miner",
+                description: "Un ecosistema basado en microservicios diseñado para agregar y unificar datos de repositorios de GitHub, GitLab y BitBucket.",
+            },
+            budgetBuddy: {
+                title: "BudgetBuddy",
+                description: "Proyecto Hackathon para una competición nacional de gestión financiera. Centrado en una interfaz moderna y experiencia de usuario.",
+                warning: "Nota: Este es uno de mis primeros proyectos académicos, demostrando las bases de la lógica de gestión financiera."
             },
             contact: {
                 title: "Contacto",

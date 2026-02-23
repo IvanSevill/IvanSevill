@@ -35,7 +35,7 @@ const Navbar = () => {
                 }`}
         >
             <div className="container flex justify-between items-center">
-                <a href="#hero" className="text-2xl font-bold gradient-text">IVÁN</a>
+                <a href="#hero" className="text-2xl font-bold gradient-text">IvanSevill</a>
 
                 {/* Desktop Menu */}
                 <div className="hidden md:flex items-center space-x-8">

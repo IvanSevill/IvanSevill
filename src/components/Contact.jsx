@@ -62,7 +62,7 @@ const Contact = () => {
                             <div>
                                 <h4 className="font-semibold text-gray-300">Location</h4>
                                 <p className="text-gray-400">
-                                    Virgen de Guadalupe B25 1E<br />41620 Seville (Spain)
+                                    Spain
                                 </p>
                             </div>
                         </div>

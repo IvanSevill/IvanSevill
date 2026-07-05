@@ -40,7 +40,7 @@
     "git": {
       "main": "main",
       "branch": "erasmus",
-      "merged": "fusionada → main"
+      "merged": "merged → main"
     },
     "master": {
       "role": "Máster en Cloud Programming",

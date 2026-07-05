@@ -9,31 +9,31 @@
   },
   "hero": {
     "greeting": "HELLO, I'M",
-    "role": "Passionate Software Engineering Student & Aspiring Full-Stack Developer.",
+    "role": "I consider myself a passionate Software Engineering student and aspiring Full-Stack developer focused on cloud development.",
     "viewWork": "View My Work",
     "contactMe": "Contact Me",
     "bootLine": {
-      "morning": "// morning boot sequence",
-      "afternoon": "// system running",
+      "morning": "// morning coffee?",
+      "afternoon": "// system running at full power",
       "evening": "// evening session active",
       "night": "// night mode engaged"
     }
   },
   "about": {
     "title": "About Me",
-    "desc1": "If I had to describe myself in two words it would be",
-    "desc1_highlight": "\"passive learner\"",
-    "desc1_cont": "—never stopping learning—and in one word it would be",
+    "desc1": "If I had to describe myself in two words, it would be something like",
+    "desc1_highlight": "\"active learner\"",
+    "desc1_cont": " —since I never stop learning— and if it had to be just one word, it would be",
     "desc2_highlight": "\"hard-worker\"",
-    "desc2": "I am a sociable person who thrives in team environments. As a lover of nature, I enjoy spending my free time with friends and going for long walks in the countryside.",
+    "desc2": "I am a sociable person used to working in team environments. As a nature lover, I enjoy spending my free time with friends and taking long walks in nature.",
     "growth": "Continuous Growth",
-    "growthDesc": "Always exploring new technologies and improving my skills.",
+    "growthDesc": "I love staying up to date and learning about the latest in technology whenever I have free time.",
     "team": "Team Player",
-    "teamDesc": "Collaborative mindset, valuing communication and shared success.",
+    "teamDesc": "People around me describe me as open-minded, since I place great value on communication and team sports. There's nothing more rewarding than a shared victory.",
     "passions": "Passions",
-    "passionsDesc": "Nature lover, hiking enthusiast, and technology advocate.",
+    "passionsDesc": "Nature lover, fitness enthusiast, and technology enthusiast.",
     "travel": "Travel Enthusiast",
-    "travelDesc": "Exploring new cultures and landscapes is my ultimate source of inspiration."
+    "travelDesc": "So far I've visited 19 countries, with the goal of continuing to broaden my horizons! There's nothing I enjoy more than stepping out of my comfort zone."
   },
   "experience": {
     "title": "Experience",
@@ -48,28 +48,29 @@
       "period": "2027 – 2029",
       "location": "Germany",
       "badge": "AIM",
-      "desc": "Advanced studies in cloud architecture, distributed systems and DevOps."
+      "desc": "Currently pursuing a master's degree focused on cloud architectures, as well as the creation and maintenance of large-scale distributed systems. A clear requirement for this future degree is making the real leap to a European level, using English as the main language, to further my international expansion."
     },
     "ielts": {
       "role": "Academic English Certificate",
       "company": "British Council",
       "period": "2026",
       "badge": "IELTS",
-      "desc": "Certified advanced English proficiency."
+      "desc": "Certified advanced level of English. The IELTS exam (International English Language Testing System) is the most widely accepted English exam in the world for certifying language proficiency for academic or migration purposes, designed for those seeking to enter universities or higher education programs with a fully functional foundation."
     },
     "erasmus": {
       "role": "Erasmus Student",
       "company": "University of Pannonia",
       "period": "2024 – 2025",
       "location": "Veszprém, Hungary",
-      "desc": "Studied abroad as part of the Erasmus+ program, focusing on advanced software engineering topics and adapting to an international academic environment."
+      "desc": "Studied abroad as part of the Erasmus+ program, pushing myself out of my comfort zone and learning to deal with challenges, preparing my leap into the future, with the goal of making the jump into the international academic world."
     },
     "student": {
       "role": "Software Engineering Student",
       "company": "University of Seville",
       "period": "2023 – 2027",
       "location": "Seville, Spain",
-      "desc": ["Building a strong foundation in software engineering principles, algorithms, and system design.",""]
+      "desc": ["Building a strong foundation in software engineering principles, algorithms, and system design, as well as development standards such as agile methods and Scrum methodology.",
+      "Just as importantly, I've built friendships and connections that mean a lot to me and have helped me grow both professionally and personally, shaping the person I am today."]
     },
     "freelance": {
       "role": "Extracurricular Teacher",
@@ -77,17 +78,17 @@
       "period": "2023",
       "location": "Seville, Spain",
       "desc": [
-        "Teaching Python to two 14-year-old students.",
-        "Math tutoring for a 16-year-old student."
+        "Teaching Python to two 14-year-old students who were just starting out in programming, along with math tutoring for a 16-year-old student.",
+        "Even though these classes were completely voluntary and didn't come with any qualification or pay, they helped me a lot in terms of tutoring and teaching experience, as well as reinforcing my own knowledge. Because nothing makes you reflect more than people who are just starting out and make you consider things you never even thought about back when you began your academic life as a computer scientist."
       ]
     },
     "indra": {
-      "role": "Indra",
-      "company": "Indra",
+      "role": "Internship at Indra",
+      "company": "Indra Group",
       "period": "2027",
-      "location": "Sevilla, España",
+      "location": "Seville, Spain",
       "desc": [
-        "Practicas en la prestigiosa empresa Indra Group"
+        "As a curricular goal, I have to complete my internship at the prestigious company Indra Group. A Spanish multinational company that is a benchmark in defense, aerospace, and advanced technologies, with a long track record and a strong international reputation."
       ]
     }
   },
@@ -112,7 +113,7 @@
       },
       "aissMiner": {
         "title": "AISS-Miner",
-        "description": "A powerful microservices-based ecosystem designed to aggregate and unify repository data from GitHub, GitLab, and BitBucket."
+        "description": "A microservices-based ecosystem designed to aggregate and unify repository data from GitHub, GitLab, and BitBucket."
       },
       "heatDistribution": {
         "title": "HeatDistribution",
@@ -120,7 +121,7 @@
       },
       "usbGpt": {
         "title": "Usb-GPT",
-        "description": "Only working interface with loaded models to use on a USB or a HardDisk to talk with an Artificial Intelligence model offline."
+        "description": "Functional interface with preloaded models to use on a USB drive or hard disk to talk with an offline Artificial Intelligence model."
       },
       "rockPaperScissors": {
         "title": "RockPaperScissors",

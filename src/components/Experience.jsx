@@ -43,6 +43,7 @@ const Experience = () => {
             meta: t('experience.student.period'),
             location: t('experience.student.location'),
             description: t('experience.student.desc', { returnObjects: true }),
+            image: '/images/SoftwEng.jpeg',
             icon: <GitCommit size={24} className="text-[var(--accent-primary)]" />,
             badges: [t('experience.git.main')],
             current: true,

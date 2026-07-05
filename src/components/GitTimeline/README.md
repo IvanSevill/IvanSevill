@@ -75,6 +75,7 @@ const items = [
 | `title`, `subtitle`, `meta`, `location` | `string` | Optional card text. |
 | `description` | `string \| string[]` | String, or bullet list. |
 | `icon` | `ReactNode` | Optional leading icon. |
+| `image` | `string` | Optional image URL; fills the bottom of the card (grows when the card is stretched to match a taller branch lane). |
 | `badges` | `string[]` | Small pills next to the title. |
 | `current` | `boolean` | Shows a pulsing `HEAD` marker. |
 | `mergedLabel` | `string` | Chip text when a branch merges back. |

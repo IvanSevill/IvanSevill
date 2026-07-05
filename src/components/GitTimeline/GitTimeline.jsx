@@ -86,7 +86,7 @@ const Badges = ({ item, color }) => (
 const DefaultCard = ({ item, color, compact }) => {
     const lines = Array.isArray(item.description) ? item.description : item.description ? [item.description] : [];
     return (
-        <div className={`h-full border bg-black/40 backdrop-blur-sm ${compact ? 'p-5' : 'p-6'}`} style={{ borderColor: `${color}55` }}>
+        <div className={`h-full flex flex-col border bg-black/40 backdrop-blur-sm ${compact ? 'p-5' : 'p-6'}`} style={{ borderColor: `${color}55` }}>
             <div className="flex flex-col md:flex-row md:items-start justify-between gap-2 mb-3">
                 <div className="flex items-start gap-3">
                     {item.icon && <div className="p-2 bg-black/60 border border-white/10 shrink-0">{item.icon}</div>}
@@ -109,6 +109,11 @@ const DefaultCard = ({ item, color, compact }) => {
                 <ul className="list-disc list-inside text-gray-300 space-y-2 text-sm">
                     {lines.map((l, i) => <li key={i}>{l}</li>)}
                 </ul>
+            )}
+            {item.image && (
+                <div className="mt-4 flex-1 min-h-[180px] overflow-hidden border" style={{ borderColor: `${color}33` }}>
+                    <img src={item.image} alt={item.title || ''} className="w-full h-full object-cover" loading="lazy" />
+                </div>
             )}
         </div>
     );
@@ -233,7 +238,7 @@ const BranchRow = ({ row, isLast, accent, surface, colorFor, renderItem, mergedF
             <Spine accent={accent} surface={surface} isLast={isLast} />
 
             <div className="flex-1 min-w-0 relative" style={{ zIndex: 10 }}>
-                <div className="flex items-start" style={{ gap: COL_GAP }}>
+                <div className="flex items-stretch" style={{ gap: COL_GAP }}>
                     <div ref={mainRef} className="min-w-0" style={{ flex: '1.7 1 0%' }}>{renderItem(row.backbone, false)}</div>
                     {laneGroups.map((g, i) => {
                         const color = colorFor(g.items[0]);

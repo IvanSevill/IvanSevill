@@ -1,10 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { User, Heart, Zap, Map } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from 'react-i18next';
 
 const About = () => {
-    const { t } = useLanguage();
+    const { t } = useTranslation();
 
     const container = {
         hidden: { opacity: 0 },
@@ -30,7 +30,7 @@ const About = () => {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">{t.about.title}</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('about.title')}</h2>
                     <div className="w-20 h-1 bg-[var(--accent-primary)] mx-auto rounded-full"></div>
                 </motion.div>
 
@@ -43,11 +43,11 @@ const About = () => {
                     >
                         <div className="card">
                             <p className="text-lg leading-relaxed text-gray-300 mb-6">
-                                {t.about.desc1} <span className="text-[var(--accent-primary)] font-semibold">{t.about.desc1_highlight}</span>
-                                {t.about.desc1_cont} <span className="text-[var(--accent-secondary)] font-semibold">{t.about.desc2_highlight}</span>.
+                                {t('about.desc1')} <span className="text-[var(--accent-primary)] font-semibold">{t('about.desc1_highlight')}</span>
+                                {t('about.desc1_cont')} <span className="text-[var(--accent-secondary)] font-semibold">{t('about.desc2_highlight')}</span>.
                             </p>
                             <p className="text-lg leading-relaxed text-gray-300">
-                                {t.about.desc2}
+                                {t('about.desc2')}
                             </p>
                         </div>
 
@@ -80,8 +80,8 @@ const About = () => {
                                 <Zap size={24} />
                             </div>
                             <div>
-                                <h3 className="text-xl font-bold mb-2">{t.about.growth}</h3>
-                                <p className="text-gray-400">{t.about.growthDesc}</p>
+                                <h3 className="text-xl font-bold mb-2">{t('about.growth')}</h3>
+                                <p className="text-gray-400">{t('about.growthDesc')}</p>
                             </div>
                         </motion.div>
 
@@ -90,8 +90,8 @@ const About = () => {
                                 <User size={24} />
                             </div>
                             <div>
-                                <h3 className="text-xl font-bold mb-2">{t.about.team}</h3>
-                                <p className="text-gray-400">{t.about.teamDesc}</p>
+                                <h3 className="text-xl font-bold mb-2">{t('about.team')}</h3>
+                                <p className="text-gray-400">{t('about.teamDesc')}</p>
                             </div>
                         </motion.div>
 
@@ -100,8 +100,8 @@ const About = () => {
                                 <Heart size={24} />
                             </div>
                             <div>
-                                <h3 className="text-xl font-bold mb-2">{t.about.passions}</h3>
-                                <p className="text-gray-400">{t.about.passionsDesc}</p>
+                                <h3 className="text-xl font-bold mb-2">{t('about.passions')}</h3>
+                                <p className="text-gray-400">{t('about.passionsDesc')}</p>
                             </div>
                         </motion.div>
 
@@ -110,8 +110,8 @@ const About = () => {
                                 <Map size={24} />
                             </div>
                             <div>
-                                <h3 className="text-xl font-bold mb-2">{t.about.travel}</h3>
-                                <p className="text-gray-400">{t.about.travelDesc}</p>
+                                <h3 className="text-xl font-bold mb-2">{t('about.travel')}</h3>
+                                <p className="text-gray-400">{t('about.travelDesc')}</p>
                             </div>
                         </motion.div>
                     </motion.div>

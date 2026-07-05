@@ -1,14 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { GraduationCap, Award } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from 'react-i18next';
 
 const Education = () => {
-    const { t } = useLanguage();
+    const { t } = useTranslation();
 
     const education = [
         {
-            degree: t.education.degree,
+            degree: t('education.degree'),
             institution: "University of Seville",
             period: "2023 – Current",
             details: [
@@ -17,7 +17,7 @@ const Education = () => {
             ]
         },
         {
-            degree: t.education.bachelor,
+            degree: t('education.bachelor'),
             institution: "I.E.S. Lopez de Arenas",
             period: "2021 – 2023",
             details: ["Pre-university preparation with focus on technical sciences."]
@@ -51,7 +51,7 @@ const Education = () => {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">{t.education.title}</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('education.title')}</h2>
                     <div className="w-20 h-1 bg-[var(--accent-primary)] mx-auto rounded-full"></div>
                 </motion.div>
 
@@ -59,7 +59,7 @@ const Education = () => {
                     {/* Education Column */}
                     <div>
                         <h3 className="text-2xl font-bold mb-8 flex items-center gap-3">
-                            <GraduationCap className="text-[var(--accent-primary)]" /> {t.education.education}
+                            <GraduationCap className="text-[var(--accent-primary)]" /> {t('education.education')}
                         </h3>
                         <div className="space-y-8">
                             {education.map((edu, index) => (
@@ -89,7 +89,7 @@ const Education = () => {
                     {/* Certifications Column */}
                     <div>
                         <h3 className="text-2xl font-bold mb-8 flex items-center gap-3">
-                            <Award className="text-[var(--accent-secondary)]" /> {t.education.certifications}
+                            <Award className="text-[var(--accent-secondary)]" /> {t('education.certifications')}
                         </h3>
                         <div className="space-y-4">
                             {certifications.map((cert, index) => (

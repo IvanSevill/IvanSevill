@@ -1,0 +1,160 @@
+{
+  "navbar": {
+    "home": "Inicio",
+    "about": "Información",
+    "experience": "Experiencia",
+    "education": "Certificaciones",
+    "projects": "Proyectos",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "greeting": "HOLA, SOY",
+    "role": "Me considero un estudiante apasionado de Ingeniería de Software y aspirante a desarrollador Full-Stack enfocado en el desarrollo en la nube.",
+    "viewWork": "Ver Mi Trabajo",
+    "contactMe": "Contáctame",
+    "bootLine": {
+      "morning": "// ¿un café mañanero?",
+      "afternoon": "// sistema en ejecución a máxima potencia",
+      "evening": "// sesión de tarde activa",
+      "night": "// modo nocturno activado"
+    }
+  },
+  "about": {
+    "title": "Sobre Mí",
+    "desc1": "Si tuviera que describirme con dos palabras sería algo parecido a",
+    "desc1_highlight": "\"aprendiz activo\"",
+    "desc1_cont": " —por eso de nunca dejar de aprender— y si tuviera que ser en una sola palabra sería",
+    "desc2_highlight": "\"trabajador\"",
+    "desc2": "Soy una persona sociable acostumbrada a trabajar en entornos de equipo. Como amante de la naturaleza, disfruto pasar mi tiempo libre con amigos y dando largos paseos por la naturaleza.",
+    "growth": "Crecimiento Continuo",
+    "growthDesc": "Me encanta estar al día y enterarme de lo último en tecnología siempre que tengo tiempo disponible.",
+    "team": "Trabajo en Equipo",
+    "teamDesc": "Las personas de mi alrededor me califican como una persona con una mentalidad abierta, dado que valoro mucho la comunicación y los deportes en grupo. No hay cosa más gratificante que una victoria compartida.",
+    "passions": "Pasiones",
+    "passionsDesc": "Amante de la naturaleza, entusiasta del ejercicio físico y apasionado de la tecnología.",
+    "travel": "Entusiasta de los Viajes",
+    "travelDesc": "Por el momento acumulo 19 países, ¡y con el objetivo de seguir ampliando horizontes! No hay cosa que me guste más que salir de mi zona de confort."
+  },
+  "experience": {
+    "title": "Experiencia",
+    "git": {
+      "main": "main",
+      "branch": "erasmus",
+      "merged": "fusionada → main"
+    },
+    "master": {
+      "role": "Máster en Cloud Programming",
+      "company": "Alemania",
+      "period": "2027 – 2029",
+      "location": "Alemania",
+      "badge": "OBJETIVO",
+      "desc": "En búsqueda actual de un máster relativo a las arquitecturas en la nube, así como de la creación y el mantenimiento de sistemas distribuidos de gran escala. Un requisito claro de este futuro estudio es dar el verdadero salto a nivel europeo usando como idioma principal el inglés, para favorecer mi expansión a nivel internacional."
+    },
+    "ielts": {
+      "role": "Certificado de Inglés Académico",
+      "company": "British Council",
+      "period": "2026",
+      "badge": "IELTS",
+      "desc": "Nivel avanzado de inglés certificado. El examen IELTS (International English Language Testing System) es el examen de inglés más aceptado en el mundo para certificar el dominio del idioma con fines académicos o migratorios, diseñado para quienes buscan ingresar a universidades o programas de educación superior con una base totalmente funcional."
+    },
+    "erasmus": {
+      "role": "Estudiante Erasmus",
+      "company": "Universidad de Pannonia",
+      "period": "2024 – 2025",
+      "location": "Veszprém, Hungría",
+      "desc": "Estudié en el extranjero como parte del programa Erasmus+, forzándome a salir de mi zona de confort y a lidiar con problemas, preparando mi salto al futuro, con expectativas de dar el salto al mundo académico internacional."
+    },
+    "student": {
+      "role": "Estudiante de Ingeniería del Software",
+      "company": "Universidad de Sevilla",
+      "period": "2023 – 2027",
+      "location": "Sevilla, España",
+      "desc": ["Gracias a la ayuda docente, estoy logrando desarrollar una base sólida en principios de ingeniería de software, algoritmos y diseño de sistemas, así como de estándares para el desarrollo como métodos ágiles y metodología scrum.",
+      "No por ello menos importante, he forjado amistades y contactos que son muy importantes para mí y que me han ayudado a desarrollarme de manera profesional y personal, alimentando y moldeando la persona que soy a día de hoy."]
+    },
+    "freelance": {
+      "role": "Profesor particular",
+      "company": "Freelance",
+      "period": "2023",
+      "location": "Sevilla, España",
+      "desc": [
+        "Enseñanza de Python a dos alumnos de 14 años que se estaban iniciando en la programación, y clases de matemáticas para un estudiante de 16 años.",
+        "A pesar de ser unas clases totalmente voluntarias y no aportar nada en cuanto a título o salario, ayudaron mucho en cuanto a la experiencia en la tutoría y la enseñanza, así como a la cimentación de mis conocimientos. Porque no hay nada que te haga reflexionar más que las personas que están empezando y te hacen plantearte algo que ni tú mismo consideraste al principio de tu vida académica como informático."
+      ]
+    },
+    "indra": {
+      "role": "Prácticas en Indra",
+      "company": "Indra Group",
+      "period": "2027",
+      "location": "Sevilla, España",
+      "desc": [
+        "Como objetivo curricular, tengo que realizar las prácticas en la prestigiosa empresa Indra Group. Una empresa multinacional española de referencia en defensa, aeroespacial y tecnologías avanzadas, que tiene un recorrido muy largo y una alta reputación a nivel internacional."
+      ]
+    }
+  },
+  "education": {
+    "title": "Educación y Certificaciones",
+    "degree": "Grado en Ingeniería del Software",
+    "bachelor": "Bachillerato (Preparación EBAU)",
+    "education": "Educación",
+    "certifications": "Certificaciones"
+  },
+  "projects": {
+    "title": "Proyectos Destacados",
+    "subtitle": "Una selección de mi trabajo reciente en GitHub.",
+    "viewProject": "Ver Proyecto",
+    "openLinktree": "Abrir Linktree",
+    "showMore": "Ver más",
+    "showLess": "Ver menos",
+    "list": {
+      "gymhub": {
+        "title": "GymHub",
+        "description": "Rastreador de entrenamientos personal que se sincroniza con Google Calendar y Fitbit. Ecosistema completo con backend FastAPI + SQLite, dashboard web en React/Vite con analíticas, y app nativa para Android."
+      },
+      "aissMiner": {
+        "title": "AISS-Miner",
+        "description": "Un ecosistema basado en microservicios diseñado para agregar y unificar datos de repositorios de GitHub, GitLab y BitBucket."
+      },
+      "heatDistribution": {
+        "title": "HeatDistribution",
+        "description": "Simulador paralelo de transferencia de calor usando los métodos de Jacobi y SOR. Construido con C/C++ y OpenMP para cómputo multi-hilo (hasta 20 hilos), con Raylib para visualización en tiempo real y registro de rendimiento en CSV."
+      },
+      "usbGpt": {
+        "title": "Usb-GPT",
+        "description": "Interfaz funcional con modelos precargados en un USB o disco duro para hablar con un modelo de Inteligencia Artificial sin conexión."
+      },
+      "rockPaperScissors": {
+        "title": "RockPaperScissors",
+        "description": "Juego de Piedra, Papel o Tijera impulsado por IA usando MediaPipe para reconocimiento de gestos en tiempo real. Construido con React (Vite) y FastAPI."
+      },
+      "aiTravelAssistant": {
+        "title": "AI-travel-assistant",
+        "description": "Aplicación web interactiva construida con Streamlit que genera itinerarios de viaje detallados día a día utilizando Google Gemini y GoogleTTS."
+      },
+      "lensPortExtension": {
+        "title": "LensPortExtension",
+        "description": "Una extensión de navegador que replica la funcionalidad de Google Lens. Realiza OCR y traducción en tiempo real en cualquier área de una página web."
+      }
+    }
+  },
+  "timeMode": {
+    "auto": "Auto",
+    "morning": "Mañana",
+    "afternoon": "Tarde",
+    "evening": "Atardecer",
+    "night": "Noche"
+  },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "Actualmente estoy buscando nuevas oportunidades. Si tienes alguna pregunta o simplemente quieres saludar, ¡haré todo lo posible por responderte!",
+    "connect": "Conecta en Redes",
+    "sayHello": "Saludar",
+    "info": {
+      "title": "Información de Contacto",
+      "email": "Correo",
+      "location": "Ubicación",
+      "city": "Sevilla, España"
+    },
+    "quote": "La única forma de hacer un gran trabajo es amar lo que haces."
+  }
+}

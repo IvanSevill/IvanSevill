@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X, Globe } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
+import { useTranslation } from 'react-i18next';
+import TimeIndicator from './TimeIndicator';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const { language, setLanguage, t } = useLanguage();
+    const { t, i18n } = useTranslation();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -17,25 +18,27 @@ const Navbar = () => {
     }, []);
 
     const links = [
-        { name: t.navbar.home, href: '#hero' },
-        { name: t.navbar.about, href: '#about' },
-        { name: t.navbar.experience, href: '#experience' },
-        { name: t.navbar.education, href: '#education' },
-        { name: t.navbar.projects, href: '#projects' },
-        { name: t.navbar.contact, href: '#contact' },
+        { name: t('navbar.home'), href: '#hero' },
+        { name: t('navbar.about'), href: '#about' },
+        { name: t('navbar.experience'), href: '#experience' },
+        { name: t('navbar.education'), href: '#education' },
+        { name: t('navbar.projects'), href: '#projects' },
+        { name: t('navbar.contact'), href: '#contact' },
     ];
 
     const toggleLanguage = () => {
-        setLanguage(language === 'en' ? 'es' : 'en');
+        i18n.changeLanguage(i18n.language === 'en' ? 'es' : 'en');
     };
 
     return (
         <nav
-            className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-black/80 backdrop-blur-md py-4 shadow-lg' : 'bg-transparent py-6'
+            className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-[#05050a]/95 py-4 border-b border-[var(--accent-primary)]/20' : 'bg-transparent py-6'
                 }`}
         >
             <div className="container flex justify-between items-center">
-                <a href="#hero" className="text-2xl font-bold gradient-text">IvanSevill</a>
+                <a href="#hero" className="text-xl font-bold">
+                    <span className="text-[var(--accent-primary)]">~/</span>ivansevill
+                </a>
 
                 {/* Desktop Menu */}
                 <div className="hidden md:flex items-center space-x-8">
@@ -43,18 +46,20 @@ const Navbar = () => {
                         <a
                             key={link.name}
                             href={link.href}
-                            className="hover:text-[var(--accent-primary)] transition-colors text-sm uppercase tracking-wide font-medium"
+                            className="relative hover:text-[var(--accent-primary)] transition-colors text-sm uppercase tracking-wide font-medium before:content-['>_'] before:absolute before:-left-4 before:text-[var(--accent-primary)] before:opacity-0 hover:before:opacity-100 before:transition-opacity"
                         >
                             {link.name}
                         </a>
                     ))}
 
+                    <TimeIndicator />
+
                     <button
                         onClick={toggleLanguage}
-                        className="flex items-center gap-2 px-3 py-1 rounded-full border border-white/20 hover:bg-white/10 transition-colors text-sm"
+                        className="flex items-center gap-2 px-3 py-1 rounded-none border border-[var(--accent-primary)]/30 hover:bg-[var(--accent-primary)]/10 hover:border-[var(--accent-primary)] transition-colors text-sm"
                     >
                         <Globe size={16} />
-                        <span className="uppercase">{language}</span>
+                        <span className="uppercase">{i18n.language}</span>
                     </button>
                 </div>
 
@@ -62,13 +67,15 @@ const Navbar = () => {
                 <div className="md:hidden flex items-center gap-4">
                     <button
                         onClick={toggleLanguage}
-                        className="flex items-center gap-2 px-3 py-1 rounded-full border border-white/20 hover:bg-white/10 transition-colors text-sm"
+                        className="flex items-center gap-2 px-3 py-1 rounded-none border border-[var(--accent-primary)]/30 hover:bg-[var(--accent-primary)]/10 transition-colors text-sm"
                     >
-                        <span className="uppercase">{language}</span>
+                        <span className="uppercase">{i18n.language}</span>
                     </button>
                     <button
-                        className="text-white"
+                        className="text-[var(--text-primary)] hover:text-[var(--accent-primary)] transition-colors"
                         onClick={() => setIsOpen(!isOpen)}
+                        aria-label={isOpen ? 'Close menu' : 'Open menu'}
+                        aria-expanded={isOpen}
                     >
                         {isOpen ? <X size={28} /> : <Menu size={28} />}
                     </button>
@@ -80,7 +87,7 @@ const Navbar = () => {
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="md:hidden absolute top-full left-0 w-full bg-black/95 backdrop-blur-xl border-b border-white/10"
+                    className="md:hidden absolute top-full left-0 w-full bg-[#05050a]/98 border-b border-[var(--accent-primary)]/20"
                 >
                     <div className="flex flex-col items-center py-8 space-y-6">
                         {links.map((link) => (

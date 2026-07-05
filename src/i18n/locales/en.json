@@ -1,0 +1,159 @@
+{
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "experience": "Experience",
+    "education": "Education",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "HELLO, I'M",
+    "role": "Passionate Software Engineering Student & Aspiring Full-Stack Developer.",
+    "viewWork": "View My Work",
+    "contactMe": "Contact Me",
+    "bootLine": {
+      "morning": "// morning boot sequence",
+      "afternoon": "// system running",
+      "evening": "// evening session active",
+      "night": "// night mode engaged"
+    }
+  },
+  "about": {
+    "title": "About Me",
+    "desc1": "If I had to describe myself in two words it would be",
+    "desc1_highlight": "\"passive learner\"",
+    "desc1_cont": "—never stopping learning—and in one word it would be",
+    "desc2_highlight": "\"hard-worker\"",
+    "desc2": "I am a sociable person who thrives in team environments. As a lover of nature, I enjoy spending my free time with friends and going for long walks in the countryside.",
+    "growth": "Continuous Growth",
+    "growthDesc": "Always exploring new technologies and improving my skills.",
+    "team": "Team Player",
+    "teamDesc": "Collaborative mindset, valuing communication and shared success.",
+    "passions": "Passions",
+    "passionsDesc": "Nature lover, hiking enthusiast, and technology advocate.",
+    "travel": "Travel Enthusiast",
+    "travelDesc": "Exploring new cultures and landscapes is my ultimate source of inspiration."
+  },
+  "experience": {
+    "title": "Experience",
+    "git": {
+      "main": "main",
+      "branch": "erasmus",
+      "merged": "merged → main"
+    },
+    "master": {
+      "role": "Master's in Cloud Programming",
+      "company": "Germany",
+      "period": "2027 – 2029",
+      "location": "Germany",
+      "badge": "AIM",
+      "desc": "Advanced studies in cloud architecture, distributed systems and DevOps."
+    },
+    "ielts": {
+      "role": "Academic English Certificate",
+      "company": "British Council",
+      "period": "2026",
+      "badge": "IELTS",
+      "desc": "Certified advanced English proficiency."
+    },
+    "erasmus": {
+      "role": "Erasmus Student",
+      "company": "University of Pannonia",
+      "period": "2024 – 2025",
+      "location": "Veszprém, Hungary",
+      "desc": "Studied abroad as part of the Erasmus+ program, focusing on advanced software engineering topics and adapting to an international academic environment."
+    },
+    "student": {
+      "role": "Software Engineering Student",
+      "company": "University of Seville",
+      "period": "2023 – 2027",
+      "location": "Seville, Spain",
+      "desc": ["Building a strong foundation in software engineering principles, algorithms, and system design.",""]
+    },
+    "freelance": {
+      "role": "Extracurricular Teacher",
+      "company": "Freelance",
+      "period": "2023",
+      "location": "Seville, Spain",
+      "desc": [
+        "Teaching Python to two 14-year-old students.",
+        "Math tutoring for a 16-year-old student."
+      ]
+    },
+    "indra": {
+      "role": "Indra",
+      "company": "Indra",
+      "period": "2027",
+      "location": "Sevilla, España",
+      "desc": [
+        "Practicas en la prestigiosa empresa Indra Group"
+      ]
+    }
+  },
+  "education": {
+    "title": "Education & Certifications",
+    "degree": "Degree in Software Engineering",
+    "bachelor": "Bachelor (Pre-university exams preparation)",
+    "education": "Education",
+    "certifications": "Certifications"
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "subtitle": "A selection of my recent work from GitHub.",
+    "viewProject": "View Project",
+    "openLinktree": "Open Linktree",
+    "showMore": "Show More",
+    "showLess": "Show Less",
+    "list": {
+      "gymhub": {
+        "title": "GymHub",
+        "description": "Personal workout tracker that syncs with Google Calendar and Fitbit. Full-stack ecosystem with a FastAPI + SQLite backend, a React/Vite web dashboard with analytics, and a native Android app."
+      },
+      "aissMiner": {
+        "title": "AISS-Miner",
+        "description": "A powerful microservices-based ecosystem designed to aggregate and unify repository data from GitHub, GitLab, and BitBucket."
+      },
+      "heatDistribution": {
+        "title": "HeatDistribution",
+        "description": "Parallel heat transfer simulator using Jacobi and SOR methods. Built with C/C++ and OpenMP for multi-threaded computation (up to 20 threads), with Raylib for real-time visualization and CSV performance logging."
+      },
+      "usbGpt": {
+        "title": "Usb-GPT",
+        "description": "Only working interface with loaded models to use on a USB or a HardDisk to talk with an Artificial Intelligence model offline."
+      },
+      "rockPaperScissors": {
+        "title": "RockPaperScissors",
+        "description": "AI-powered Rock-Paper-Scissors game using MediaPipe for real-time hand gesture recognition. Built with React (Vite) and FastAPI."
+      },
+      "aiTravelAssistant": {
+        "title": "AI-travel-assistant",
+        "description": "Interactive web application built with Streamlit that generates detailed, day-by-day travel itineraries using Google Gemini and GoogleTTS."
+      },
+      "lensPortExtension": {
+        "title": "LensPortExtension",
+        "description": "A browser extension that replicates Google Lens functionality. Performs real-time OCR and translation on any webpage area."
+      }
+    }
+  },
+  "timeMode": {
+    "auto": "Auto",
+    "morning": "Morning",
+    "afternoon": "Afternoon",
+    "evening": "Evening",
+    "night": "Night"
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "subtitle": "I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!",
+    "connect": "Connect on Socials",
+    "sayHello": "Say Hello",
+    "info": {
+      "title": "Contact Information",
+      "email": "Email",
+      "location": "Location",
+      "city": "Seville, Spain"
+    },
+    "quote": "The only way to do great work is to love what you do."
+  }
+}

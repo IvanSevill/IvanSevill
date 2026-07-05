@@ -1,21 +1,53 @@
 @import "tailwindcss";
 
 :root {
-  --bg-color: #0f172a;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --accent-primary: #38bdf8;
-  --accent-secondary: #818cf8;
-  --card-bg: rgba(30, 41, 59, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  font-family: 'Inter', sans-serif;
-  line-height: 1.5;
+  --bg-color: #050507;
+  --bg-color-alt: #0a0a0e;
+  --text-primary: #e6f1e9;
+  --text-secondary: #8a9a94;
+  --card-bg: rgba(8, 10, 10, 0.88);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  /* Default palette (night) — overridden per time-of-day below */
+  --accent-primary: #00ff9d;
+  --accent-secondary: #00cc7a;
+  --accent-glow: rgba(0, 255, 157, 0.35);
+
+  font-family: 'JetBrains Mono', ui-monospace, 'Fira Code', monospace;
+  line-height: 1.6;
   font-weight: 400;
   color-scheme: dark;
   color: var(--text-primary);
   background-color: var(--bg-color);
-  background-image: radial-gradient(circle at top right, #1e293b, #0f172a);
+  background-image:
+    radial-gradient(circle at 15% 0%, color-mix(in srgb, var(--accent-primary) 10%, transparent), transparent 45%),
+    radial-gradient(circle at 85% 100%, color-mix(in srgb, var(--accent-secondary) 8%, transparent), transparent 45%);
   scroll-behavior: smooth;
+  transition: background-image 1.2s ease;
+}
+
+html[data-time="morning"] {
+  --accent-primary: #22e5ff;
+  --accent-secondary: #67f1ff;
+  --accent-glow: rgba(34, 229, 255, 0.35);
+}
+
+html[data-time="afternoon"] {
+  --accent-primary: #ff36c0;
+  --accent-secondary: #ff8bd8;
+  --accent-glow: rgba(255, 54, 192, 0.35);
+}
+
+html[data-time="evening"] {
+  --accent-primary: #ffb020;
+  --accent-secondary: #ffd166;
+  --accent-glow: rgba(255, 176, 32, 0.35);
+}
+
+html[data-time="night"] {
+  --accent-primary: #00ff9d;
+  --accent-secondary: #00cc7a;
+  --accent-glow: rgba(0, 255, 157, 0.35);
 }
 
 body {
@@ -32,7 +64,8 @@ h5,
 h6 {
   margin: 0;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
 }
 
 a {
@@ -52,6 +85,29 @@ button {
   font-family: inherit;
 }
 
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 3px;
+  border-radius: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto !important;
+  }
+}
+
 /* Utilities */
 .container {
   max-width: 1200px;
@@ -62,7 +118,6 @@ button {
 .section {
   padding: 5rem 0;
   min-height: 100vh;
-  /* Optional depending on content */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -70,19 +125,17 @@ button {
 
 .card {
   background: var(--card-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  border-radius: 1rem;
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 25%, transparent);
+  border-radius: 0;
   padding: 2rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: none;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-4px);
   border-color: var(--accent-primary);
+  box-shadow: 0 0 0 1px var(--accent-primary), 0 8px 24px -8px var(--accent-glow);
 }
 
 .gradient-text {
@@ -93,23 +146,57 @@ button {
 }
 
 .btn-primary {
-  background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
-  color: #0f172a;
-  padding: 0.75rem 2rem;
-  border-radius: 9999px;
-  font-weight: bold;
-  border: none;
-  transition: transform 0.2s, box-shadow 0.2s;
+  display: inline-flex;
+  align-items: center;
+  background: transparent;
+  color: var(--accent-primary);
+  padding: 0.75rem 1.75rem;
+  border-radius: 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+  border: 2px solid var(--accent-primary);
+  transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-primary::before {
+  content: '[ ';
+}
+
+.btn-primary::after {
+  content: ' ]';
 }
 
 .btn-primary:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px var(--accent-primary);
+  background: var(--accent-primary);
+  color: #05050a;
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  background: transparent;
+  color: var(--text-primary);
+  padding: 0.75rem 1.75rem;
+  border-radius: 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+  border: 2px solid color-mix(in srgb, var(--text-primary) 25%, transparent);
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-outline:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
 }
 
 .timeline-item {
   position: relative;
-  border-left: 2px solid var(--accent-secondary);
+  border-left: 2px solid color-mix(in srgb, var(--accent-secondary) 50%, transparent);
   padding-left: 1.5rem;
   margin-bottom: 2rem;
 }
@@ -122,5 +209,60 @@ button {
   width: 0.8rem;
   height: 0.8rem;
   background: var(--accent-primary);
+  border-radius: 0;
+  transform: rotate(45deg);
+}
+
+/* Terminal chrome */
+.terminal-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent-primary) 25%, transparent);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.terminal-dot {
+  width: 0.6rem;
+  height: 0.6rem;
   border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+.cursor-blink {
+  display: inline-block;
+  width: 0.55em;
+  background: var(--accent-primary);
+  margin-left: 2px;
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* CRT scanline overlay */
+.crt-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(to bottom,
+      rgba(255, 255, 255, 0.035) 0px,
+      rgba(255, 255, 255, 0.035) 1px,
+      transparent 1px,
+      transparent 3px);
+  mix-blend-mode: overlay;
+  opacity: 0.5;
 }

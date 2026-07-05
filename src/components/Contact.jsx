@@ -1,10 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, ExternalLink, Instagram } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
+import { Mail, MapPin, ExternalLink, Instagram } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Contact = () => {
-    const { t } = useLanguage();
+    const { t } = useTranslation();
 
     return (
         <section id="contact" className="section">
@@ -15,10 +15,10 @@ const Contact = () => {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">{t.contact.title}</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('contact.title')}</h2>
                     <div className="w-20 h-1 bg-[var(--accent-secondary)] mx-auto rounded-full mb-6"></div>
                     <p className="text-gray-400 max-w-2xl mx-auto">
-                        {t.contact.subtitle}
+                        {t('contact.subtitle')}
                     </p>
                 </motion.div>
 
@@ -29,28 +29,16 @@ const Contact = () => {
                         viewport={{ once: true }}
                         className="card space-y-8"
                     >
-                        <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
+                        <h3 className="text-2xl font-bold mb-6">{t('contact.info.title')}</h3>
 
                         <div className="flex items-center gap-4">
                             <div className="p-3 bg-blue-500/20 rounded-full text-blue-400">
                                 <Mail size={24} />
                             </div>
                             <div>
-                                <h4 className="font-semibold text-gray-300">Email</h4>
+                                <h4 className="font-semibold text-gray-300">{t('contact.info.email')}</h4>
                                 <a href="mailto:ivansevillano2005@gmail.com" className="hover:text-[var(--accent-primary)] transition-colors">
                                     ivansevillano2005@gmail.com
-                                </a>
-                            </div>
-                        </div>
-
-                        <div className="flex items-center gap-4">
-                            <div className="p-3 bg-green-500/20 rounded-full text-green-400">
-                                <Phone size={24} />
-                            </div>
-                            <div>
-                                <h4 className="font-semibold text-gray-300">Phone</h4>
-                                <a href="tel:+34603438647" className="hover:text-[var(--accent-primary)] transition-colors">
-                                    (+34) 603 438 647
                                 </a>
                             </div>
                         </div>
@@ -60,9 +48,9 @@ const Contact = () => {
                                 <MapPin size={24} />
                             </div>
                             <div>
-                                <h4 className="font-semibold text-gray-300">Location</h4>
+                                <h4 className="font-semibold text-gray-300">{t('contact.info.location')}</h4>
                                 <p className="text-gray-400">
-                                    Spain
+                                    {t('contact.info.city')}
                                 </p>
                             </div>
                         </div>
@@ -76,7 +64,7 @@ const Contact = () => {
                         className="flex flex-col justify-center space-y-6"
                     >
                         <div className="card text-center p-8 hover:border-[var(--accent-primary)] group">
-                            <h3 className="text-2xl font-bold mb-4">{t.contact.connect}</h3>
+                            <h3 className="text-2xl font-bold mb-4">{t('contact.connect')}</h3>
                             <div className="flex justify-center gap-4">
                                 <a
                                     href="https://www.instagram.com/ivansevill/"
@@ -99,10 +87,10 @@ const Contact = () => {
 
                         <div className="card text-center p-8">
                             <p className="text-gray-300 mb-6">
-                                "The only way to do great work is to love what you do."
+                                "{t('contact.quote')}"
                             </p>
                             <a href="mailto:ivansevillano2005@gmail.com" className="btn-primary inline-block">
-                                {t.contact.sayHello}
+                                {t('contact.sayHello')}
                             </a>
                         </div>
                     </motion.div>

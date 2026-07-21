@@ -50,13 +50,6 @@
       "badge": "OBJETIVO",
       "desc": "En búsqueda actual de un máster relativo a las arquitecturas en la nube, así como de la creación y el mantenimiento de sistemas distribuidos de gran escala. Un requisito claro de este futuro estudio es dar el verdadero salto a nivel europeo usando como idioma principal el inglés, para favorecer mi expansión a nivel internacional."
     },
-    "ielts": {
-      "role": "Certificado de Inglés Académico",
-      "company": "British Council",
-      "period": "2026",
-      "badge": "IELTS",
-      "desc": "Nivel avanzado de inglés certificado. El examen IELTS (International English Language Testing System) es el examen de inglés más aceptado en el mundo para certificar el dominio del idioma con fines académicos o migratorios, diseñado para quienes buscan ingresar a universidades o programas de educación superior con una base totalmente funcional."
-    },
     "erasmus": {
       "role": "Estudiante Erasmus",
       "company": "Universidad de Pannonia",
@@ -80,15 +73,6 @@
       "desc": [
         "Enseñanza de Python a dos alumnos de 14 años que se estaban iniciando en la programación, y clases de matemáticas para un estudiante de 16 años.",
         "A pesar de ser unas clases totalmente voluntarias y no aportar nada en cuanto a título o salario, ayudaron mucho en cuanto a la experiencia en la tutoría y la enseñanza, así como a la cimentación de mis conocimientos. Porque no hay nada que te haga reflexionar más que las personas que están empezando y te hacen plantearte algo que ni tú mismo consideraste al principio de tu vida académica como informático."
-      ]
-    },
-    "indra": {
-      "role": "Prácticas en Indra",
-      "company": "Indra Group",
-      "period": "2027",
-      "location": "Sevilla, España",
-      "desc": [
-        "Como objetivo curricular, tengo que realizar las prácticas en la prestigiosa empresa Indra Group. Una empresa multinacional española de referencia en defensa, aeroespacial y tecnologías avanzadas, que tiene un recorrido muy largo y una alta reputación a nivel internacional."
       ]
     }
   },

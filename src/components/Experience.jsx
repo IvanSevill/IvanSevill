@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion as Motion } from 'framer-motion';
-import { Briefcase, GitCommit, GitBranch, Cloud, Languages, Pencil, Plane } from 'lucide-react';
+import { GitCommit, GitBranch, Cloud, Pencil, Plane } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { GitTimeline } from './GitTimeline';
 
@@ -25,25 +25,12 @@ const Experience = () => {
             end: '2029-06-30',
         },
         {
-            id: 'ielts',
-            title: t('experience.ielts.role'),
-            subtitle: t('experience.ielts.company'),
-            meta: t('experience.ielts.period'),
-            description: t('experience.ielts.desc'),
-            icon: <Languages size={20} className="text-sky-400" />,
-            badges: [t('experience.ielts.badge')],
-            mergedLabel: t('experience.git.merged'),
-            start: '2026-06-01',
-            end: '2026-08-01',
-        },
-        {
             id: 'seville',
             title: t('experience.student.role'),
             subtitle: t('experience.student.company'),
             meta: t('experience.student.period'),
             location: t('experience.student.location'),
             description: t('experience.student.desc', { returnObjects: true }),
-            image: '/images/SoftwEng.jpeg',
             icon: <GitCommit size={24} className="text-[var(--accent-primary)]" />,
             badges: [t('experience.git.main')],
             current: true,
@@ -73,17 +60,6 @@ const Experience = () => {
             icon: <Pencil size={24} className="text-green-400" />,
             start: '2023-06-01',
             end: '2023-08-01',
-        },
-        {
-            id: 'indra',
-            title: t('experience.indra.role'),
-            subtitle: t('experience.indra.company'),
-            meta: t('experience.indra.period'),
-            location: t('experience.indra.location'),
-            description: t('experience.indra.desc', { returnObjects: true }),
-            icon: <Briefcase size={24} className="text-purple-400" />,
-            start: '2027-01-01',
-            end: '2027-06-01',
         },
     ];
 

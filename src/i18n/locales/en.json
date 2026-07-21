@@ -50,13 +50,6 @@
       "badge": "AIM",
       "desc": "Currently pursuing a master's degree focused on cloud architectures, as well as the creation and maintenance of large-scale distributed systems. A clear requirement for this future degree is making the real leap to a European level, using English as the main language, to further my international expansion."
     },
-    "ielts": {
-      "role": "Academic English Certificate",
-      "company": "British Council",
-      "period": "2026",
-      "badge": "IELTS",
-      "desc": "Certified advanced level of English. The IELTS exam (International English Language Testing System) is the most widely accepted English exam in the world for certifying language proficiency for academic or migration purposes, designed for those seeking to enter universities or higher education programs with a fully functional foundation."
-    },
     "erasmus": {
       "role": "Erasmus Student",
       "company": "University of Pannonia",
@@ -80,15 +73,6 @@
       "desc": [
         "Teaching Python to two 14-year-old students who were just starting out in programming, along with math tutoring for a 16-year-old student.",
         "Even though these classes were completely voluntary and didn't come with any qualification or pay, they helped me a lot in terms of tutoring and teaching experience, as well as reinforcing my own knowledge. Because nothing makes you reflect more than people who are just starting out and make you consider things you never even thought about back when you began your academic life as a computer scientist."
-      ]
-    },
-    "indra": {
-      "role": "Internship at Indra",
-      "company": "Indra Group",
-      "period": "2027",
-      "location": "Seville, Spain",
-      "desc": [
-        "As a curricular goal, I have to complete my internship at the prestigious company Indra Group. A Spanish multinational company that is a benchmark in defense, aerospace, and advanced technologies, with a long track record and a strong international reputation."
       ]
     }
   },

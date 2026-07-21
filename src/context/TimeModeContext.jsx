@@ -1,11 +1,8 @@
-import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { getPeriod, MODES } from '../hooks/useTimeOfDay';
+import { TimeModeContext } from './timeMode';
 
 const STORAGE_KEY = 'timeMode';
-
-const TimeModeContext = createContext(null);
-
-export const useTimeMode = () => useContext(TimeModeContext);
 
 export const TimeModeProvider = ({ children }) => {
     const [mode, setMode] = useState(() => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import { User, Heart, Zap, Map } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -24,7 +24,7 @@ const About = () => {
     return (
         <section id="about" className="section relative">
             <div className="container">
-                <motion.div
+                <Motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -32,10 +32,10 @@ const About = () => {
                 >
                     <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('about.title')}</h2>
                     <div className="w-20 h-1 bg-[var(--accent-primary)] mx-auto rounded-full"></div>
-                </motion.div>
+                </Motion.div>
 
                 <div className="grid md:grid-cols-2 gap-12 items-center">
-                    <motion.div
+                    <Motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -66,16 +66,16 @@ const About = () => {
                                 <p className="text-[var(--accent-primary)] text-[10px] uppercase font-mono tracking-[0.2em]">Engineering Mindset</p>
                             </div>
                         </div>
-                    </motion.div>
+                    </Motion.div>
 
-                    <motion.div
+                    <Motion.div
                         variants={container}
                         initial="hidden"
                         whileInView="show"
                         viewport={{ once: true }}
                         className="grid gap-6"
                     >
-                        <motion.div variants={item} className="card flex items-start gap-4 hover:border-[var(--accent-primary)]">
+                        <Motion.div variants={item} className="card flex items-start gap-4 hover:border-[var(--accent-primary)]">
                             <div className="p-3 bg-blue-500/20 rounded-lg text-blue-400">
                                 <Zap size={24} />
                             </div>
@@ -83,9 +83,9 @@ const About = () => {
                                 <h3 className="text-xl font-bold mb-2">{t('about.growth')}</h3>
                                 <p className="text-gray-400">{t('about.growthDesc')}</p>
                             </div>
-                        </motion.div>
+                        </Motion.div>
 
-                        <motion.div variants={item} className="card flex items-start gap-4 hover:border-[var(--accent-secondary)]">
+                        <Motion.div variants={item} className="card flex items-start gap-4 hover:border-[var(--accent-secondary)]">
                             <div className="p-3 bg-purple-500/20 rounded-lg text-purple-400">
                                 <User size={24} />
                             </div>
@@ -93,9 +93,9 @@ const About = () => {
                                 <h3 className="text-xl font-bold mb-2">{t('about.team')}</h3>
                                 <p className="text-gray-400">{t('about.teamDesc')}</p>
                             </div>
-                        </motion.div>
+                        </Motion.div>
 
-                        <motion.div variants={item} className="card flex items-start gap-4 hover:border-green-500/50">
+                        <Motion.div variants={item} className="card flex items-start gap-4 hover:border-green-500/50">
                             <div className="p-3 bg-green-500/20 rounded-lg text-green-400">
                                 <Heart size={24} />
                             </div>
@@ -103,9 +103,9 @@ const About = () => {
                                 <h3 className="text-xl font-bold mb-2">{t('about.passions')}</h3>
                                 <p className="text-gray-400">{t('about.passionsDesc')}</p>
                             </div>
-                        </motion.div>
+                        </Motion.div>
 
-                        <motion.div variants={item} className="card flex items-start gap-4 hover:border-orange-500/50 group">
+                        <Motion.div variants={item} className="card flex items-start gap-4 hover:border-orange-500/50 group">
                             <div className="p-3 bg-blue-500/20 rounded-lg text-blue-400 group-hover:bg-blue-500/30 transition-colors">
                                 <Map size={24} />
                             </div>
@@ -113,8 +113,8 @@ const About = () => {
                                 <h3 className="text-xl font-bold mb-2">{t('about.travel')}</h3>
                                 <p className="text-gray-400">{t('about.travelDesc')}</p>
                             </div>
-                        </motion.div>
-                    </motion.div>
+                        </Motion.div>
+                    </Motion.div>
                 </div>
             </div>
         </section>

@@ -1,8 +1,8 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { useTimeMode } from '../context/TimeModeContext';
+import { useTimeMode } from '../context/timeMode';
 
 const Hero = () => {
     const { t } = useTranslation();
@@ -18,7 +18,7 @@ const Hero = () => {
             <div className="container mx-auto px-6 relative z-10">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     {/* Text Content */}
-                    <motion.div
+                    <Motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -47,7 +47,7 @@ const Hero = () => {
                                 {t('hero.contactMe')}
                             </a>
                         </div>
-                    </motion.div>
+                    </Motion.div>
                 </div>
             </div>
 
@@ -73,7 +73,7 @@ const Hero = () => {
                 </div>
             </div>
 
-            <motion.a
+            <Motion.a
                 href="#about"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1, y: [0, 10, 0] }}
@@ -81,7 +81,7 @@ const Hero = () => {
                 className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-[var(--text-secondary)] hover:text-[var(--accent-primary)] hidden md:block z-20"
             >
                 <ChevronDown size={32} />
-            </motion.a>
+            </Motion.a>
         </section>
     );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, Monitor, Scissors, Cpu, Camera, Database, Dumbbell, Thermometer, ChevronDown, ChevronUp } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -71,7 +71,7 @@ const Projects = () => {
     return (
         <section id="projects" className="section bg-black/20 py-24">
             <div className="container px-6 mx-auto">
-                <motion.div
+                <Motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -82,12 +82,12 @@ const Projects = () => {
                     <p className="text-gray-400 max-w-2xl mx-auto">
                         {t('projects.subtitle')}
                     </p>
-                </motion.div>
+                </Motion.div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
                     <AnimatePresence mode="popLayout">
                         {visibleProjects.map((project, index) => (
-                            <motion.div
+                            <Motion.div
                                 key={project.key}
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
@@ -133,7 +133,7 @@ const Projects = () => {
                                         </a>
                                     </div>
                                 </div>
-                            </motion.div>
+                            </Motion.div>
                         ))}
                     </AnimatePresence>
                 </div>

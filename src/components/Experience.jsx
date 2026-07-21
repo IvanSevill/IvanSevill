@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import { Briefcase, GitCommit, GitBranch, Cloud, Languages, Pencil, Plane } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { GitTimeline } from './GitTimeline';
@@ -90,7 +90,7 @@ const Experience = () => {
     return (
         <section id="experience" className="section">
             <div className="container">
-                <motion.div
+                <Motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -98,7 +98,7 @@ const Experience = () => {
                 >
                     <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('experience.title')}</h2>
                     <div className="w-20 h-1 bg-[var(--accent-secondary)] mx-auto rounded-full"></div>
-                </motion.div>
+                </Motion.div>
 
                 <GitTimeline items={items} laneColors={LANE_COLORS} surfaceColor="#05050a" />
             </div>

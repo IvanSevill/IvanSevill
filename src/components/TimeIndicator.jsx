@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion as Motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { useTimeMode } from '../context/TimeModeContext';
+import { useTimeMode } from '../context/timeMode';
 import { MODE_REFERENCE_HOUR } from '../hooks/useTimeOfDay';
 
 const TRACK_LENGTH = 10;
@@ -58,7 +58,7 @@ const TimeIndicator = () => {
 
             <AnimatePresence>
                 {showCard && (
-                    <motion.div
+                    <Motion.div
                         initial={{ opacity: 0, y: -6, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -6, scale: 0.95 }}
@@ -71,7 +71,7 @@ const TimeIndicator = () => {
                         <p className="font-mono text-sm font-bold text-[var(--accent-primary)]">
                             {t(`timeMode.${mode}`)}
                         </p>
-                    </motion.div>
+                    </Motion.div>
                 )}
             </AnimatePresence>
         </div>

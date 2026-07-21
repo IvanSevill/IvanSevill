@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import { GraduationCap, Award } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -45,7 +45,7 @@ const Education = () => {
     return (
         <section id="education" className="section">
             <div className="container">
-                <motion.div
+                <Motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -53,7 +53,7 @@ const Education = () => {
                 >
                     <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('education.title')}</h2>
                     <div className="w-20 h-1 bg-[var(--accent-primary)] mx-auto rounded-full"></div>
-                </motion.div>
+                </Motion.div>
 
                 <div className="grid md:grid-cols-2 gap-8">
                     {/* Education Column */}
@@ -63,7 +63,7 @@ const Education = () => {
                         </h3>
                         <div className="space-y-8">
                             {education.map((edu, index) => (
-                                <motion.div
+                                <Motion.div
                                     key={index}
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
@@ -81,7 +81,7 @@ const Education = () => {
                                             <li key={i}>{detail}</li>
                                         ))}
                                     </ul>
-                                </motion.div>
+                                </Motion.div>
                             ))}
                         </div>
                     </div>
@@ -93,7 +93,7 @@ const Education = () => {
                         </h3>
                         <div className="space-y-4">
                             {certifications.map((cert, index) => (
-                                <motion.div
+                                <Motion.div
                                     key={index}
                                     initial={{ opacity: 0, x: 20 }}
                                     whileInView={{ opacity: 1, x: 0 }}
@@ -106,7 +106,7 @@ const Education = () => {
                                         <p className="text-sm text-gray-400">{cert.issuer}</p>
                                     </div>
                                     <span className="text-xs text-gray-500 border border-gray-700 px-2 py-1 rounded">{cert.date}</span>
-                                </motion.div>
+                                </Motion.div>
                             ))}
                         </div>
                     </div>

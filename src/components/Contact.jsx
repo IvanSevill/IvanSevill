@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import { Mail, MapPin, ExternalLink, Instagram } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -9,7 +9,7 @@ const Contact = () => {
     return (
         <section id="contact" className="section">
             <div className="container">
-                <motion.div
+                <Motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -20,10 +20,10 @@ const Contact = () => {
                     <p className="text-gray-400 max-w-2xl mx-auto">
                         {t('contact.subtitle')}
                     </p>
-                </motion.div>
+                </Motion.div>
 
                 <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-                    <motion.div
+                    <Motion.div
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -54,10 +54,10 @@ const Contact = () => {
                                 </p>
                             </div>
                         </div>
-                    </motion.div>
+                    </Motion.div>
 
                     {/* Social Links / Message Form Placeholder */}
-                    <motion.div
+                    <Motion.div
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -93,7 +93,7 @@ const Contact = () => {
                                 {t('contact.sayHello')}
                             </a>
                         </div>
-                    </motion.div>
+                    </Motion.div>
                 </div>
             </div>
         </section>

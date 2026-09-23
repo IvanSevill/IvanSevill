@@ -511,49 +511,56 @@ deploy() {
 MODE=""
 REQUESTED_SHA=""
 CANDIDATE_IMAGE=""
-trap on_exit EXIT
-trap 'on_signal INT' INT
-trap 'on_signal TERM' TERM
 
-case "${1:-}" in
-  --check|--dry-run)
-    MODE=${1#--}
-    [[ $# -eq 1 ]] || { usage >&2; exit 2; }
-    ;;
-  --deploy)
-    MODE="deploy"
-    REQUESTED_SHA=${2:-}
-    [[ $# -eq 2 && "$REQUESTED_SHA" =~ $SHA_PATTERN ]] || {
-      fail "--deploy requires one lowercase full 40-character commit SHA"
+main() {
+  trap on_exit EXIT
+  trap 'on_signal INT' INT
+  trap 'on_signal TERM' TERM
+
+  case "${1:-}" in
+    --check|--dry-run)
+      MODE=${1#--}
+      [[ $# -eq 1 ]] || { usage >&2; exit 2; }
+      ;;
+    --deploy)
+      MODE="deploy"
+      REQUESTED_SHA=${2:-}
+      [[ $# -eq 2 && "$REQUESTED_SHA" =~ $SHA_PATTERN ]] || {
+        fail "--deploy requires one lowercase full 40-character commit SHA"
+        usage >&2
+        exit 2
+      }
+      ;;
+    --help|-h)
+      usage
+      exit 0
+      ;;
+    *)
       usage >&2
       exit 2
-    }
-    ;;
-  --help|-h)
-    usage
+      ;;
+  esac
+
+  check_command flock >/dev/null || exit 1
+  acquire_lock
+
+  if ! run_prerequisites; then
+    fail "Deployment prerequisites are not satisfied"
+    exit 1
+  fi
+
+  if [[ "$MODE" == "check" ]]; then
+    ok "Deployment prerequisites are satisfied"
     exit 0
-    ;;
-  *)
-    usage >&2
-    exit 2
-    ;;
-esac
+  fi
+  if [[ "$MODE" == "dry-run" ]]; then
+    ok "Dry run completed; no fetch, pull, npm, build, image, container, or service mutation occurred"
+    exit 0
+  fi
 
-check_command flock >/dev/null || exit 1
-acquire_lock
+  deploy
+}
 
-if ! run_prerequisites; then
-  fail "Deployment prerequisites are not satisfied"
-  exit 1
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+  main "$@"
 fi
-
-if [[ "$MODE" == "check" ]]; then
-  ok "Deployment prerequisites are satisfied"
-  exit 0
-fi
-if [[ "$MODE" == "dry-run" ]]; then
-  ok "Dry run completed; no fetch, pull, npm, build, image, container, or service mutation occurred"
-  exit 0
-fi
-
-deploy

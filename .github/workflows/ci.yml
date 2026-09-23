@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   validate:
-    name: Lint and build
+    name: Test, lint, and build
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -42,6 +42,9 @@ jobs:
           cp -a "$native_dir/node_modules/@rollup/rollup-linux-x64-gnu" node_modules/@rollup/
           cp -a "$native_dir/node_modules/@tailwindcss/oxide-linux-x64-gnu" node_modules/@tailwindcss/
           cp -a "$native_dir/node_modules/lightningcss-linux-x64-gnu" node_modules/
+
+      - name: Test deployment scripts
+        run: npm run test:scripts
 
       - name: Lint
         run: npm run lint

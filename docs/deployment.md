@@ -5,7 +5,7 @@ GitHub `main` is the source of truth. CI validates changes but never deploys the
 ## Quick path
 
 1. Make changes with Codex in the local Fedora clone.
-2. Run `npm ci`, install the platform-native bindings as CI does, then run `npm run lint`, `npm run build`, and the repository checks.
+2. Run `npm ci`, install the platform-native bindings as CI does, then run `npm run test:scripts`, `npm run lint`, and `npm run build`.
 3. Review the diff, then commit and push only after explicit approval.
 4. Wait for the GitHub Actions CI workflow to pass on the approved commit.
 5. Obtain explicit deployment approval for the full 40-character commit SHA.
@@ -27,14 +27,14 @@ Use `scripts/deploy-vps.sh --dry-run` to repeat all safe prerequisite checks wit
 | Area | Authority |
 |------|-----------|
 | Application source and deployment scripts | Approved commits on GitHub `main` |
-| Pull request and push validation | GitHub Actions CI; lint and build only |
+| Pull request and push validation | GitHub Actions CI; hermetic deployment-script tests, lint, and build only |
 | Deployment decision | Explicit human approval of one full commit SHA |
 | Production configuration and secrets | VPS infrastructure files outside this repository |
 | Runtime release evidence | OCI image labels, immutable rollback tags, and release receipts |
 
 Do not edit application source on the VPS. Do not store credentials, `.env` files, private addresses, or production-only configuration in Git. CI has read-only repository permission and contains no deployment, SSH, registry login, environment, artifact publishing, or self-hosted runner steps.
 
-The application currently has no automated test suite. CI therefore runs the available deterministic checks: `npm ci`, exact-version Linux native bindings without changing the lockfile, `npm run lint`, and `npm run build`. Do not add a fictitious `npm test` step.
+CI runs `npm ci`, exact-version Linux native bindings without changing the lockfile, `npm run test:scripts`, `npm run lint`, and `npm run build`. The Bats suite replaces production commands and paths with temporary fakes; it never connects to a host, deploys, or invokes a real Docker daemon.
 
 ## Deployment gates
 

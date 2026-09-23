@@ -13,6 +13,14 @@ RUN npm run lint && npm run build
 
 FROM nginx:1.29-alpine
 
+ARG SOURCE_URL="https://github.com/IvanSevill/IvanSevill"
+ARG VCS_REF="unknown"
+ARG VERSION="dev"
+
+LABEL org.opencontainers.image.source="$SOURCE_URL" \
+      org.opencontainers.image.revision="$VCS_REF" \
+      org.opencontainers.image.version="$VERSION"
+
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist /usr/share/nginx/html
 

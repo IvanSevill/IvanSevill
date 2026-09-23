@@ -1,0 +1,35 @@
+* text=auto
+
+# Source, configuration, scripts, and documentation use Unix line endings.
+*.cjs text eol=lf
+*.conf text eol=lf
+*.css text eol=lf
+*.csv text eol=lf
+*.html text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.jsx text eol=lf
+*.md text eol=lf
+*.py text eol=lf
+*.sh text eol=lf
+*.txt text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+.dockerignore text eol=lf
+.gitattributes text eol=lf
+.gitignore text eol=lf
+Dockerfile text eol=lf
+
+# Preserve binary assets byte-for-byte.
+*.gif binary
+*.ico binary
+*.jpeg binary
+*.jpg binary
+*.pdf binary
+*.png binary
+*.pyc binary
+*.ttf binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+.coverage binary

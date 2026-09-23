@@ -7,10 +7,26 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Dependencies and build output
+node_modules/
+dist/
+dist-ssr/
+coverage/
+htmlcov/
+
+# Python caches and coverage
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+.coverage.*
+
+# Local-only configuration and environment files
 *.local
+.env
+.env.*
+!.env.example
+.claude/settings.local.json
 
 # Editor directories and files
 .vscode/*

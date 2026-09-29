@@ -11,6 +11,7 @@
   /* Default palette (night) — overridden per time-of-day below */
   --accent-primary: #00ff9d;
   --accent-secondary: #00cc7a;
+  --accent-complement: #ad8dff;
   --accent-glow: rgba(0, 255, 157, 0.35);
 
   font-family: 'JetBrains Mono', ui-monospace, 'Fira Code', monospace;
@@ -21,7 +22,7 @@
   background-color: var(--bg-color);
   background-image:
     radial-gradient(circle at 15% 0%, color-mix(in srgb, var(--accent-primary) 10%, transparent), transparent 45%),
-    radial-gradient(circle at 85% 100%, color-mix(in srgb, var(--accent-secondary) 8%, transparent), transparent 45%);
+    radial-gradient(circle at 85% 100%, color-mix(in srgb, var(--accent-complement) 8%, transparent), transparent 45%);
   scroll-behavior: smooth;
   transition: background-image 1.2s ease;
 }
@@ -29,24 +30,28 @@
 html[data-time="morning"] {
   --accent-primary: #22e5ff;
   --accent-secondary: #67f1ff;
+  --accent-complement: #ff9c64;
   --accent-glow: rgba(34, 229, 255, 0.35);
 }
 
 html[data-time="afternoon"] {
   --accent-primary: #ff36c0;
   --accent-secondary: #ff8bd8;
+  --accent-complement: #49e8a4;
   --accent-glow: rgba(255, 54, 192, 0.35);
 }
 
 html[data-time="evening"] {
   --accent-primary: #ffb020;
   --accent-secondary: #ffd166;
+  --accent-complement: #78b8ff;
   --accent-glow: rgba(255, 176, 32, 0.35);
 }
 
 html[data-time="night"] {
   --accent-primary: #00ff9d;
   --accent-secondary: #00cc7a;
+  --accent-complement: #ad8dff;
   --accent-glow: rgba(0, 255, 157, 0.35);
 }
 
@@ -71,15 +76,6 @@ body::-webkit-scrollbar {
   min-height: 100dvh;
 }
 
-html:has(.home-page) {
-  scroll-padding-top: 5.5rem;
-  scroll-snap-type: y proximity;
-}
-
-.home-page>section {
-  scroll-snap-align: start;
-}
-
 #hero {
   min-height: 100dvh;
 }
@@ -93,9 +89,12 @@ html:has(.home-page) {
 }
 
 .hero-section__portrait {
+  --hero-image-shift-x: clamp(5rem, 16vw, 14rem);
+  --hero-image-shift-y: 0px;
+  --hero-image-scale: 1;
   object-fit: cover;
-  object-position: 60% top;
-  filter: brightness(0.8) contrast(1.05);
+  object-position: 56% 55%;
+  filter: brightness(0.88) contrast(1.05);
   animation: hero-portrait-enter 1.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
@@ -111,7 +110,7 @@ html:has(.home-page) {
 }
 
 .hero-section__shade {
-  background: linear-gradient(90deg, #05050a 5%, rgba(5, 5, 10, 0.96) 37%, rgba(5, 5, 10, 0.1) 100%),
+  background: linear-gradient(90deg, #05050a 5%, rgba(5, 5, 10, 0.96) 35%, rgba(5, 5, 10, 0.25) 66%, transparent 100%),
     linear-gradient(0deg, #05050a, transparent 25%);
 }
 
@@ -158,7 +157,7 @@ html:has(.home-page) {
 .hero-section__chapter-line {
   height: 1px;
   flex: 1;
-  background: linear-gradient(to right, var(--accent-primary), transparent);
+  background: linear-gradient(to right, var(--accent-primary), var(--accent-complement), transparent);
 }
 
 .hero-section__boot {
@@ -189,8 +188,8 @@ html:has(.home-page) {
 }
 
 @keyframes hero-portrait-enter {
-  from { opacity: 0.4; transform: scale(1.1); }
-  to { opacity: 1; transform: scale(1); }
+  from { opacity: 0.4; transform: translate3d(var(--hero-image-shift-x), var(--hero-image-shift-y), 0) scale(calc(var(--hero-image-scale) + 0.1)); }
+  to { opacity: 1; transform: translate3d(var(--hero-image-shift-x), var(--hero-image-shift-y), 0) scale(var(--hero-image-scale)); }
 }
 
 @keyframes hero-ambient {
@@ -262,10 +261,6 @@ button:focus-visible,
     scroll-behavior: auto !important;
   }
 
-  html:has(.home-page) {
-    scroll-snap-type: none;
-  }
-
   .project-dialog {
     scroll-snap-type: none;
   }
@@ -306,7 +301,7 @@ section[id] {
 }
 
 .gradient-text {
-  background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+  background: linear-gradient(to right, var(--accent-primary) 20%, var(--accent-complement));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -357,13 +352,13 @@ section[id] {
 }
 
 .btn-outline:hover {
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
+  border-color: var(--accent-complement);
+  color: var(--accent-complement);
 }
 
 .timeline-item {
   position: relative;
-  border-left: 2px solid color-mix(in srgb, var(--accent-secondary) 50%, transparent);
+  border-left: 2px solid color-mix(in srgb, var(--accent-complement) 50%, transparent);
   padding-left: 1.5rem;
   margin-bottom: 2rem;
 }
@@ -478,7 +473,7 @@ section[id] {
 .site-footer code {
   padding: 0.22rem 0.45rem;
   border: 1px solid var(--glass-border);
-  color: var(--accent-primary);
+  color: var(--accent-complement);
   background: rgba(255, 255, 255, 0.025);
   font-size: 0.7rem;
 }
@@ -553,7 +548,7 @@ section[id] {
 }
 
 .nav-desktop>a:hover {
-  color: var(--accent-primary);
+  color: var(--accent-complement);
 }
 
 .language-button,
@@ -627,7 +622,7 @@ section[id] {
 .section-kicker,
 .project-eyebrow {
   margin: 0 0 0.8rem;
-  color: var(--accent-primary);
+  color: var(--accent-complement);
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.14em;
@@ -642,6 +637,119 @@ section[id] {
   display: block;
   width: 100%;
   height: 100%;
+}
+
+/* About: an editorial lead and open feature rows instead of a column of cards. */
+.about-section {
+  background: radial-gradient(circle at 15% 40%, color-mix(in srgb, var(--accent-complement) 5%, transparent), transparent 48%);
+}
+
+.about-section__header {
+  display: flex;
+  align-items: end;
+  gap: clamp(0.75rem, 2vw, 1.75rem);
+  margin-bottom: clamp(2rem, 4vw, 3.75rem);
+}
+
+.about-section__header h2 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.about-section__chapter {
+  padding-bottom: 0.3rem;
+  color: var(--accent-complement);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+.about-section__header-rule {
+  height: 1px;
+  flex: 1;
+  margin-bottom: 0.55rem;
+  background: linear-gradient(to right, var(--accent-complement), transparent);
+}
+
+.about-section__story {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+}
+
+.about-section__copy p {
+  color: var(--text-primary);
+  font-size: clamp(1.1rem, 1.7vw, 1.35rem);
+  line-height: 1.7;
+}
+
+.about-section__copy p + p {
+  margin-top: 1.75rem;
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+.about-section__highlight {
+  color: var(--accent-primary);
+  font-weight: 700;
+}
+
+.about-section__highlight--complement {
+  color: var(--accent-complement);
+}
+
+.about-section__photo {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 4 / 3;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--accent-complement) 32%, transparent);
+  border-radius: 0.5rem;
+  background: var(--bg-color-alt);
+  box-shadow: 0 24px 60px -44px var(--accent-glow);
+}
+
+.about-section__photo picture,
+.about-section__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.about-section__photo img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.about-section__traits {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 clamp(1.5rem, 4vw, 3rem);
+  margin-top: clamp(3rem, 7vw, 5rem);
+}
+
+.about-section__trait {
+  --trait-accent: var(--accent-primary);
+  padding: 1.5rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--trait-accent) 30%, transparent);
+}
+
+.about-section__trait:nth-child(even) {
+  --trait-accent: var(--accent-complement);
+}
+
+.about-section__trait h3 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+}
+
+.about-section__trait p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.65;
 }
 
 /* Projects index */
@@ -715,7 +823,11 @@ section[id] {
 }
 
 .project-card h3 a:hover {
-  color: var(--accent-primary);
+  color: var(--accent-complement);
+}
+
+.project-card-links a:hover {
+  color: var(--accent-complement);
 }
 
 .project-card p {
@@ -785,9 +897,9 @@ section[id] {
 }
 
 .secondary-projects a:hover {
-  border-color: color-mix(in srgb, var(--accent-primary) 35%, transparent);
+  border-color: color-mix(in srgb, var(--accent-complement) 35%, transparent);
   color: var(--text-primary);
-  background: color-mix(in srgb, var(--accent-primary) 6%, transparent);
+  background: color-mix(in srgb, var(--accent-complement) 6%, transparent);
 }
 
 .secondary-projects strong,
@@ -803,6 +915,8 @@ section[id] {
 /* Experience graph */
 .experience-section {
   overflow: hidden;
+  background: radial-gradient(circle at 80% 25%, color-mix(in srgb, var(--accent-complement) 7%, transparent), transparent 42%),
+    rgba(0, 0, 0, 0.12);
 }
 
 .experience-legend {
@@ -840,6 +954,8 @@ section[id] {
   --timeline-node-size: 0.9rem;
   --timeline-node-y: 2rem;
   --timeline-stroke: 2px;
+  --timeline-main-stroke: 3px;
+  --timeline-main-ink: color-mix(in srgb, var(--accent-primary) 84%, transparent);
   width: min(100%, 72rem);
   display: grid;
   gap: var(--timeline-row-gap);
@@ -849,7 +965,6 @@ section[id] {
 .git-timeline__entry,
 .git-timeline__branch-stage,
 .git-timeline__branch-anchor {
-  --timeline-color: var(--accent-primary);
   position: relative;
   display: grid;
   grid-template-columns:
@@ -858,6 +973,10 @@ section[id] {
     var(--timeline-branch-step)
     minmax(0, 1fr);
   align-items: start;
+}
+
+.git-timeline__entry {
+  --timeline-color: var(--accent-primary);
 }
 
 .git-timeline__branch-group {
@@ -885,11 +1004,11 @@ section[id] {
   content: '';
   position: absolute;
   top: calc(-1 * var(--timeline-row-gap));
-  bottom: calc(-1 * var(--timeline-row-gap));
+  bottom: 0;
   left: calc(var(--timeline-rail-track) / 2);
-  width: var(--timeline-stroke);
+  width: var(--timeline-main-stroke);
   z-index: 3;
-  background: color-mix(in srgb, var(--accent-primary) 62%, transparent);
+  background: var(--timeline-main-ink);
   transform: translateX(-50%);
 }
 
@@ -904,24 +1023,25 @@ section[id] {
 .git-timeline__entry--planned .git-timeline__rail::before {
   background: repeating-linear-gradient(
     to bottom,
-    color-mix(in srgb, var(--accent-primary) 62%, transparent) 0 6px,
+    var(--timeline-main-ink) 0 6px,
     transparent 6px 12px
   );
 }
 
 .git-timeline__lead {
   position: absolute;
-  top: calc(var(--timeline-node-y) - var(--timeline-stroke) / 2);
+  top: calc(var(--timeline-node-y) - var(--timeline-main-stroke) / 2);
   right: calc(-1 * var(--timeline-card-gap));
   left: calc(var(--timeline-rail-track) / 2);
-  height: var(--timeline-stroke);
-  background: var(--timeline-color);
+  height: var(--timeline-main-stroke);
+  background: var(--timeline-main-ink);
+  border-radius: 999px;
 }
 
 .git-timeline__entry--planned .git-timeline__lead {
   background: repeating-linear-gradient(
     to right,
-    var(--timeline-color) 0 6px,
+    var(--timeline-main-ink) 0 6px,
     transparent 6px 12px
   );
 }
@@ -951,7 +1071,7 @@ section[id] {
   right: 0;
   bottom: calc(-1 * var(--timeline-row-gap) - var(--timeline-node-y));
   width: var(--timeline-stroke);
-  background: var(--timeline-color);
+  background: color-mix(in srgb, var(--timeline-color) 78%, transparent);
   transform: translateX(50%);
 }
 
@@ -961,7 +1081,7 @@ section[id] {
   right: 0;
   left: calc(var(--timeline-rail-track) / 2);
   height: var(--timeline-stroke);
-  background: var(--timeline-color);
+  background: color-mix(in srgb, var(--timeline-color) 78%, transparent);
 }
 
 .git-timeline__branch-junction::before,
@@ -1018,7 +1138,8 @@ section[id] {
   left: calc(-1 * (var(--timeline-branch-step) + var(--timeline-card-gap)));
   width: calc(var(--timeline-branch-step) + var(--timeline-card-gap));
   height: var(--timeline-stroke);
-  background: var(--timeline-color);
+  background: color-mix(in srgb, var(--timeline-color) 78%, transparent);
+  border-radius: 999px;
 }
 
 .git-timeline__branch-connection::before {
@@ -1037,7 +1158,7 @@ section[id] {
 .git-timeline__branch-entry.git-timeline__entry--planned .git-timeline__branch-connection {
   background: repeating-linear-gradient(
     to right,
-    var(--timeline-color) 0 6px,
+    color-mix(in srgb, var(--timeline-color) 78%, transparent) 0 6px,
     transparent 6px 12px
   );
 }
@@ -1065,6 +1186,9 @@ section[id] {
 
 .git-timeline__branch-anchor .git-timeline__branch-junction--lower {
   right: calc(-1 * var(--timeline-card-gap));
+  top: calc(var(--timeline-node-y) - var(--timeline-main-stroke) / 2);
+  height: var(--timeline-main-stroke);
+  background: var(--timeline-main-ink);
 }
 
 .git-timeline__branch-anchor .git-timeline__branch-junction--lower::after {
@@ -1094,12 +1218,13 @@ section[id] {
 .timeline-card {
   position: relative;
   min-width: 0;
-  padding: clamp(1.15rem, 2.8vw, 1.75rem);
-  border: 1px solid color-mix(in srgb, var(--timeline-color) 42%, transparent);
+  padding: clamp(1.25rem, 2.8vw, 1.85rem);
+  border: 1px solid color-mix(in srgb, var(--timeline-color) 32%, transparent);
+  border-radius: 0.375rem;
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--timeline-color) 5%, transparent), transparent 45%),
+    linear-gradient(135deg, color-mix(in srgb, var(--timeline-color) 4%, transparent), transparent 60%),
     rgba(8, 10, 12, 0.9);
-  box-shadow: 0 16px 45px -38px color-mix(in srgb, var(--timeline-color) 75%, transparent);
+  box-shadow: 0 16px 45px -38px color-mix(in srgb, var(--timeline-color) 50%, transparent);
 }
 
 .timeline-card::before {
@@ -1108,6 +1233,7 @@ section[id] {
   inset: -1px auto -1px -1px;
   width: 3px;
   background: var(--timeline-color);
+  border-radius: 0.375rem 0 0 0.375rem;
 }
 
 .timeline-card--planned {
@@ -1127,7 +1253,7 @@ section[id] {
   gap: 0.5rem 1rem;
   margin-bottom: 0.9rem;
   color: var(--text-secondary);
-  font-size: 0.7rem;
+  font-size: 0.73rem;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1136,6 +1262,7 @@ section[id] {
 .timeline-status {
   padding: 0.13rem 0.35rem;
   border: 1px solid currentColor;
+  border-radius: 0.2rem;
   font-size: 0.68rem;
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -1182,6 +1309,7 @@ section[id] {
   gap: 0.35rem;
   padding: 0.25rem 0.5rem;
   border: 1px solid color-mix(in srgb, var(--timeline-color) 40%, transparent);
+  border-radius: 0.2rem;
   background: color-mix(in srgb, var(--timeline-color) 10%, transparent);
   color: var(--timeline-color);
   font-size: 0.68rem;
@@ -1220,6 +1348,7 @@ section[id] {
   height: 2.5rem;
   flex-shrink: 0;
   border: 1px solid color-mix(in srgb, var(--timeline-color) 25%, transparent);
+  border-radius: 0.25rem;
   background: rgba(0, 0, 0, 0.6);
   color: var(--timeline-color);
 }
@@ -1240,7 +1369,7 @@ section[id] {
 .timeline-card__title-row h3 {
   margin: 0;
   color: var(--timeline-color);
-  font-size: 1.05rem;
+  font-size: clamp(1.1rem, 1.7vw, 1.3rem);
   font-weight: 700;
   line-height: 1.3;
 }
@@ -1255,9 +1384,10 @@ section[id] {
 .timeline-card__meta {
   padding: 0.35rem 0.6rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.2rem;
   background: rgba(255, 255, 255, 0.05);
   color: var(--text-secondary);
-  font-size: 0.72rem;
+  font-size: 0.76rem;
   white-space: nowrap;
   align-self: flex-start;
 }
@@ -1272,8 +1402,8 @@ section[id] {
   margin: 0;
   padding-left: 1.1rem;
   color: var(--text-primary);
-  font-size: 0.85rem;
-  line-height: 1.6;
+  font-size: 0.93rem;
+  line-height: 1.65;
 }
 
 .timeline-card__description li {
@@ -1312,6 +1442,12 @@ section[id] {
 
   .timeline-card__meta {
     align-self: flex-start;
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  .timeline-card__description {
+    font-size: 0.9rem;
   }
 }
 
@@ -1767,6 +1903,14 @@ section[id] {
 }
 
 @media (max-width: 900px) {
+  .about-section__story {
+    grid-template-columns: 1fr;
+  }
+
+  .about-section__photo {
+    aspect-ratio: 16 / 10;
+  }
+
   .nav-desktop {
     display: none;
   }
@@ -1805,6 +1949,23 @@ section[id] {
 }
 
 @media (max-width: 640px) {
+  .about-section__header h2 {
+    font-size: clamp(2.2rem, 9vw, 3rem);
+  }
+
+  .about-section__story {
+    gap: 2rem;
+  }
+
+  .about-section__photo {
+    aspect-ratio: 4 / 3;
+  }
+
+  .about-section__traits {
+    grid-template-columns: 1fr;
+    margin-top: 3rem;
+  }
+
   .container {
     padding-inline: clamp(1.25rem, 5vw, 1.75rem);
   }
@@ -1812,6 +1973,10 @@ section[id] {
   .section {
     min-height: auto;
     padding-block: 5rem;
+  }
+
+  .home-page > .section {
+    min-height: 100svh;
   }
 
   .hero-section {
@@ -1822,7 +1987,10 @@ section[id] {
   }
 
   .hero-section__portrait {
-    object-position: 58% top;
+    --hero-image-shift-x: 8%;
+    --hero-image-shift-y: -10%;
+    --hero-image-scale: 1.2;
+    object-position: 56% 55%;
   }
 
   .hero-section__shade {

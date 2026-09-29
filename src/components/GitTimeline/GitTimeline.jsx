@@ -1,6 +1,6 @@
 import { computeLanes } from './computeLanes'
 
-const DEFAULT_LANE_COLORS = ['var(--accent-primary)', '#b89cff', '#62c9f5', '#ffad6b', '#63d98b']
+const DEFAULT_LANE_COLORS = ['var(--accent-primary)', 'var(--accent-complement)']
 
 const stateClass = (item) => `git-timeline__entry--${String(item.status || 'default').toLowerCase()}`
 

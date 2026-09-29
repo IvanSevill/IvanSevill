@@ -16,7 +16,7 @@ const Contact = () => {
                     className="text-center mb-16"
                 >
                     <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('contact.title')}</h2>
-                    <div className="w-20 h-1 bg-[var(--accent-secondary)] mx-auto rounded-full mb-6"></div>
+                    <div className="w-20 h-1 bg-[var(--accent-complement)] mx-auto rounded-full mb-6"></div>
                     <p className="text-gray-400 max-w-2xl mx-auto">
                         {t('contact.subtitle')}
                     </p>

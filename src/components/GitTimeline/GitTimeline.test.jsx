@@ -88,6 +88,13 @@ describe('GitTimeline Experience contract', () => {
     expect(experienceStyles).toMatch(/\.git-timeline__node \{[\s\S]*?z-index: 4;/)
   })
 
+  it('uses one main stroke and gives each gap to only one rail segment', () => {
+    expect(experienceStyles).toMatch(/--timeline-main-stroke: 3px;/)
+    expect(experienceStyles).toMatch(/--timeline-stroke: 2px;/)
+    expect(experienceStyles).toMatch(/\.git-timeline__rail::before,[\s\S]*?\.git-timeline__branch-group::before \{[\s\S]*?top: calc\(-1 \* var\(--timeline-row-gap\)\);\s*bottom: 0;[\s\S]*?width: var\(--timeline-main-stroke\);/)
+    expect(experienceStyles).toMatch(/\.git-timeline__lead \{[\s\S]*?height: var\(--timeline-main-stroke\);[\s\S]*?background: var\(--timeline-main-ink\);/)
+  })
+
   it('renders without stateful DOM measurement hooks', () => {
     expect(timelineSource).not.toMatch(/useState|useEffect|useLayoutEffect|ResizeObserver|getBoundingClientRect/)
   })

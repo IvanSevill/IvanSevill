@@ -1,140 +1,89 @@
-import React from 'react';
-import { motion as Motion } from 'framer-motion';
-import { User, Heart, Zap, Map } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
+import { motion as Motion, useReducedMotion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 
-const About = () => {
-    const { t } = useTranslation();
+const reveal = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+}
 
-    const container = {
-        hidden: { opacity: 0 },
-        show: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.2
-            }
-        }
-    };
+const list = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12 } },
+}
 
-    const item = {
-        hidden: { opacity: 0, y: 20 },
-        show: { opacity: 1, y: 0 }
-    };
+export default function About() {
+  const { t } = useTranslation()
+  const reduceMotion = useReducedMotion()
+  const traits = [
+    { title: t('about.growth'), description: t('about.growthDesc') },
+    { title: t('about.team'), description: t('about.teamDesc') },
+    { title: t('about.passions'), description: t('about.passionsDesc') },
+    { title: t('about.travel'), description: t('about.travelDesc') },
+  ]
 
-    return (
-        <section id="about" className="section relative">
-            <div className="container">
-                <Motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-16"
-                >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('about.title')}</h2>
-                    <div className="w-20 h-1 bg-[var(--accent-primary)] mx-auto rounded-full"></div>
-                </Motion.div>
+  return (
+    <section id="about" className="section about-section">
+      <div className="container">
+        <Motion.header
+          className="about-section__header"
+          variants={reveal}
+          initial={reduceMotion ? false : 'hidden'}
+          whileInView="show"
+          viewport={{ once: true }}
+        >
+          <span className="about-section__chapter" aria-hidden="true">02 / 06</span>
+          <h2>{t('about.title')}</h2>
+          <span className="about-section__header-rule" aria-hidden="true" />
+        </Motion.header>
 
-                <div className="grid md:grid-cols-2 gap-12 items-center">
-                    <Motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        className="space-y-8"
-                    >
-                        <div className="card">
-                            <p className="text-lg leading-relaxed text-gray-300 mb-6">
-                                {t('about.desc1')} <span className="text-[var(--accent-primary)] font-semibold">{t('about.desc1_highlight')}</span>
-                                {t('about.desc1_cont')} <span className="text-[var(--accent-secondary)] font-semibold">{t('about.desc2_highlight')}</span>.
-                            </p>
-                            <p className="text-lg leading-relaxed text-gray-300">
-                                {t('about.desc2')}
-                            </p>
-                        </div>
+        <div className="about-section__story">
+          <Motion.div
+            className="about-section__copy"
+            variants={reveal}
+            initial={reduceMotion ? false : 'hidden'}
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <p>
+              {t('about.desc1')} <span className="about-section__highlight">{t('about.desc1_highlight')}</span>
+              {t('about.desc1_cont')} <span className="about-section__highlight about-section__highlight--complement">{t('about.desc2_highlight')}</span>.
+            </p>
+            <p>{t('about.desc2')}</p>
+          </Motion.div>
 
-                        {/* More Pictures Place - Responsive Portrait Frame */}
-                        <div className="relative group rounded-2xl border border-white/10 bg-white/5 p-3 backdrop-blur-md shadow-xl overflow-hidden">
-                            <div className="aspect-[3/4] sm:aspect-auto overflow-hidden rounded-xl">
-                                <picture>
-                                    <source
-                                        type="image/avif"
-                                        srcSet="/images/responsive/about-640.avif 640w, /images/responsive/about-960.avif 960w, /images/responsive/about-1440.avif 1440w"
-                                        sizes="(min-width: 768px) 50vw, 100vw"
-                                    />
-                                    <source
-                                        type="image/webp"
-                                        srcSet="/images/responsive/about-640.webp 640w, /images/responsive/about-960.webp 960w, /images/responsive/about-1440.webp 1440w"
-                                        sizes="(min-width: 768px) 50vw, 100vw"
-                                    />
-                                    <img
-                                        src="/images/about.jpg"
-                                        width="1440"
-                                        height="810"
-                                        loading="lazy"
-                                        decoding="async"
-                                        alt={t('about.imageAlt')}
-                                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                                    />
-                                </picture>
-                            </div>
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/80 via-transparent to-transparent opacity-60"></div>
-                            <div className="absolute bottom-6 left-6">
-                                <p className="text-white font-bold text-sm tracking-wide">Problem Solver</p>
-                                <p className="text-[var(--accent-primary)] text-[10px] uppercase font-mono tracking-[0.2em]">Engineering Mindset</p>
-                            </div>
-                        </div>
-                    </Motion.div>
+          <Motion.figure
+            className="about-section__photo"
+            variants={reveal}
+            initial={reduceMotion ? false : 'hidden'}
+            whileInView="show"
+            viewport={{ once: true, amount: 0.15 }}
+          >
+            <picture>
+              <source type="image/avif" srcSet="/images/responsive/about-640.avif 640w, /images/responsive/about-960.avif 960w, /images/responsive/about-1440.avif 1440w" sizes="(min-width: 768px) 50vw, 100vw" />
+              <source type="image/webp" srcSet="/images/responsive/about-640.webp 640w, /images/responsive/about-960.webp 960w, /images/responsive/about-1440.webp 1440w" sizes="(min-width: 768px) 50vw, 100vw" />
+              <img src="/images/about.jpg" width="1440" height="810" loading="lazy" decoding="async" alt={t('about.imageAlt')} />
+            </picture>
 
-                    <Motion.div
-                        variants={container}
-                        initial="hidden"
-                        whileInView="show"
-                        viewport={{ once: true }}
-                        className="grid gap-6"
-                    >
-                        <Motion.div variants={item} className="card flex items-start gap-4 hover:border-[var(--accent-primary)]">
-                            <div className="p-3 bg-blue-500/20 rounded-lg text-blue-400">
-                                <Zap size={24} />
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-bold mb-2">{t('about.growth')}</h3>
-                                <p className="text-gray-400">{t('about.growthDesc')}</p>
-                            </div>
-                        </Motion.div>
+          </Motion.figure>
+        </div>
 
-                        <Motion.div variants={item} className="card flex items-start gap-4 hover:border-[var(--accent-secondary)]">
-                            <div className="p-3 bg-purple-500/20 rounded-lg text-purple-400">
-                                <User size={24} />
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-bold mb-2">{t('about.team')}</h3>
-                                <p className="text-gray-400">{t('about.teamDesc')}</p>
-                            </div>
-                        </Motion.div>
-
-                        <Motion.div variants={item} className="card flex items-start gap-4 hover:border-green-500/50">
-                            <div className="p-3 bg-green-500/20 rounded-lg text-green-400">
-                                <Heart size={24} />
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-bold mb-2">{t('about.passions')}</h3>
-                                <p className="text-gray-400">{t('about.passionsDesc')}</p>
-                            </div>
-                        </Motion.div>
-
-                        <Motion.div variants={item} className="card flex items-start gap-4 hover:border-orange-500/50 group">
-                            <div className="p-3 bg-blue-500/20 rounded-lg text-blue-400 group-hover:bg-blue-500/30 transition-colors">
-                                <Map size={24} />
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-bold mb-2">{t('about.travel')}</h3>
-                                <p className="text-gray-400">{t('about.travelDesc')}</p>
-                            </div>
-                        </Motion.div>
-                    </Motion.div>
-                </div>
-            </div>
-        </section>
-    );
-};
-
-export default About;
+        <Motion.div
+          className="about-section__traits"
+          variants={list}
+          initial={reduceMotion ? false : 'hidden'}
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          {traits.map(({ title, description }) => (
+            <Motion.article key={title} variants={reveal} className="about-section__trait">
+              <div>
+                <h3>{title}</h3>
+                <p>{description}</p>
+              </div>
+            </Motion.article>
+          ))}
+        </Motion.div>
+      </div>
+    </section>
+  )
+}

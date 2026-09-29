@@ -23,7 +23,7 @@ export default function Seo({ project, notFound = false }) {
     ? `404 | ${spanish ? 'Ruta no encontrada' : 'Route not found'}`
     : project
     ? `${project.name} | ${spanish ? 'Proyecto de Iván Sevillano' : 'Project by Iván Sevillano'}`
-    : `Iván Sevillano | ${spanish ? 'Ingeniería de Software' : 'Software Engineering'}`
+    : 'IvanSevill | Portfolio'
   const description = notFound
     ? spanish ? 'La ruta solicitada no forma parte de este portfolio.' : 'The requested route is not part of this portfolio.'
     : project

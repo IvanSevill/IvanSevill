@@ -89,7 +89,7 @@ const Education = () => {
                     {/* Certifications Column */}
                     <div>
                         <h3 className="text-2xl font-bold mb-8 flex items-center gap-3">
-                            <Award className="text-[var(--accent-secondary)]" /> {t('education.certifications')}
+                            <Award className="text-[var(--accent-complement)]" /> {t('education.certifications')}
                         </h3>
                         <div className="space-y-4">
                             {certifications.map((cert, index) => (

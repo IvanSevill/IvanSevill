@@ -54,11 +54,27 @@ const Hero = () => {
             {/* Cinematic Background Image */}
             <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
                 <div className="relative w-full h-full">
-                    <img
-                        src="/images/profile.jpg"
-                        alt="Iván"
-                        className="w-full h-full object-cover object-top scale-[1.15] -translate-y-[15%] -translate-x-[5%] lg:translate-x-[20%] lg:translate-y-0 lg:object-right lg:scale-110 brightness-90 lg:brightness-[0.8] contrast-105 transition-transform duration-1000"
-                    />
+                    <picture>
+                        <source
+                            type="image/avif"
+                            srcSet="/images/responsive/profile-640.avif 640w, /images/responsive/profile-960.avif 960w, /images/responsive/profile-1440.avif 1440w"
+                            sizes="100vw"
+                        />
+                        <source
+                            type="image/webp"
+                            srcSet="/images/responsive/profile-640.webp 640w, /images/responsive/profile-960.webp 960w, /images/responsive/profile-1440.webp 1440w"
+                            sizes="100vw"
+                        />
+                        <img
+                            src="/images/profile.jpg"
+                            width="1440"
+                            height="1920"
+                            fetchPriority="high"
+                            decoding="async"
+                            alt="Iván Sevillano"
+                            className="w-full h-full object-cover object-top scale-[1.15] -translate-y-[15%] -translate-x-[5%] lg:translate-x-[20%] lg:translate-y-0 lg:object-right lg:scale-110 brightness-90 lg:brightness-[0.8] contrast-105 transition-transform duration-1000"
+                        />
+                    </picture>
                     {/* Time-of-day accent tint */}
                     <div className="absolute inset-0 bg-[var(--accent-primary)]/10 mix-blend-color"></div>
 
@@ -79,6 +95,7 @@ const Hero = () => {
                 animate={{ opacity: 1, y: [0, 10, 0] }}
                 transition={{ delay: 1, duration: 2, repeat: Infinity }}
                 className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-[var(--text-secondary)] hover:text-[var(--accent-primary)] hidden md:block z-20"
+                aria-label={t('navbar.about')}
             >
                 <ChevronDown size={32} />
             </Motion.a>

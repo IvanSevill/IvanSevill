@@ -33,48 +33,11 @@
     "passions": "Passions",
     "passionsDesc": "Nature lover, fitness enthusiast, and technology enthusiast.",
     "travel": "Travel Enthusiast",
-    "travelDesc": "So far I've visited 19 countries, with the goal of continuing to broaden my horizons! There's nothing I enjoy more than stepping out of my comfort zone."
+    "travelDesc": "So far I've visited 19 countries, with the goal of continuing to broaden my horizons! There's nothing I enjoy more than stepping out of my comfort zone.",
+    "imageAlt": "Iván working at a laptop"
   },
   "experience": {
-    "title": "Experience",
-    "git": {
-      "main": "main",
-      "branch": "erasmus",
-      "merged": "merged → main"
-    },
-    "master": {
-      "role": "Master's in Cloud Programming",
-      "company": "Germany",
-      "period": "2027 – 2029",
-      "location": "Germany",
-      "badge": "AIM",
-      "desc": "Currently pursuing a master's degree focused on cloud architectures, as well as the creation and maintenance of large-scale distributed systems. A clear requirement for this future degree is making the real leap to a European level, using English as the main language, to further my international expansion."
-    },
-    "erasmus": {
-      "role": "Erasmus Student",
-      "company": "University of Pannonia",
-      "period": "2024 – 2025",
-      "location": "Veszprém, Hungary",
-      "desc": "Studied abroad as part of the Erasmus+ program, pushing myself out of my comfort zone and learning to deal with challenges, preparing my leap into the future, with the goal of making the jump into the international academic world."
-    },
-    "student": {
-      "role": "Software Engineering Student",
-      "company": "University of Seville",
-      "period": "2023 – 2027",
-      "location": "Seville, Spain",
-      "desc": ["Building a strong foundation in software engineering principles, algorithms, and system design, as well as development standards such as agile methods and Scrum methodology.",
-      "Just as importantly, I've built friendships and connections that mean a lot to me and have helped me grow both professionally and personally, shaping the person I am today."]
-    },
-    "freelance": {
-      "role": "Extracurricular Teacher",
-      "company": "Freelance",
-      "period": "2023",
-      "location": "Seville, Spain",
-      "desc": [
-        "Teaching Python to two 14-year-old students who were just starting out in programming, along with math tutoring for a 16-year-old student.",
-        "Even though these classes were completely voluntary and didn't come with any qualification or pay, they helped me a lot in terms of tutoring and teaching experience, as well as reinforcing my own knowledge. Because nothing makes you reflect more than people who are just starting out and make you consider things you never even thought about back when you began your academic life as a computer scientist."
-      ]
-    }
+    "title": "Experience"
   },
   "education": {
     "title": "Education & Certifications",
@@ -84,44 +47,10 @@
     "certifications": "Certifications"
   },
   "projects": {
-    "title": "Featured Projects",
-    "subtitle": "A selection of my recent work from GitHub.",
-    "viewProject": "View Project",
-    "openLinktree": "Open Linktree",
-    "showMore": "Show More",
-    "showLess": "Show Less",
-    "list": {
-      "gymhub": {
-        "title": "GymHub",
-        "description": "Personal workout tracker that syncs with Google Calendar and Fitbit. Full-stack ecosystem with a FastAPI + SQLite backend, a React/Vite web dashboard with analytics, and a native Android app."
-      },
-      "aissMiner": {
-        "title": "AISS-Miner",
-        "description": "A microservices-based ecosystem designed to aggregate and unify repository data from GitHub, GitLab, and BitBucket."
-      },
-      "heatDistribution": {
-        "title": "HeatDistribution",
-        "description": "Parallel heat transfer simulator using Jacobi and SOR methods. Built with C/C++ and OpenMP for multi-threaded computation (up to 20 threads), with Raylib for real-time visualization and CSV performance logging."
-      },
-      "usbGpt": {
-        "title": "Usb-GPT",
-        "description": "Functional interface with preloaded models to use on a USB drive or hard disk to talk with an offline Artificial Intelligence model."
-      },
-      "rockPaperScissors": {
-        "title": "RockPaperScissors",
-        "description": "AI-powered Rock-Paper-Scissors game using MediaPipe for real-time hand gesture recognition. Built with React (Vite) and FastAPI."
-      },
-      "aiTravelAssistant": {
-        "title": "AI-travel-assistant",
-        "description": "Interactive web application built with Streamlit that generates detailed, day-by-day travel itineraries using Google Gemini and GoogleTTS."
-      },
-      "lensPortExtension": {
-        "title": "LensPortExtension",
-        "description": "A browser extension that replicates Google Lens functionality. Performs real-time OCR and translation on any webpage area."
-      }
-    }
+    "title": "Featured Projects"
   },
   "timeMode": {
+    "change": "Change color mode",
     "auto": "Auto",
     "morning": "Morning",
     "afternoon": "Afternoon",

@@ -32,6 +32,7 @@ const TimeIndicator = () => {
         : MODE_REFERENCE_HOUR[mode];
 
     const track = buildTrack(hour);
+    const modeLabel = t(`timeMode.${mode}`);
 
     const handleClick = () => {
         cycleMode();
@@ -48,8 +49,9 @@ const TimeIndicator = () => {
         <div className="relative">
             <button
                 onClick={handleClick}
-                title={mode === 'auto' ? now.toLocaleTimeString() : t(`timeMode.${mode}`)}
-                className="flex items-center gap-2 px-2.5 py-1 border border-[var(--accent-primary)]/30 hover:border-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/10 transition-colors"
+                title={mode === 'auto' ? now.toLocaleTimeString() : modeLabel}
+                aria-label={`${t('timeMode.change')}: ${modeLabel}`}
+                className="time-indicator-button flex items-center gap-2 px-2.5 py-1 border border-[var(--accent-primary)]/30 hover:border-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/10 transition-colors"
             >
                 <span className="font-mono text-xs tracking-widest text-[var(--accent-primary)] select-none">
                     {track}
@@ -69,7 +71,7 @@ const TimeIndicator = () => {
                             {mode === 'auto' ? '// mode: auto' : '// mode: manual'}
                         </p>
                         <p className="font-mono text-sm font-bold text-[var(--accent-primary)]">
-                            {t(`timeMode.${mode}`)}
+                            {modeLabel}
                         </p>
                     </Motion.div>
                 )}

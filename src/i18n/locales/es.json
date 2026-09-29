@@ -33,48 +33,11 @@
     "passions": "Pasiones",
     "passionsDesc": "Amante de la naturaleza, entusiasta del ejercicio físico y apasionado de la tecnología.",
     "travel": "Entusiasta de los Viajes",
-    "travelDesc": "Por el momento acumulo 19 países, ¡y con el objetivo de seguir ampliando horizontes! No hay cosa que me guste más que salir de mi zona de confort."
+    "travelDesc": "Por el momento acumulo 19 países, ¡y con el objetivo de seguir ampliando horizontes! No hay cosa que me guste más que salir de mi zona de confort.",
+    "imageAlt": "Iván trabajando con un portátil"
   },
   "experience": {
-    "title": "Experiencia",
-    "git": {
-      "main": "main",
-      "branch": "erasmus",
-      "merged": "merged → main"
-    },
-    "master": {
-      "role": "Máster en Cloud Programming",
-      "company": "Alemania",
-      "period": "2027 – 2029",
-      "location": "Alemania",
-      "badge": "OBJETIVO",
-      "desc": "En búsqueda actual de un máster relativo a las arquitecturas en la nube, así como de la creación y el mantenimiento de sistemas distribuidos de gran escala. Un requisito claro de este futuro estudio es dar el verdadero salto a nivel europeo usando como idioma principal el inglés, para favorecer mi expansión a nivel internacional."
-    },
-    "erasmus": {
-      "role": "Estudiante Erasmus",
-      "company": "Universidad de Pannonia",
-      "period": "2024 – 2025",
-      "location": "Veszprém, Hungría",
-      "desc": "Estudié en el extranjero como parte del programa Erasmus+, forzándome a salir de mi zona de confort y a lidiar con problemas, preparando mi salto al futuro, con expectativas de dar el salto al mundo académico internacional."
-    },
-    "student": {
-      "role": "Estudiante de Ingeniería del Software",
-      "company": "Universidad de Sevilla",
-      "period": "2023 – 2027",
-      "location": "Sevilla, España",
-      "desc": ["Gracias a la ayuda docente, estoy logrando desarrollar una base sólida en principios de ingeniería de software, algoritmos y diseño de sistemas, así como de estándares para el desarrollo como métodos ágiles y metodología scrum.",
-      "No por ello menos importante, he forjado amistades y contactos que son muy importantes para mí y que me han ayudado a desarrollarme de manera profesional y personal, alimentando y moldeando la persona que soy a día de hoy."]
-    },
-    "freelance": {
-      "role": "Profesor particular",
-      "company": "Freelance",
-      "period": "2023",
-      "location": "Sevilla, España",
-      "desc": [
-        "Enseñanza de Python a dos alumnos de 14 años que se estaban iniciando en la programación, y clases de matemáticas para un estudiante de 16 años.",
-        "A pesar de ser unas clases totalmente voluntarias y no aportar nada en cuanto a título o salario, ayudaron mucho en cuanto a la experiencia en la tutoría y la enseñanza, así como a la cimentación de mis conocimientos. Porque no hay nada que te haga reflexionar más que las personas que están empezando y te hacen plantearte algo que ni tú mismo consideraste al principio de tu vida académica como informático."
-      ]
-    }
+    "title": "Experiencia"
   },
   "education": {
     "title": "Educación y Certificaciones",
@@ -84,44 +47,10 @@
     "certifications": "Certificaciones"
   },
   "projects": {
-    "title": "Proyectos Destacados",
-    "subtitle": "Una selección de mi trabajo reciente en GitHub.",
-    "viewProject": "Ver Proyecto",
-    "openLinktree": "Abrir Linktree",
-    "showMore": "Ver más",
-    "showLess": "Ver menos",
-    "list": {
-      "gymhub": {
-        "title": "GymHub",
-        "description": "Rastreador de entrenamientos personal que se sincroniza con Google Calendar y Fitbit. Ecosistema completo con backend FastAPI + SQLite, dashboard web en React/Vite con analíticas, y app nativa para Android."
-      },
-      "aissMiner": {
-        "title": "AISS-Miner",
-        "description": "Un ecosistema basado en microservicios diseñado para agregar y unificar datos de repositorios de GitHub, GitLab y BitBucket."
-      },
-      "heatDistribution": {
-        "title": "HeatDistribution",
-        "description": "Simulador paralelo de transferencia de calor usando los métodos de Jacobi y SOR. Construido con C/C++ y OpenMP para cómputo multi-hilo (hasta 20 hilos), con Raylib para visualización en tiempo real y registro de rendimiento en CSV."
-      },
-      "usbGpt": {
-        "title": "Usb-GPT",
-        "description": "Interfaz funcional con modelos precargados en un USB o disco duro para hablar con un modelo de Inteligencia Artificial sin conexión."
-      },
-      "rockPaperScissors": {
-        "title": "RockPaperScissors",
-        "description": "Juego de Piedra, Papel o Tijera impulsado por IA usando MediaPipe para reconocimiento de gestos en tiempo real. Construido con React (Vite) y FastAPI."
-      },
-      "aiTravelAssistant": {
-        "title": "AI-travel-assistant",
-        "description": "Aplicación web interactiva construida con Streamlit que genera itinerarios de viaje detallados día a día utilizando Google Gemini y GoogleTTS."
-      },
-      "lensPortExtension": {
-        "title": "LensPortExtension",
-        "description": "Una extensión de navegador que replica la funcionalidad de Google Lens. Realiza OCR y traducción en tiempo real en cualquier área de una página web."
-      }
-    }
+    "title": "Proyectos Destacados"
   },
   "timeMode": {
+    "change": "Cambiar modo de color",
     "auto": "Auto",
     "morning": "Mañana",
     "afternoon": "Tarde",

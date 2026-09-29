@@ -71,6 +71,7 @@ const Contact = () => {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="p-4 bg-white/5 rounded-full hover:bg-pink-600 hover:scale-110 transition-all"
+                                    aria-label="Instagram"
                                 >
                                     <Instagram size={32} />
                                 </a>
@@ -79,6 +80,7 @@ const Contact = () => {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="p-4 bg-white/5 rounded-full hover:bg-green-600 hover:scale-110 transition-all"
+                                    aria-label="Linktree"
                                 >
                                     <ExternalLink size={32} />
                                 </a>

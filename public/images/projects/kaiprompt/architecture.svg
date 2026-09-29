@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+  <title id="title">Kaiprompt architecture</title><desc id="desc">Local CLI and TUI route jobs through queue, runners and engine adapters, with persistent sessions and an optional encrypted Android monitoring path.</desc>
+  <defs><style>.bg{fill:#070b0d}.box{fill:#0d1518;stroke:#39e6a5;stroke-width:2}.soft{fill:#101a1e;stroke:#4a6870;stroke-width:2}.line{fill:none;stroke:#39e6a5;stroke-width:3}.dash{fill:none;stroke:#8ea4aa;stroke-width:2;stroke-dasharray:9 8}.h{fill:#eaf7f1;font:700 25px ui-monospace,monospace}.t{fill:#b8c8c3;font:18px ui-monospace,monospace}.k{fill:#39e6a5;font:700 17px ui-monospace,monospace}.note{fill:#8ea4aa;font:16px ui-monospace,monospace}</style><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#39e6a5"/></marker></defs>
+  <rect class="bg" width="1400" height="820"/><text class="k" x="70" y="65">KAIPROMPT · LOCAL-FIRST EXECUTION</text>
+  <rect class="box" x="70" y="120" width="250" height="135"/><text class="h" x="105" y="170">CLI / TUI</text><text class="t" x="105" y="208">add · edit · inspect</text>
+  <rect class="box" x="420" y="120" width="300" height="135"/><text class="h" x="455" y="170">Persistent queue</text><text class="t" x="455" y="208">jobs · targets · attempts</text>
+  <rect class="box" x="820" y="120" width="260" height="135"/><text class="h" x="855" y="170">Runner</text><text class="t" x="855" y="208">lock · schedule · lanes</text>
+  <path class="line" marker-end="url(#a)" d="M320 188H405"/><path class="line" marker-end="url(#a)" d="M720 188H805"/>
+  <rect class="soft" x="760" y="350" width="220" height="105"/><text class="h" x="798" y="397">Claude</text><text class="t" x="798" y="430">resume session</text>
+  <rect class="soft" x="1010" y="350" width="160" height="105"/><text class="h" x="1044" y="397">Codex</text><text class="t" x="1044" y="430">adapter</text>
+  <rect class="soft" x="1200" y="350" width="160" height="105"/><text class="h" x="1225" y="397">OpenCode</text><text class="t" x="1225" y="430">adapter</text>
+  <path class="line" d="M950 255V310H870V335" marker-end="url(#a)"/><path class="line" d="M950 310H1090V335" marker-end="url(#a)"/><path class="line" d="M1090 310H1280V335" marker-end="url(#a)"/>
+  <rect class="soft" x="70" y="350" width="300" height="125"/><text class="h" x="105" y="398">Quota pre-flight</text><text class="t" x="105" y="432">provider-aware source</text><text class="t" x="105" y="458">authoritative reset pause</text><path class="dash" d="M220 350V300H870V255"/>
+  <rect class="box" x="430" y="575" width="300" height="140"/><text class="h" x="465" y="625">Local HTTP + SSE</text><text class="t" x="465" y="663">paired monitoring API</text><text class="t" x="465" y="690">sealed response payloads</text>
+  <rect class="box" x="890" y="575" width="300" height="140"/><text class="h" x="925" y="625">Android companion</text><text class="t" x="925" y="663">queue · output · usage</text><text class="t" x="925" y="690">limited mutation</text>
+  <path class="line" marker-end="url(#a)" d="M730 645H875"/><path class="dash" d="M570 575V520H570V255"/>
+  <text class="note" x="70" y="775">Execution and persisted data remain on the user machine. Remote monitoring is optional.</text>
+</svg>

@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { computeLanes } from './computeLanes';
 
 /**
@@ -49,6 +49,7 @@ const OVER = 16;
 const STACK_GAP = 16;   // vertical gap between blocks stacked on the same branch lane
 
 const widthByLanes = ['max-w-3xl', 'max-w-4xl', 'max-w-6xl', 'max-w-[88rem]'];
+const colorMix = (color, opacity) => `color-mix(in srgb, ${color} ${opacity}%, transparent)`;
 
 const useIsDesktop = (breakpoint) => {
     const query = `(min-width: ${breakpoint}px)`;
@@ -69,13 +70,13 @@ const useIsDesktop = (breakpoint) => {
 const Badges = ({ item, color }) => (
     <>
         {(item.badges || []).map((label) => (
-            <span key={label} className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 border"
-                style={{ color, borderColor: `${color}4d`, background: `${color}1a` }}>
+            <span key={label} className="text-[11px] font-bold uppercase tracking-widest px-2 py-0.5 border"
+                style={{ color, borderColor: colorMix(color, 35), background: colorMix(color, 10) }}>
                 {label}
             </span>
         ))}
         {item.current && (
-            <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest" style={{ color }}>
+            <span className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest" style={{ color }}>
                 <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: color }}></span>
                 HEAD
             </span>
@@ -86,14 +87,18 @@ const Badges = ({ item, color }) => (
 const DefaultCard = ({ item, color, compact }) => {
     const lines = Array.isArray(item.description) ? item.description : item.description ? [item.description] : [];
     return (
-        <div className={`h-full flex flex-col border bg-black/40 backdrop-blur-sm ${compact ? 'p-5' : 'p-6'}`} style={{ borderColor: `${color}55` }}>
+        <article className={`timeline-card h-full flex flex-col border bg-black/40 backdrop-blur-sm ${compact ? 'p-5' : 'p-6'} ${item.planned ? 'timeline-card--planned' : ''}`} style={{ borderColor: colorMix(color, item.planned ? 70 : 40) }}>
+            <div className="timeline-context" aria-label={`${item.phaseLabel}, ${item.relationshipLabel}`}>
+                <span>{item.phaseLabel}</span><span>{item.relationshipLabel}</span>
+            </div>
             <div className="flex flex-col md:flex-row md:items-start justify-between gap-2 mb-3">
                 <div className="flex items-start gap-3">
                     {item.icon && <div className="p-2 bg-black/60 border border-white/10 shrink-0">{item.icon}</div>}
                     <div>
                         <div className="flex items-center gap-2 mb-1 flex-wrap">
                             {item.title && <h3 className={`${compact ? 'text-base' : 'text-lg'} font-bold`} style={{ color }}>{item.title}</h3>}
-                            <Badges item={item} color={color} />
+                             <Badges item={item} color={color} />
+                             {item.statusLabel && <span className="timeline-status" style={{ color }}>{item.statusLabel}</span>}
                         </div>
                         {item.subtitle && <h4 className="text-sm font-semibold text-gray-300">{item.subtitle}</h4>}
                     </div>
@@ -111,17 +116,17 @@ const DefaultCard = ({ item, color, compact }) => {
                 </ul>
             )}
             {item.image && (
-                <div className="mt-4 flex-1 min-h-[180px] overflow-hidden border" style={{ borderColor: `${color}33` }}>
-                    <img src={item.image} alt={item.title || ''} className="w-full h-full object-cover" loading="lazy" />
+                <div className="mt-4 flex-1 min-h-[180px] overflow-hidden border" style={{ borderColor: colorMix(color, 25) }}>
+                    <img src={item.image} alt={item.title || ''} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                 </div>
             )}
-        </div>
+        </article>
     );
 };
 
 const MergeChip = ({ color, label }) => (
-    <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest px-2 py-1 border"
-        style={{ color, borderColor: `${color}55`, background: `${color}1a` }}>
+    <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest px-2 py-1 border"
+        style={{ color, borderColor: colorMix(color, 40), background: colorMix(color, 10) }}>
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="18" cy="18" r="3" /><circle cx="6" cy="6" r="3" /><path d="M6 21V9a9 9 0 0 0 9 9" />
         </svg>
@@ -148,18 +153,18 @@ const EndCap = ({ accent }) => (
     <div className="flex" aria-hidden="true">
         <div className="relative shrink-0" style={{ width: SPINE_W, height: CAP_BOTTOM }}>
             <div className="absolute left-1/2 -translate-x-1/2 w-[3px] rounded-full" style={{ top: 0, height: 16, ...spineLine(accent) }}></div>
-            <div className="absolute left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 z-10" style={{ top: 12, background: `${accent}cc`, boxShadow: `0 0 8px ${accent}` }}></div>
+            <div className="absolute left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 z-10" style={{ top: 12, background: colorMix(accent, 80), boxShadow: `0 0 8px ${accent}` }}></div>
         </div>
         <div className="flex-1" />
     </div>
 );
 
-const Spine = ({ accent, surface, isLast }) => (
+const Spine = ({ accent, surface, isLast, planned }) => (
     <div className="relative shrink-0" style={{ width: SPINE_W, zIndex: 5 }} aria-hidden="true">
-        <div className="absolute left-1/2 -translate-x-1/2 w-[3px] rounded-full" style={{ top: 0, bottom: isLast ? 0 : -ROW_GAP, ...spineLine(accent) }}></div>
+        <div className="absolute left-1/2 -translate-x-1/2 w-[3px] rounded-full" style={{ top: 0, bottom: isLast ? 0 : -ROW_GAP, ...spineLine(accent), background: planned ? `repeating-linear-gradient(to bottom, ${accent} 0 7px, transparent 7px 13px)` : accent }}></div>
         <div className="absolute left-1/2 -translate-x-1/2 rotate-45 z-10 border-2"
-            style={{ top: NODE_Y, width: NODE, height: NODE, background: accent, borderColor: surface, boxShadow: `0 0 10px ${accent}` }}></div>
-        <div className="absolute left-1/2 right-[-1px] h-[2px]" style={{ top: NODE_C - 1, background: accent }}></div>
+            style={{ top: NODE_Y, width: NODE, height: NODE, background: planned ? surface : accent, borderColor: accent, borderStyle: planned ? 'dashed' : 'solid', boxShadow: `0 0 10px ${accent}` }}></div>
+        <div className="absolute left-1/2 right-[-1px] h-[2px]" style={{ top: NODE_C - 1, background: planned ? `repeating-linear-gradient(to right, ${accent} 0 7px, transparent 7px 12px)` : accent }}></div>
     </div>
 );
 
@@ -198,6 +203,7 @@ const BranchRow = ({ row, isLast, accent, surface, colorFor, renderItem, mergedF
                         key: g.lane,
                         color: colorFor(g.items[0]),
                         merged: allMerged,
+                        planned: g.items.some((item) => item.planned),
                         spineX,
                         topY: mainTop - OVER - i * 8,
                         botY: (r.bottom - wrap.top) + OVER + i * 8,
@@ -215,7 +221,7 @@ const BranchRow = ({ row, isLast, accent, surface, colorFor, renderItem, mergedF
     }, [laneGroups, colorFor]);
 
     return (
-        <div ref={wrapRef} className="relative flex" style={{ paddingTop: 22, paddingBottom: isLast ? 8 : ROW_GAP }}>
+        <div role="listitem" ref={wrapRef} className="relative flex" style={{ paddingTop: 22, paddingBottom: isLast ? 8 : ROW_GAP }}>
             <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 4, overflow: 'visible' }} aria-hidden="true">
                 {loops.map((l) => {
                     const R = CORNER;
@@ -225,7 +231,7 @@ const BranchRow = ({ row, isLast, accent, surface, colorFor, renderItem, mergedF
                         : `M ${l.spineX} ${l.topY} L ${l.branchX - R} ${l.topY} Q ${l.branchX} ${l.topY} ${l.branchX} ${l.topY + R} L ${l.branchX} ${l.endY}`;
                     return (
                         <g key={l.key}>
-                            <path d={d} fill="none" stroke={l.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d={d} fill="none" stroke={l.color} strokeWidth="2" strokeDasharray={l.planned ? '7 6' : undefined} strokeLinecap="round" strokeLinejoin="round" />
                             <circle cx={l.spineX} cy={l.topY} r="3.2" fill={l.color} />
                             {l.merged
                                 ? <circle cx={l.spineX} cy={l.botY} r="3.2" fill={l.color} />
@@ -235,7 +241,7 @@ const BranchRow = ({ row, isLast, accent, surface, colorFor, renderItem, mergedF
                 })}
             </svg>
 
-            <Spine accent={accent} surface={surface} isLast={isLast} />
+            <Spine accent={accent} surface={surface} isLast={isLast} planned={row.backbone.planned} />
 
             <div className="flex-1 min-w-0 relative" style={{ zIndex: 10 }}>
                 <div className="flex items-stretch" style={{ gap: COL_GAP }}>
@@ -273,7 +279,7 @@ const GitTimeline = ({
     const isDesktop = useIsDesktop(mobileBreakpoint);
     const { rows, ordered, maxLane } = computeLanes(items, { order });
     const accent = laneColors[0];
-    const colorFor = (item) => item.color || laneColors[item.lane % laneColors.length];
+    const colorFor = useCallback((item) => item.color || laneColors[item.lane % laneColors.length], [laneColors]);
     const renderItem = (item, isBranch) => {
         const color = colorFor(item);
         return renderCard ? renderCard(item, { color, isBranch }) : <DefaultCard item={item} color={color} compact={isBranch} />;
@@ -282,29 +288,29 @@ const GitTimeline = ({
     // Mobile: a plain chronological list. No spine, no branch graph.
     if (!isDesktop) {
         return (
-            <div className={`max-w-2xl mx-auto space-y-5 ${className}`}>
+            <ol className={`mobile-timeline max-w-2xl mx-auto space-y-5 ${className}`}>
                 {ordered.map((item) => {
                     const merged = item.lane > 0 && item._end != null;
                     return (
-                        <div key={item.id} className={item.lane > 0 ? 'pl-4 border-l-2' : ''} style={item.lane > 0 ? { borderColor: colorFor(item) } : undefined}>
+                        <li key={item.id} className={`${item.lane > 0 ? 'pl-4 border-l-2' : ''} ${item.planned ? 'mobile-timeline--planned' : ''}`} style={item.lane > 0 ? { borderColor: colorFor(item), borderStyle: item.planned ? 'dashed' : 'solid' } : undefined}>
                             {renderItem(item, item.lane > 0)}
                             {merged && <div className="mt-3"><MergeChip color={colorFor(item)} label={item.mergedLabel || mergedFallback} /></div>}
-                        </div>
+                        </li>
                     );
                 })}
-            </div>
+            </ol>
         );
     }
 
     return (
-        <div className={`${widthByLanes[Math.min(maxLane, widthByLanes.length - 1)]} mx-auto ${className}`}>
+        <div role="list" className={`${widthByLanes[Math.min(maxLane, widthByLanes.length - 1)]} mx-auto ${className}`}>
             <StartCap accent={accent} showArrow={showArrow} />
             {rows.map((row, ri) => {
                 const isLast = ri === rows.length - 1;
                 if (row.branches.length === 0) {
                     return (
-                        <div key={row.backbone.id} className="flex" style={{ paddingBottom: isLast ? 0 : ROW_GAP }}>
-                            <Spine accent={accent} surface={surfaceColor} isLast={isLast} />
+                        <div role="listitem" key={row.backbone.id} className="flex" style={{ paddingBottom: isLast ? 0 : ROW_GAP }}>
+                            <Spine accent={accent} surface={surfaceColor} isLast={isLast} planned={row.backbone.planned} />
                             <div className="flex-1 min-w-0">{renderItem(row.backbone, false)}</div>
                         </div>
                     );

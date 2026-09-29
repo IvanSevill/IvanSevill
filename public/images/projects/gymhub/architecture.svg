@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+  <title id="title">GymHub architecture</title><desc id="desc">React web app talks to a FastAPI core and integrations, while a separate Gemini service calls 27 MCP tools through authenticated APIs.</desc>
+  <defs><style>.bg{fill:#080b12}.box{fill:#101626;stroke:#ff7a1a;stroke-width:2}.aux{fill:#111927;stroke:#557092;stroke-width:2}.line{fill:none;stroke:#ff7a1a;stroke-width:3}.blue{fill:none;stroke:#6fa8ff;stroke-width:3;stroke-dasharray:10 7}.h{fill:#fff;font:700 24px ui-monospace,monospace}.t{fill:#b7c2d8;font:18px ui-monospace,monospace}.k{fill:#ff7a1a;font:700 17px ui-monospace,monospace}</style><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#ff7a1a"/></marker><marker id="b" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#6fa8ff"/></marker></defs>
+  <rect class="bg" width="1400" height="820"/><text class="k" x="65" y="60">GYMHUB · RESPONSIVE WEB PLATFORM</text>
+  <rect class="box" x="70" y="125" width="280" height="125"/><text class="h" x="105" y="175">React 19 SPA</text><text class="t" x="105" y="211">Query · charts · SSE</text>
+  <rect class="box" x="520" y="125" width="310" height="125"/><text class="h" x="555" y="175">FastAPI core</text><text class="t" x="555" y="211">auth · domain · REST</text><path class="line" d="M350 188H505" marker-end="url(#a)"/>
+  <rect class="aux" x="1000" y="90" width="310" height="100"/><text class="h" x="1035" y="132">Google Calendar</text><text class="t" x="1035" y="166">workout synchronization</text>
+  <rect class="aux" x="1000" y="220" width="310" height="100"/><text class="h" x="1035" y="262">Fitbit</text><text class="t" x="1035" y="296">activity · sleep · health</text>
+  <path class="line" d="M830 160H940V140H985" marker-end="url(#a)"/><path class="line" d="M830 215H940V270H985" marker-end="url(#a)"/>
+  <rect class="aux" x="520" y="365" width="310" height="110"/><text class="h" x="555" y="410">SQLAlchemy</text><text class="t" x="555" y="446">SQLite local · PostgreSQL</text><path class="line" d="M675 250V350" marker-end="url(#a)"/>
+  <rect class="box" x="70" y="580" width="300" height="125"/><text class="h" x="105" y="628">Gemini assistant</text><text class="t" x="105" y="663">separate FastAPI service</text>
+  <rect class="box" x="520" y="580" width="310" height="125"/><text class="h" x="555" y="628">MCP server</text><text class="t" x="555" y="663">27 read/write tools</text>
+  <path class="blue" d="M210 250V540H220V565" marker-end="url(#b)"/><path class="blue" d="M370 643H505" marker-end="url(#b)"/><path class="blue" d="M830 643H920V420H845" marker-end="url(#b)"/>
+  <text class="t" x="915" y="455">authenticated backend APIs</text><text class="k" x="70" y="775">Single-user by design · no Android client</text>
+</svg>

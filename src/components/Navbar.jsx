@@ -1,110 +1,90 @@
-import React, { useState, useEffect } from 'react';
-import { motion as Motion } from 'framer-motion';
-import { Menu, X, Globe } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
-import TimeIndicator from './TimeIndicator';
+import { useEffect, useRef, useState } from 'react'
+import { motion as Motion } from 'framer-motion'
+import { Globe, Menu, X } from 'lucide-react'
+import { Link } from 'react-router'
+import { useTranslation } from 'react-i18next'
+import TimeIndicator from './TimeIndicator'
 
-const Navbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
-    const { t, i18n } = useTranslation();
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const menuButtonRef = useRef(null)
+  const firstMobileLinkRef = useRef(null)
+  const { t, i18n } = useTranslation()
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50)
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
-    const links = [
-        { name: t('navbar.home'), href: '#hero' },
-        { name: t('navbar.about'), href: '#about' },
-        { name: t('navbar.experience'), href: '#experience' },
-        { name: t('navbar.education'), href: '#education' },
-        { name: t('navbar.projects'), href: '#projects' },
-        { name: t('navbar.contact'), href: '#contact' },
-    ];
+  useEffect(() => {
+    if (!isOpen) return undefined
+    firstMobileLinkRef.current?.focus()
+    const handleKeyDown = (event) => {
+      if (event.key !== 'Escape') return
+      setIsOpen(false)
+      menuButtonRef.current?.focus()
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [isOpen])
 
-    const toggleLanguage = () => {
-        i18n.changeLanguage(i18n.language === 'en' ? 'es' : 'en');
-    };
+  const links = [
+    { name: t('navbar.home'), hash: 'hero' },
+    { name: t('navbar.about'), hash: 'about' },
+    { name: t('navbar.experience'), hash: 'experience' },
+    { name: t('navbar.education'), hash: 'education' },
+    { name: t('navbar.projects'), hash: 'projects' },
+    { name: t('navbar.contact'), hash: 'contact' },
+  ]
+  const isSpanish = i18n.resolvedLanguage?.startsWith('es')
+  const linkTo = (hash) => ({ pathname: '/', hash: `#${hash}` })
+  const toggleLanguage = () => i18n.changeLanguage(isSpanish ? 'en' : 'es')
 
-    return (
-        <nav
-            className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-[#05050a]/95 py-4 border-b border-[var(--accent-primary)]/20' : 'bg-transparent py-6'
-                }`}
-        >
-            <div className="container flex justify-between items-center">
-                <a href="#hero" className="text-xl font-bold">
-                    <span className="text-[var(--accent-primary)]">~/</span>ivansevill
-                </a>
+  return (
+    <nav className={`site-nav ${scrolled ? 'site-nav--scrolled' : ''}`} aria-label={isSpanish ? 'Navegación principal' : 'Primary navigation'}>
+      <div className="container nav-inner">
+        <Link to={linkTo('hero')} className="nav-brand" onClick={() => setIsOpen(false)} aria-label={isSpanish ? 'Ir al inicio' : 'Go home'}>
+          <span>~/</span>ivansevill
+        </Link>
 
-                {/* Desktop Menu */}
-                <div className="hidden md:flex items-center space-x-8">
-                    {links.map((link) => (
-                        <a
-                            key={link.name}
-                            href={link.href}
-                            className="relative hover:text-[var(--accent-primary)] transition-colors text-sm uppercase tracking-wide font-medium before:content-['>_'] before:absolute before:-left-4 before:text-[var(--accent-primary)] before:opacity-0 hover:before:opacity-100 before:transition-opacity"
-                        >
-                            {link.name}
-                        </a>
-                    ))}
+        <div className="nav-desktop">
+          {links.map((link) => <Link key={link.hash} to={linkTo(link.hash)}>{link.name}</Link>)}
+          <TimeIndicator />
+          <button onClick={toggleLanguage} className="language-button" aria-label={isSpanish ? 'Cambiar idioma a inglés' : 'Switch language to Spanish'}>
+            <Globe size={16} aria-hidden="true" />
+            <span>{isSpanish ? 'ES' : 'EN'}</span>
+          </button>
+        </div>
 
-                    <TimeIndicator />
+        <div className="nav-mobile-actions">
+          <button onClick={toggleLanguage} className="language-button" aria-label={isSpanish ? 'Cambiar idioma a inglés' : 'Switch language to Spanish'}>
+            {isSpanish ? 'ES' : 'EN'}
+          </button>
+          <button
+            ref={menuButtonRef}
+            className="menu-button"
+            onClick={() => setIsOpen((open) => !open)}
+            aria-label={isOpen ? (isSpanish ? 'Cerrar menú' : 'Close menu') : (isSpanish ? 'Abrir menú' : 'Open menu')}
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
+          >
+            {isOpen ? <X size={27} aria-hidden="true" /> : <Menu size={27} aria-hidden="true" />}
+          </button>
+        </div>
+      </div>
 
-                    <button
-                        onClick={toggleLanguage}
-                        className="flex items-center gap-2 px-3 py-1 rounded-none border border-[var(--accent-primary)]/30 hover:bg-[var(--accent-primary)]/10 hover:border-[var(--accent-primary)] transition-colors text-sm"
-                    >
-                        <Globe size={16} />
-                        <span className="uppercase">{i18n.language}</span>
-                    </button>
-                </div>
-
-                {/* Mobile Menu Button */}
-                <div className="md:hidden flex items-center gap-4">
-                    <button
-                        onClick={toggleLanguage}
-                        className="flex items-center gap-2 px-3 py-1 rounded-none border border-[var(--accent-primary)]/30 hover:bg-[var(--accent-primary)]/10 transition-colors text-sm"
-                    >
-                        <span className="uppercase">{i18n.language}</span>
-                    </button>
-                    <button
-                        className="text-[var(--text-primary)] hover:text-[var(--accent-primary)] transition-colors"
-                        onClick={() => setIsOpen(!isOpen)}
-                        aria-label={isOpen ? 'Close menu' : 'Open menu'}
-                        aria-expanded={isOpen}
-                    >
-                        {isOpen ? <X size={28} /> : <Menu size={28} />}
-                    </button>
-                </div>
-            </div>
-
-            {/* Mobile Menu Overlay */}
-            {isOpen && (
-                <Motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="md:hidden absolute top-full left-0 w-full bg-[#05050a]/98 border-b border-[var(--accent-primary)]/20"
-                >
-                    <div className="flex flex-col items-center py-8 space-y-6">
-                        {links.map((link) => (
-                            <a
-                                key={link.name}
-                                href={link.href}
-                                className="text-lg font-medium hover:text-[var(--accent-primary)]"
-                                onClick={() => setIsOpen(false)}
-                            >
-                                {link.name}
-                            </a>
-                        ))}
-                    </div>
-                </Motion.div>
-            )}
-        </nav>
-    );
-};
-
-export default Navbar;
+      {isOpen && (
+        <Motion.div id="mobile-navigation" initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} className="mobile-navigation">
+          {links.map((link, index) => (
+            <Link ref={index === 0 ? firstMobileLinkRef : undefined} key={link.hash} to={linkTo(link.hash)} onClick={() => setIsOpen(false)}>
+              {link.name}
+            </Link>
+          ))}
+        </Motion.div>
+      )}
+    </nav>
+  )
+}

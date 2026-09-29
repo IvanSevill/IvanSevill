@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+  <title id="title">AISS-Miner architecture</title><desc id="desc">Three Spring adapters normalize GitHub, GitLab and Bitbucket APIs into a GitMiner core with REST, GraphQL and JPA H2 persistence.</desc>
+  <defs><style>.bg{fill:#090a0d}.box{fill:#11141a;stroke:#f4a261;stroke-width:2}.core{fill:#15130f;stroke:#ffd166;stroke-width:3}.line{fill:none;stroke:#f4a261;stroke-width:3}.h{fill:#f8f4ed;font:700 24px ui-monospace,monospace}.t{fill:#c9c0b5;font:18px ui-monospace,monospace}.k{fill:#f4a261;font:700 17px ui-monospace,monospace}.note{fill:#9d9489;font:16px ui-monospace,monospace}</style><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#f4a261"/></marker></defs>
+  <rect class="bg" width="1400" height="820"/><text class="k" x="65" y="60">AISS-MINER · ACADEMIC INTEGRATION</text>
+  <rect class="box" x="70" y="115" width="260" height="120"/><text class="h" x="105" y="162">GitHub API</text><text class="t" x="105" y="200">Spring adapter</text>
+  <rect class="box" x="70" y="350" width="260" height="120"/><text class="h" x="105" y="397">GitLab API</text><text class="t" x="105" y="435">Spring adapter</text>
+  <rect class="box" x="70" y="585" width="260" height="120"/><text class="h" x="105" y="632">Bitbucket API</text><text class="t" x="105" y="670">Spring adapter</text>
+  <rect class="core" x="520" y="285" width="370" height="250"/><text class="h" x="555" y="337">GitMiner core</text><text class="t" x="555" y="382">canonical repository model</text><text class="t" x="555" y="420">REST · GraphQL</text><text class="t" x="555" y="458">JPA · H2</text><text class="t" x="555" y="496">repos · commits · issues</text>
+  <path class="line" d="M330 175H430V340H505" marker-end="url(#a)"/><path class="line" d="M330 410H505" marker-end="url(#a)"/><path class="line" d="M330 645H430V480H505" marker-end="url(#a)"/>
+  <rect class="box" x="1080" y="300" width="250" height="100"/><text class="h" x="1115" y="344">REST clients</text><text class="t" x="1115" y="378">canonical JSON</text>
+  <rect class="box" x="1080" y="455" width="250" height="100"/><text class="h" x="1115" y="499">GraphQL</text><text class="t" x="1115" y="533">query interface</text>
+  <path class="line" d="M890 385H1010V350H1065" marker-end="url(#a)"/><path class="line" d="M890 440H1010V505H1065" marker-end="url(#a)"/>
+  <text class="note" x="70" y="770">Three-person prototype · transient H2 · no verified deployment</text>
+</svg>

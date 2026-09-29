@@ -54,11 +54,27 @@ const About = () => {
                         {/* More Pictures Place - Responsive Portrait Frame */}
                         <div className="relative group rounded-2xl border border-white/10 bg-white/5 p-3 backdrop-blur-md shadow-xl overflow-hidden">
                             <div className="aspect-[3/4] sm:aspect-auto overflow-hidden rounded-xl">
-                                <img
-                                    src="/images/about.jpg"
-                                    alt="Professional Coding"
-                                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                                />
+                                <picture>
+                                    <source
+                                        type="image/avif"
+                                        srcSet="/images/responsive/about-640.avif 640w, /images/responsive/about-960.avif 960w, /images/responsive/about-1440.avif 1440w"
+                                        sizes="(min-width: 768px) 50vw, 100vw"
+                                    />
+                                    <source
+                                        type="image/webp"
+                                        srcSet="/images/responsive/about-640.webp 640w, /images/responsive/about-960.webp 960w, /images/responsive/about-1440.webp 1440w"
+                                        sizes="(min-width: 768px) 50vw, 100vw"
+                                    />
+                                    <img
+                                        src="/images/about.jpg"
+                                        width="1440"
+                                        height="810"
+                                        loading="lazy"
+                                        decoding="async"
+                                        alt={t('about.imageAlt')}
+                                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                                    />
+                                </picture>
                             </div>
                             <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/80 via-transparent to-transparent opacity-60"></div>
                             <div className="absolute bottom-6 left-6">

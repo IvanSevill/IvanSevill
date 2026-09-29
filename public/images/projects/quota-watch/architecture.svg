@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+  <title id="title">quota-watch architecture</title><desc id="desc">Claude status snapshots and Codex app-server or bounded rollout data feed a provider-neutral freshness-aware schema used by CLI, scripts and OpenCode integrations.</desc>
+  <defs><style>.bg{fill:#080a0d}.box{fill:#0f1519;stroke:#7ad9ff;stroke-width:2}.soft{fill:#11171c;stroke:#647780;stroke-width:2}.line{fill:none;stroke:#7ad9ff;stroke-width:3}.dash{fill:none;stroke:#9aabb2;stroke-width:2;stroke-dasharray:9 8}.h{fill:#f0f7fa;font:700 24px ui-monospace,monospace}.t{fill:#bccbd1;font:18px ui-monospace,monospace}.k{fill:#7ad9ff;font:700 17px ui-monospace,monospace}.note{fill:#9aabb2;font:16px ui-monospace,monospace}</style><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#7ad9ff"/></marker></defs>
+  <rect class="bg" width="1400" height="820"/><text class="k" x="65" y="60">QUOTA-WATCH · LOCAL DATA PIPELINE</text>
+  <rect class="soft" x="70" y="130" width="290" height="120"/><text class="h" x="105" y="178">Claude snapshot</text><text class="t" x="105" y="215">status-line capture</text>
+  <rect class="soft" x="70" y="350" width="290" height="120"/><text class="h" x="105" y="398">Codex app-server</text><text class="t" x="105" y="435">official local source</text>
+  <rect class="soft" x="70" y="570" width="290" height="120"/><text class="h" x="105" y="618">Rollout fallback</text><text class="t" x="105" y="655">allow-listed events only</text>
+  <rect class="box" x="510" y="285" width="350" height="210"/><text class="h" x="545" y="335">Canonical snapshot</text><text class="t" x="545" y="380">provider · limits · source</text><text class="t" x="545" y="416">freshness · credits · errors</text><text class="t" x="545" y="452">last-known-good cache</text>
+  <path class="line" d="M360 190H440V330H495" marker-end="url(#a)"/><path class="line" d="M360 410H495" marker-end="url(#a)"/><path class="dash" d="M360 630H440V450H495" marker-end="url(#a)"/>
+  <rect class="box" x="1030" y="120" width="290" height="115"/><text class="h" x="1065" y="166">CLI / JSON</text><text class="t" x="1065" y="202">people and scripts</text>
+  <rect class="box" x="1030" y="350" width="290" height="115"/><text class="h" x="1065" y="396">OpenCode tool</text><text class="t" x="1065" y="432">machine-readable</text>
+  <rect class="box" x="1030" y="580" width="290" height="115"/><text class="h" x="1065" y="626">Optional TUI</text><text class="t" x="1065" y="662">separate dependencies</text>
+  <path class="line" d="M860 390H945V178H1015" marker-end="url(#a)"/><path class="line" d="M945 408H1015" marker-end="url(#a)"/><path class="line" d="M945 408V638H1015" marker-end="url(#a)"/>
+  <text class="note" x="70" y="770">Implemented providers: Claude and Codex. Unknown and stale remain explicit states.</text>
+</svg>

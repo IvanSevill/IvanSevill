@@ -11,12 +11,6 @@
 
 ---
 
-### Contributing and Deployment
-
-- Pull requests and pushes to `main` are validated by [CI](.github/workflows/ci.yml) with tests, lint, and a production build.
-- Semantic-version tags deploy automatically to the VPS after the tagged commit passes the same validation. See the [deployment guide](docs/deployment.md).
-
----
 
 ### 👨‍💻 About Me
 

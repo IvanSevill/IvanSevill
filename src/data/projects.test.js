@@ -60,8 +60,40 @@ describe('featured project data', () => {
     expect(projectsSource).toContain('dialog.showModal()')
     expect(projectsSource).toContain('onCancel=')
     expect(projectsSource).toContain('returnFocusRef.current?.focus()')
+    expect(projectsSource).toContain("matchMedia('(pointer: fine)'")
     expect(projectsSource).toContain('to={projectPath(project.slug)}')
     expect(detailSource).toContain('project-full-link')
+    expect(detailSource).not.toContain('autoFocus')
+  })
+
+  it('keeps the dialog nav fixed with section snapping and touch-safe focus', () => {
+    const stylesheet = readFileSync(new URL('../index.css', import.meta.url), 'utf8')
+    expect(stylesheet).toMatch(/\.project-detail--modal \.project-detail-nav \{[\s\S]*?position: sticky;/)
+    expect(stylesheet).toMatch(/\.project-dialog \{[\s\S]*?overscroll-behavior: contain;/)
+    expect(stylesheet).toMatch(/\.project-dialog \{[\s\S]*?scroll-snap-type: y proximity;/)
+    expect(stylesheet).toContain('scroll-padding-top')
+    expect(stylesheet).toContain('.project-detail--modal .project-body > .detail-section')
+    expect(stylesheet).toContain('scroll-snap-align: start;')
+    expect(stylesheet).toMatch(/-webkit-tap-highlight-color: transparent;/)
+    expect(detailSource).toMatch(/\{\s*modal && \(\s*<div className="project-detail-nav"/)
+  })
+
+  it('opens the dialog from anywhere on the card with a hidden dialog scrollbar', () => {
+    const stylesheet = readFileSync(new URL('../index.css', import.meta.url), 'utf8')
+    expect(projectsSource).toContain('openFromCard')
+    expect(projectsSource).toContain("closest('a, button')")
+    expect(projectsSource).toContain("querySelector('.project-primary-link')")
+    expect(stylesheet).toMatch(/\.project-card \{[\s\S]*?cursor: pointer;/)
+    expect(stylesheet).toContain('scrollbar-width: none;')
+    expect(stylesheet).toContain('.project-dialog::-webkit-scrollbar')
+    expect(stylesheet).toContain('html::-webkit-scrollbar')
+    expect(stylesheet).toMatch(/\.project-dialog \{[\s\S]*?margin: auto;/)
+  })
+
+  it('shows a grander hero at the top of the dialog', () => {
+    const stylesheet = readFileSync(new URL('../index.css', import.meta.url), 'utf8')
+    expect(stylesheet).toMatch(/\.project-detail--modal \.project-hero \{[\s\S]*?padding-top: 3\.5rem;/)
+    expect(stylesheet).toMatch(/\.project-detail--modal \.project-hero h1 \{[\s\S]*?font-size: clamp\(3\.2rem, 9vw, 7rem\);/)
   })
 
   it('returns undefined for unknown project slugs', () => {

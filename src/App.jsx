@@ -65,7 +65,13 @@ function App() {
           </Suspense>
           <footer className="site-footer">
             <span>© {new Date().getFullYear()} Iván Jesús Sevillano Plaza. {isSpanish ? 'Todos los derechos reservados.' : 'All rights reserved.'}</span>
-            <code title={isSpanish ? 'Versión y commit desplegados' : 'Deployed version and commit'}>{build.version} · {build.commit}</code>
+            <code title={isSpanish ? 'Versión y commit desplegados' : 'Deployed version and commit'}>
+              {build.commitUrl ? (
+                <a href={build.commitUrl} target="_blank" rel="noreferrer">{build.version} · {build.commit}</a>
+              ) : (
+                <>{build.version} · {build.commit}</>
+              )}
+            </code>
           </footer>
         </div>
       </MotionConfig>

@@ -85,15 +85,18 @@ export default function ProjectDetailPage({ projectData, modal = false, onClose 
   return (
     <Root id={modal ? 'project-dialog-content' : 'main-content'} tabIndex="-1" className={`project-detail ${modal ? 'project-detail--modal' : ''}`.trim()}>
       {!modal && <Seo project={project} />}
-      <header className="project-hero container">
+      {modal && (
         <div className="project-detail-nav">
-          {modal ? (
-            <button type="button" className="back-link project-modal-close" onClick={onClose} autoFocus><X size={17} /> {text.close}</button>
-          ) : (
-            <Link to="/#projects" className="back-link"><ArrowLeft size={17} /> {text.back}</Link>
-          )}
-          {modal && <Link to={`/projects/${project.slug}`} className="project-full-link">{text.openPage} <ExternalLink size={15} /></Link>}
+          <button type="button" className="back-link project-modal-close" onClick={onClose}><X size={17} /> {text.close}</button>
+          <Link to={`/projects/${project.slug}`} className="project-full-link">{text.openPage} <ExternalLink size={15} /></Link>
         </div>
+      )}
+      <header className="project-hero container">
+        {!modal && (
+          <div className="project-detail-nav">
+            <Link to="/#projects" className="back-link"><ArrowLeft size={17} /> {text.back}</Link>
+          </div>
+        )}
         <div className="project-hero-grid">
           <div className="project-hero-copy">
             <p className="project-eyebrow">{project.eyebrow}</p>

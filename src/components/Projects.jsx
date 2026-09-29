@@ -25,10 +25,20 @@ export default function Projects() {
     setSelectedProject(project)
   }
 
+  const openFromCard = (event, project) => {
+    if (event.target.closest('a, button')) return
+    const fallback = event.currentTarget.querySelector('.project-primary-link')
+    if (!fallback) return
+    returnFocusRef.current = fallback
+    setSelectedProject(project)
+  }
+
   const closeProject = () => {
     dialogRef.current?.close()
     setSelectedProject(null)
-    window.requestAnimationFrame(() => returnFocusRef.current?.focus())
+    if (window.matchMedia('(pointer: fine)').matches) {
+      window.requestAnimationFrame(() => returnFocusRef.current?.focus())
+    }
   }
 
   return (
@@ -51,6 +61,7 @@ export default function Projects() {
                 viewport={{ once: true, amount: 0.15 }}
                 transition={{ delay: index * 0.04 }}
                 className="project-card"
+                onClick={(event) => openFromCard(event, rawProject)}
               >
                 <div className="terminal-bar" aria-hidden="true"><span /><span /><span /><code>{project.slug}.case-study</code></div>
                 <div className="project-card-body">

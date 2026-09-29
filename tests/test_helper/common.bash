@@ -4,6 +4,7 @@ common_setup() {
   FAKE_BIN="$TEST_ROOT/bin"
   FAKE_REPO="$TEST_ROOT/repository"
   FAKE_COMPOSE_FILE="$TEST_ROOT/docker-compose.yml"
+  FAKE_COMPOSE_OVERRIDE="$TEST_ROOT/docker-compose.production.yml"
   FAKE_RELEASE_DIR="$TEST_ROOT/releases"
   FAKE_LOCK_FILE="$TEST_ROOT/deploy.lock"
   FAKE_STATE="$TEST_ROOT/state"
@@ -16,6 +17,7 @@ common_setup() {
 
   mkdir -p "$FAKE_BIN" "$FAKE_REPO/.git" "$FAKE_RELEASE_DIR" "$FAKE_STATE"
   : >"$FAKE_COMPOSE_FILE"
+  : >"$FAKE_COMPOSE_OVERRIDE"
   : >"$FAKE_LOG"
   printf '%s\n' "$PREVIOUS_IMAGE_ID" >"$FAKE_STATE/production-image"
   printf '%s\n' "$PREVIOUS_IMAGE_ID" >"$FAKE_STATE/service-image"
@@ -24,7 +26,7 @@ common_setup() {
   rewrite_script_paths "$PROJECT_ROOT/scripts/deploy-vps.sh" "$DEPLOY_UNDER_TEST"
   rewrite_script_paths "$PROJECT_ROOT/scripts/verify-production.sh" "$VERIFY_UNDER_TEST"
 
-  export PROJECT_ROOT TEST_ROOT FAKE_BIN FAKE_REPO FAKE_COMPOSE_FILE
+  export PROJECT_ROOT TEST_ROOT FAKE_BIN FAKE_REPO FAKE_COMPOSE_FILE FAKE_COMPOSE_OVERRIDE
   export FAKE_RELEASE_DIR FAKE_LOCK_FILE FAKE_STATE FAKE_LOG
   export DEPLOY_UNDER_TEST VERIFY_UNDER_TEST APPROVED_SHA
   export PREVIOUS_IMAGE_ID CANDIDATE_IMAGE_ID
@@ -56,6 +58,7 @@ rewrite_script_paths() {
     case "$line" in
       'readonly REPO_DIR='*) printf 'readonly REPO_DIR=%q\n' "$FAKE_REPO" ;;
       'readonly COMPOSE_FILE='*) printf 'readonly COMPOSE_FILE=%q\n' "$FAKE_COMPOSE_FILE" ;;
+      'readonly COMPOSE_OVERRIDE='*) printf 'readonly COMPOSE_OVERRIDE=%q\n' "$FAKE_COMPOSE_OVERRIDE" ;;
       'readonly RELEASE_DIR='*) printf 'readonly RELEASE_DIR=%q\n' "$FAKE_RELEASE_DIR" ;;
       'readonly LOCK_FILE='*) printf 'readonly LOCK_FILE=%q\n' "$FAKE_LOCK_FILE" ;;
       'readonly SCRIPT_PATH='*) printf 'readonly SCRIPT_PATH=%q\n' "$DEPLOY_UNDER_TEST" ;;
@@ -69,6 +72,7 @@ run_deploy_flow() {
   bash -c '
     source "$DEPLOY_UNDER_TEST"
     confirm_deployment() { :; }
+    MODE=deploy
     REQUESTED_SHA=$APPROVED_SHA
     trap on_exit EXIT
     trap "on_signal INT" INT

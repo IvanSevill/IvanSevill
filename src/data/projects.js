@@ -25,6 +25,20 @@ export const featuredProjects = [
       architectureImage: '/images/projects/kaiprompt/architecture.svg',
       media: [
         {
+          src: '/images/projects/kaiprompt/kaiprompt-tui.png',
+          width: 934,
+          height: 431,
+          kind: 'terminal',
+          alt: {
+            en: 'Kaiprompt TUI showing queued jobs with engine, prompt and status',
+            es: 'TUI de Kaiprompt con trabajos en cola, motor, prompt y estado',
+          },
+          caption: {
+            en: 'Kaiprompt queue TUI with synthetic jobs demonstrating the local-first scheduler.',
+            es: 'TUI de cola de Kaiprompt con trabajos sintéticos que muestran el planificador local.',
+          },
+        },
+        {
           src: '/images/projects/kaiprompt/cli-help.svg',
           width: 1400,
           height: 820,
@@ -37,12 +51,6 @@ export const featuredProjects = [
             en: 'Rendered from the real `node kaip.mjs help` output, with paths and user data omitted.',
             es: 'Renderizado a partir de la salida real de `node kaip.mjs help`, sin rutas ni datos personales.',
           },
-        },
-      ],
-      pendingMedia: [
-        {
-          filename: 'kaiprompt-tui.png',
-          title: { en: 'Queue TUI capture', es: 'Captura de la TUI de la cola' },
         },
       ],
     },
@@ -137,6 +145,20 @@ export const featuredProjects = [
       architectureImage: '/images/projects/gymhub/architecture.svg',
       media: [
         {
+          src: '/images/projects/gymhub/gymhub-dashboard.png',
+          width: 1107,
+          height: 631,
+          kind: 'screenshot',
+          alt: {
+            en: 'GymHub analytics dashboard with workout volume, frequency and personal records',
+            es: 'Panel de analítica de GymHub con volumen, frecuencia y récords personales',
+          },
+          caption: {
+            en: 'GymHub analytics dashboard with synthetic training data.',
+            es: 'Panel de analítica de GymHub con datos sintéticos de entrenamiento.',
+          },
+        },
+        {
           src: '/images/projects/gymhub/login-page.webp',
           width: 1135,
           height: 748,
@@ -149,12 +171,6 @@ export const featuredProjects = [
             en: 'Genuine login screen from the project documentation; it contains no account or health data.',
             es: 'Pantalla de acceso real de la documentación del proyecto; no contiene datos de cuenta ni salud.',
           },
-        },
-      ],
-      pendingMedia: [
-        {
-          filename: 'gymhub-dashboard.png',
-          title: { en: 'Redacted analytics dashboard', es: 'Panel de analítica redactado' },
         },
       ],
     },
@@ -336,6 +352,20 @@ export const featuredProjects = [
       architectureImage: '/images/projects/quota-watch/architecture.svg',
       media: [
         {
+          src: '/images/projects/quota-watch/quota-watch-tui.png',
+          width: 430,
+          height: 238,
+          kind: 'terminal',
+          alt: {
+            en: 'quota-watch indicator inside OpenCode TUI showing Claude and Codex quota status',
+            es: 'Indicador de quota-watch en la TUI de OpenCode con cuotas de Claude y Codex',
+          },
+          caption: {
+            en: 'quota-watch OpenCode TUI indicator with synthetic quota data.',
+            es: 'Indicador de quota-watch en la TUI de OpenCode con datos sintéticos.',
+          },
+        },
+        {
           src: '/images/projects/quota-watch/quota-terminal.svg',
           width: 1400,
           height: 760,
@@ -348,12 +378,6 @@ export const featuredProjects = [
             en: 'Synthetic, non-sensitive values rendered in the real documented CLI/schema format; local execution had no usage snapshot available.',
             es: 'Valores sintéticos y no sensibles con el formato real documentado; la ejecución local no disponía de una captura de uso.',
           },
-        },
-      ],
-      pendingMedia: [
-        {
-          filename: 'quota-watch-tui.png',
-          title: { en: 'OpenCode TUI indicator', es: 'Indicador en la TUI de OpenCode' },
         },
       ],
     },
@@ -444,15 +468,34 @@ export const featuredProjects = [
         es: 'Prototipo académico sin despliegue en vivo verificado.',
       },
       architectureImage: '/images/projects/aiss-miner/architecture.svg',
-      media: [],
-      pendingMedia: [
+      media: [
         {
-          filename: 'aiss-miner-swagger.png',
-          title: { en: 'Local Swagger UI', es: 'Swagger UI local' },
+          src: '/images/projects/aiss-miner/aiss-miner-swagger.png',
+          width: 1293,
+          height: 551,
+          kind: 'screenshot',
+          alt: {
+            en: 'AISS-Miner local Swagger UI showing REST API endpoints',
+            es: 'Swagger UI local de AISS-Miner con endpoints REST',
+          },
+          caption: {
+            en: 'AISS-Miner local Swagger UI with REST API endpoints.',
+            es: 'Swagger UI local de AISS-Miner con endpoints REST.',
+          },
         },
         {
-          filename: 'aiss-miner-graphiql.png',
-          title: { en: 'GraphiQL query', es: 'Consulta en GraphiQL' },
+          src: '/images/projects/aiss-miner/aiss-miner-graphiql.png',
+          width: 700,
+          height: 501,
+          kind: 'screenshot',
+          alt: {
+            en: 'AISS-Miner GraphiQL interface with a query and JSON response',
+            es: 'Interfaz GraphiQL de AISS-Miner con consulta y respuesta JSON',
+          },
+          caption: {
+            en: 'AISS-Miner GraphiQL query with JSON response.',
+            es: 'Consulta GraphiQL de AISS-Miner con respuesta JSON.',
+          },
         },
       ],
     },

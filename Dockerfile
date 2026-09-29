@@ -1,5 +1,8 @@
 FROM node:22-alpine@sha256:16e22a550f3863206a3f701448c45f7912c6896a62de43add43bb9c86130c3e2 AS build
 
+ARG VCS_REF="unknown"
+ARG VERSION="dev"
+
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci \
@@ -9,7 +12,8 @@ RUN npm ci \
       "lightningcss-linux-arm64-musl@$(node -p 'require("./node_modules/lightningcss/package.json").version')"
 
 COPY . .
-RUN npm run lint && npm run build
+RUN npm run lint \
+    && VITE_APP_VERSION="$VERSION" VITE_APP_COMMIT="$VCS_REF" npm run build
 
 FROM nginx:1.29-alpine
 

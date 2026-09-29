@@ -1,0 +1,129 @@
+name: Deploy production tag
+
+"on":
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portfolio-production
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate tagged release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out tagged commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Verify release tag and main tip
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          [[ "$GITHUB_REF_NAME" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]
+          git fetch --no-tags origin main
+          [[ "$(git rev-parse refs/remotes/origin/main)" == "$GITHUB_SHA" ]]
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Linux native bindings
+        shell: bash
+        run: |
+          native_dir="$(mktemp -d)"
+          trap 'rm -rf "$native_dir"' EXIT
+          npm install --prefix "$native_dir" --no-save --package-lock=false \
+            "@rollup/rollup-linux-x64-gnu@$(node -p 'require("./node_modules/rollup/package.json").version')" \
+            "@tailwindcss/oxide-linux-x64-gnu@$(node -p 'require("./node_modules/@tailwindcss/oxide/package.json").version')" \
+            "lightningcss-linux-x64-gnu@$(node -p 'require("./node_modules/lightningcss/package.json").version')"
+          cp -a "$native_dir/node_modules/@rollup/rollup-linux-x64-gnu" node_modules/@rollup/
+          cp -a "$native_dir/node_modules/@tailwindcss/oxide-linux-x64-gnu" node_modules/@tailwindcss/
+          cp -a "$native_dir/node_modules/lightningcss-linux-x64-gnu" node_modules/
+
+      - name: Test deployment scripts
+        run: npm run test:scripts
+
+      - name: Test application
+        run: npm test
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        env:
+          VITE_APP_VERSION: ${{ github.ref_name }}
+          VITE_APP_COMMIT: ${{ github.sha }}
+        run: npm run build
+
+  deploy:
+    name: Deploy to VPS
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: Production
+      url: https://ivansevill.com
+    steps:
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@d1b6cd204f8dceda5b3eaad7f1f767be390056cd # v4
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+          ping: ${{ secrets.VPS_SSH_HOST }}
+
+      - name: Configure deployment SSH key
+        shell: bash
+        env:
+          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          VPS_SSH_KNOWN_HOSTS: ${{ secrets.VPS_SSH_KNOWN_HOSTS }}
+        run: |
+          set -Eeuo pipefail
+          install -d -m 0700 "$HOME/.ssh"
+          printf '%s\n' "$VPS_SSH_KEY" >"$HOME/.ssh/deploy_key"
+          chmod 0600 "$HOME/.ssh/deploy_key"
+          printf '%s\n' "$VPS_SSH_KNOWN_HOSTS" >"$HOME/.ssh/known_hosts"
+          chmod 0600 "$HOME/.ssh/known_hosts"
+
+      - name: Deploy verified release
+        shell: bash
+        env:
+          VPS_SSH_HOST: ${{ secrets.VPS_SSH_HOST }}
+          VPS_SSH_USER: ${{ secrets.VPS_SSH_USER }}
+        run: |
+          set -Eeuo pipefail
+          ssh \
+            -i "$HOME/.ssh/deploy_key" \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=yes \
+            "$VPS_SSH_USER@$VPS_SSH_HOST" \
+            bash -s -- "$GITHUB_REF_NAME" "$GITHUB_SHA" <<'REMOTE'
+          set -Eeuo pipefail
+          readonly repo=/home/ivansevill/projects/portfolio
+          readonly release_tag=$1
+          readonly release_sha=$2
+
+          [[ -d "$repo/.git" ]]
+          [[ "$(git -C "$repo" symbolic-ref --quiet --short HEAD)" == "main" ]]
+          [[ -z "$(git -C "$repo" status --porcelain --untracked-files=normal)" ]]
+          git -C "$repo" fetch --no-tags origin main "refs/tags/$release_tag:refs/tags/$release_tag"
+          [[ "$(git -C "$repo" rev-parse refs/remotes/origin/main)" == "$release_sha" ]]
+          [[ "$(git -C "$repo" rev-parse "refs/tags/$release_tag^{commit}")" == "$release_sha" ]]
+          git -C "$repo" pull --ff-only origin main
+          "$repo/scripts/deploy-vps.sh" --deploy-tag "$release_tag" "$release_sha"
+          "$repo/scripts/verify-production.sh" --expected-sha "$release_sha"
+          REMOTE

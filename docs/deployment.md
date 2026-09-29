@@ -1,16 +1,72 @@
-# Deploy the portfolio from an approved Git commit
+# Deploy the portfolio from a release tag
 
-GitHub `main` is the source of truth. CI validates changes but never deploys them. Production changes only through an explicit SSH session and `scripts/deploy-vps.sh --deploy <full-commit-sha>` after that exact commit has passed review and CI.
+Pushing a semantic-version tag such as `v1.2.3` deploys that exact commit to the VPS only after deployment-script tests, application tests, lint, and the production build pass. The tag must point to the current `main` tip.
 
-## Quick path
+## Release path
 
-1. Make changes with Codex in the local Fedora clone.
-2. Run `npm ci`, install the platform-native bindings as CI does, then run `npm run test:scripts`, `npm run lint`, and `npm run build`.
-3. Review the diff, then commit and push only after explicit approval.
-4. Wait for the GitHub Actions CI workflow to pass on the approved commit.
-5. Obtain explicit deployment approval for the full 40-character commit SHA.
-6. SSH to the VPS manually and run the versioned deployment script from the repository.
-7. Run `scripts/verify-production.sh --expected-sha <full-commit-sha>` and review the release receipt.
+1. Push the approved commit to `main` and wait for CI to pass.
+2. Create an annotated semantic-version tag on that exact commit.
+3. Push the tag.
+4. Follow the `Deploy production tag` workflow and verify the production environment URL.
+
+```bash
+git switch main
+git pull --ff-only
+git tag -a v1.2.3 -m "Release v1.2.3"
+git push origin v1.2.3
+```
+
+The workflow rejects malformed tags, tags that do not point to the current `origin/main`, failed validation, dirty VPS checkouts, and unexpected tag-to-commit mappings.
+
+## One-time setup
+
+### Tailscale
+
+The VPS is reachable only inside the tailnet. Create a Tailscale OAuth client with writable `auth_keys` scope and permission to create ephemeral nodes tagged `tag:ci`. The tailnet policy must allow `tag:ci` to reach the portfolio VPS on TCP port 22.
+
+Store these repository or `Production` environment secrets:
+
+| Secret | Value |
+|---|---|
+| `TS_OAUTH_CLIENT_ID` | Tailscale OAuth client ID |
+| `TS_OAUTH_SECRET` | Tailscale OAuth client secret |
+| `VPS_SSH_HOST` | VPS Tailscale IP or MagicDNS name |
+| `VPS_SSH_USER` | Dedicated deployment SSH user |
+| `VPS_SSH_KEY` | Private key for the dedicated deployment identity |
+| `VPS_SSH_KNOWN_HOSTS` | Trusted `known_hosts` entry for `VPS_SSH_HOST` |
+
+Use a dedicated SSH key, not a personal workstation key. Add its public key to the VPS account and restrict repository/environment secret access to maintainers.
+
+Generate the host-key value from a trusted device already connected to the tailnet, verify the fingerprint against the VPS, and then save the complete output as `VPS_SSH_KNOWN_HOSTS`:
+
+```bash
+ssh-keyscan -H 100.92.89.85
+```
+
+### GitHub environment
+
+The repository already has a GitHub environment named `Production`. The workflow associates every release with that environment and `https://ivansevill.com`. Do not add required reviewers if tags should deploy without a manual approval step.
+
+## Deployment guarantees
+
+| Gate | Enforcement |
+|---|---|
+| Release authorization | Exact `vMAJOR.MINOR.PATCH` tag |
+| Source commit | Tag SHA must equal current `origin/main` |
+| Validation | Bats, Vitest, ESLint, and Vite build must pass |
+| Network | Ephemeral `tag:ci` Tailscale node |
+| SSH trust | Dedicated key and strict host-key checking |
+| Host identity | Hostname and Tailscale self identity must match `ivansevill-vm` |
+| Production config | Versioned Compose override supplies image, build context, and OCI provenance arguments |
+| Candidate | Isolated container must become healthy before cutover |
+| Rollback | Previous image is tagged immutably and restored on any cutover failure |
+| Evidence | A release receipt records tag, commit, image IDs, and rollback tag |
+
+The workflow fast-forwards the clean VPS checkout before invoking the tagged deployment script. It never resets, cleans, force-pulls, or stashes the checkout.
+
+## Manual fallback
+
+Manual deployment remains available for recovery and requires interactive confirmation of the full commit SHA:
 
 ```bash
 ssh ivansevill-vm
@@ -20,55 +76,8 @@ scripts/deploy-vps.sh --deploy <full-commit-sha>
 scripts/verify-production.sh --expected-sha <full-commit-sha>
 ```
 
-Use `scripts/deploy-vps.sh --dry-run` to repeat all safe prerequisite checks without fetching, pulling, installing dependencies, building images, or changing containers or services.
-
-## Authority boundaries
-
-| Area | Authority |
-|------|-----------|
-| Application source and deployment scripts | Approved commits on GitHub `main` |
-| Pull request and push validation | GitHub Actions CI; hermetic deployment-script tests, lint, and build only |
-| Deployment decision | Explicit human approval of one full commit SHA |
-| Production configuration and secrets | VPS infrastructure files outside this repository |
-| Runtime release evidence | OCI image labels, immutable rollback tags, and release receipts |
-
-Do not edit application source on the VPS. Do not store credentials, `.env` files, private addresses, or production-only configuration in Git. CI has read-only repository permission and contains no deployment, SSH, registry login, environment, artifact publishing, or self-hosted runner steps.
-
-CI runs `npm ci`, exact-version Linux native bindings without changing the lockfile, `npm run test:scripts`, `npm run lint`, and `npm run build`. The Bats suite replaces production commands and paths with temporary fakes; it never connects to a host, deploys, or invokes a real Docker daemon.
-
-## Deployment gates
-
-The deployment script refuses to continue unless all of these conditions hold:
-
-- The host name and online Tailscale self identity match the expected VPS.
-- The checkout is clean, attached to `main`, and uses the exact canonical GitHub origin.
-- The approved full SHA equals fetched `origin/main` and checked-out `HEAD` after a fast-forward-only pull.
-- Rendered `services.portfolio` uses `${PORTFOLIO_IMAGE:-ivansevill/portfolio:production}`, `${PORTFOLIO_BUILD_CONTEXT:-...}`, and the `SOURCE_URL`, `VCS_REF`, and `VERSION` build arguments.
-- `npm ci`, lint, and build pass without changing tracked files.
-- The candidate is built from a temporary `git archive` of the approved SHA and has matching OCI source, revision, and version labels.
-- An isolated candidate container reaches its Docker health check without publishing ports.
-- The operator types the complete approved SHA at the confirmation prompt.
-
-If a pull replaces the deployment script, the old process executes the newly approved script exactly once. The script never resets, cleans, stashes, force-pulls, or deploys a commit other than current `origin/main`.
-
-## Release and rollback
-
-Before recreating the service, the script records the running image ID and creates an immutable `ivansevill/portfolio:rollback-<timestamp>-<image-id>` tag. It then points `ivansevill/portfolio:production` at the validated candidate and recreates only the `portfolio` service with `--no-deps --no-build`.
-
-The release must prove its running image ID and OCI revision, pass a bounded container health wait, and pass HTTPS checks for the root domain, `www`, and `/healthz`. Until the atomic release receipt succeeds, any error or `INT`/`TERM` interruption restores the previous image, proves its running image ID, health, and HTTPS, and propagates rollback failures. It does not modify dependent services.
-
-Successful deployments write a non-secret receipt under `/home/ivansevill/infra/releases/portfolio/<timestamp>-<shortsha>.txt`. Receipts identify the commit, image IDs, source, and rollback tag; they must never contain credentials or environment values.
+Use `scripts/deploy-vps.sh --dry-run` for read-only prerequisite checks.
 
 ## Dirty checkout recovery
 
-If the VPS checkout is dirty, stop. Investigate why each change exists and preserve evidence before deciding what to do. Never use `git reset`, `git clean`, or automatic stashing to make a deployment pass. Reconcile legitimate source changes through review and GitHub, then restore the VPS to an approved clean commit through an explicit maintenance transaction.
-
-## Production preparation still required
-
-The current production Compose definition is intentionally out of scope for this repository change. Before the first deployment, an authorized production-preparation transaction must:
-
-1. Change the portfolio image to `${PORTFOLIO_IMAGE:-ivansevill/portfolio:production}`.
-2. Set the portfolio build context to `${PORTFOLIO_BUILD_CONTEXT:-<repository-path>}` and pass the `SOURCE_URL`, `VCS_REF`, and `VERSION` build arguments.
-3. Run `scripts/deploy-vps.sh --check` and verify that every gate passes.
-
-`--check` only reports this pending state. It never edits Compose.
+If the VPS checkout is dirty, stop and investigate every change. Never use `git reset`, `git clean`, or automatic stashing to make deployment pass. Reconcile legitimate changes through GitHub, then restore a clean approved checkout in a separate maintenance operation.

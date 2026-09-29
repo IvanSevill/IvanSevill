@@ -1,13 +1,13 @@
 # CI/CD Requirements — Portfolio
 
-## Current state (IvanSevill/IvanSevill)
+## Implemented state (IvanSevill/IvanSevill)
 
-Single workflow `.github/workflows/ci.yml`:
-- Triggers: PR + push to `main`
-- Jobs: test:scripts (Bats), lint, build
-- **No deployment step**
-- **No tag trigger**
-- **No commit message validation**
+Two workflows:
+- `.github/workflows/ci.yml` validates PRs and pushes to `main` with Bats, Vitest, lint, and build.
+- `.github/workflows/deploy.yml` validates `vMAJOR.MINOR.PATCH` tags and deploys to the VPS through an ephemeral Tailscale node.
+- Deployment requires the tagged SHA to equal current `origin/main`.
+- The VPS deployment preserves health checks, OCI provenance, release receipts, and automatic rollback.
+- Commit-message validation is not implemented.
 
 ## Reference: uvlhub_practicas CI/CD analysis
 
@@ -84,17 +84,19 @@ Follow conventional commits (already used in the repo):
 
 | Secret | Purpose |
 |--------|---------|
-| `VPS_SSH_HOST` | Target host for deployment |
-| `VPS_SSH_USER` | SSH user |
+| `TS_OAUTH_CLIENT_ID` | Tailscale OAuth client ID with writable `auth_keys` scope |
+| `TS_OAUTH_SECRET` | Tailscale OAuth client secret |
+| `VPS_SSH_HOST` | VPS Tailscale IP or MagicDNS name |
+| `VPS_SSH_USER` | Dedicated SSH deployment user |
 | `VPS_SSH_KEY` | Private key for deployment |
-| `VPS_DEPLOY_PATH` | Path on VPS where portfolio lives |
+| `VPS_SSH_KNOWN_HOSTS` | Verified SSH host-key entry |
 
-## Open questions for Agent A
+## Decisions
 
-1. Should the deploy job reuse the CI workflow via `workflow_call` or duplicate steps?
-2. Should we use GitHub Environments with required reviewers for production?
-3. How to handle rollback — git revert + retag, or keep previous image and switch back?
-4. Should the Docker image be tagged with both the version tag and the commit SHA?
+1. Tag validation is repeated inside the release workflow so deployment cannot start without its own green gate.
+2. The deployment uses the existing `Production` GitHub environment without required reviewers; the release tag is the authorization.
+3. Rollback keeps and restores the previous immutable local image.
+4. Candidate images retain the full commit SHA; OCI metadata and release receipts also record the semantic-version tag.
 
 ## User action items (things YOU need to do)
 

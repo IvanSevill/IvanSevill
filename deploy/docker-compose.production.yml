@@ -1,0 +1,9 @@
+services:
+  portfolio:
+    image: ${PORTFOLIO_IMAGE:-ivansevill/portfolio:production}
+    build:
+      context: ${PORTFOLIO_BUILD_CONTEXT:-/home/ivansevill/projects/portfolio}
+      args:
+        SOURCE_URL: ${SOURCE_URL:-https://github.com/IvanSevill/IvanSevill}
+        VCS_REF: ${VCS_REF:-unknown}
+        VERSION: ${VERSION:-dev}

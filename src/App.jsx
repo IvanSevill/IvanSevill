@@ -4,6 +4,7 @@ import { Route, Routes, useLocation, useNavigationType } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import Navbar from './components/Navbar'
 import { TimeModeProvider } from './context/TimeModeContext'
+import { getBuildIdentity } from './version'
 
 const HomePage = lazy(() => import('./pages/HomePage'))
 const ProjectDetailPage = lazy(() => import('./pages/ProjectDetailPage'))
@@ -43,6 +44,7 @@ function RouteEffects() {
 function App() {
   const { i18n } = useTranslation()
   const isSpanish = i18n.resolvedLanguage?.startsWith('es')
+  const build = getBuildIdentity(import.meta.env)
 
   return (
     <TimeModeProvider>
@@ -62,7 +64,8 @@ function App() {
             </Routes>
           </Suspense>
           <footer className="site-footer">
-            © {new Date().getFullYear()} Iván Jesús Sevillano Plaza. {isSpanish ? 'Todos los derechos reservados.' : 'All rights reserved.'}
+            <span>© {new Date().getFullYear()} Iván Jesús Sevillano Plaza. {isSpanish ? 'Todos los derechos reservados.' : 'All rights reserved.'}</span>
+            <code title={isSpanish ? 'Versión y commit desplegados' : 'Deployed version and commit'}>{build.version} · {build.commit}</code>
           </footer>
         </div>
       </MotionConfig>

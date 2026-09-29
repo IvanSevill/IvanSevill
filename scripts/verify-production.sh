@@ -2,6 +2,7 @@
 set -Eeuo pipefail
 
 readonly COMPOSE_FILE="/home/ivansevill/infra/stacks/services/docker-compose.yml"
+readonly COMPOSE_OVERRIDE="/home/ivansevill/projects/portfolio/deploy/docker-compose.production.yml"
 readonly COMPOSE_PROJECT="services"
 readonly SERVICE="portfolio"
 readonly PRODUCTION_IMAGE="ivansevill/portfolio:production"
@@ -57,10 +58,15 @@ if [[ ! -r "$COMPOSE_FILE" ]]; then
   fail "Compose file is not readable at $COMPOSE_FILE"
   exit 1
 fi
+if [[ ! -r "$COMPOSE_OVERRIDE" ]]; then
+  fail "Production Compose override is not readable at $COMPOSE_OVERRIDE"
+  exit 1
+fi
 
 container_id=$(PORTFOLIO_IMAGE="$PRODUCTION_IMAGE" docker-compose \
   --project-name "$COMPOSE_PROJECT" \
   --file "$COMPOSE_FILE" \
+  --file "$COMPOSE_OVERRIDE" \
   ps -q "$SERVICE")
 if [[ -z "$container_id" ]]; then
   fail "Portfolio container is not running"

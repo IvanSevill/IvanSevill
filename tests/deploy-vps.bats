@@ -26,6 +26,14 @@ teardown() {
   [ ! -s "$FAKE_LOG" ]
 }
 
+@test "tag deployment rejects a non-semantic release tag before prerequisites" {
+  run "$DEPLOY_UNDER_TEST" --deploy-tag latest "$APPROVED_SHA"
+
+  [ "$status" -eq 2 ]
+  assert_output_contains "requires a vMAJOR.MINOR.PATCH tag"
+  [ ! -s "$FAKE_LOG" ]
+}
+
 @test "check accepts valid host repository and Compose contracts without mutations" {
   run "$DEPLOY_UNDER_TEST" --check
 
@@ -94,6 +102,15 @@ teardown() {
   assert_log_excludes "git -C $FAKE_REPO fetch"
 }
 
+@test "verified semantic release tag authorizes a non-interactive deployment" {
+  run "$DEPLOY_UNDER_TEST" --deploy-tag v1.2.3 "$APPROVED_SHA"
+
+  [ "$status" -eq 0 ]
+  assert_output_contains "Release tag v1.2.3 resolves to the requested commit"
+  assert_output_contains "Portfolio deployed from approved commit $APPROVED_SHA"
+  assert_log_contains "git -C $FAKE_REPO fetch --no-tags origin main refs/tags/v1.2.3:refs/tags/v1.2.3"
+}
+
 @test "successful deployment validates provenance and writes a release receipt" {
   run run_deploy_flow
 
@@ -106,6 +123,7 @@ teardown() {
   [ -f "${receipts[0]}" ]
   receipt=$(<"${receipts[0]}")
   [[ "$receipt" == *"commit=$APPROVED_SHA"* ]]
+  [[ "$receipt" == *"release_tag=manual"* ]]
   [[ "$receipt" == *"previous_image_id=$PREVIOUS_IMAGE_ID"* ]]
   assert_log_excludes "docker tag $PREVIOUS_IMAGE_ID ivansevill/portfolio:production"
 }

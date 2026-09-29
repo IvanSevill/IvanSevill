@@ -46,8 +46,14 @@ jobs:
       - name: Test deployment scripts
         run: npm run test:scripts
 
+      - name: Test application
+        run: npm test
+
       - name: Lint
         run: npm run lint
 
       - name: Build
+        env:
+          VITE_APP_VERSION: dev
+          VITE_APP_COMMIT: ${{ github.sha }}
         run: npm run build

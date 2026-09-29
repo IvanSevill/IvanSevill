@@ -9,6 +9,9 @@ import {
   projectPath,
 } from './projects'
 
+const projectsSource = readFileSync(new URL('../components/Projects.jsx', import.meta.url), 'utf8')
+const detailSource = readFileSync(new URL('../pages/ProjectDetailPage.jsx', import.meta.url), 'utf8')
+
 describe('featured project data', () => {
   it('contains exactly the five evidence-backed stable slugs', () => {
     expect(featuredProjects.map((project) => project.slug)).toEqual(FEATURED_PROJECT_SLUGS)
@@ -36,15 +39,29 @@ describe('featured project data', () => {
     }
   })
 
-  it('tracks intentional pending captures without pointing image elements at missing files', () => {
+  it('has no pending captures and all media files exist', () => {
     const pending = featuredProjects.flatMap((project) => project.pendingMedia ?? [])
-    expect(pending.map((item) => item.filename)).toEqual([
-      'kaiprompt-tui.png',
-      'gymhub-dashboard.png',
-      'quota-watch-tui.png',
-      'aiss-miner-swagger.png',
-      'aiss-miner-graphiql.png',
-    ])
+    expect(pending).toEqual([])
+    for (const project of featuredProjects) {
+      for (const media of project.media) {
+        expect(existsSync(new URL(`../../public${media.src}`, import.meta.url))).toBe(true)
+      }
+    }
+  })
+
+  it('uses existing authentic assets as visible project covers without publishing pending placeholders', () => {
+    expect(projectsSource).not.toContain('project-card-visual')
+    expect(detailSource).toContain('className="project-hero-visual"')
+    expect(detailSource).not.toContain('pending-media-card')
+  })
+
+  it('opens project links in an accessible dialog while preserving direct routes', () => {
+    expect(projectsSource).toContain('<dialog')
+    expect(projectsSource).toContain('dialog.showModal()')
+    expect(projectsSource).toContain('onCancel=')
+    expect(projectsSource).toContain('returnFocusRef.current?.focus()')
+    expect(projectsSource).toContain('to={projectPath(project.slug)}')
+    expect(detailSource).toContain('project-full-link')
   })
 
   it('returns undefined for unknown project slugs', () => {

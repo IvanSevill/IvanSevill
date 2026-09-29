@@ -3,6 +3,7 @@ set -Eeuo pipefail
 
 readonly REPO_DIR="/home/ivansevill/projects/portfolio"
 readonly COMPOSE_FILE="/home/ivansevill/infra/stacks/services/docker-compose.yml"
+readonly COMPOSE_OVERRIDE="$REPO_DIR/deploy/docker-compose.production.yml"
 readonly COMPOSE_PROJECT="services"
 readonly SERVICE="portfolio"
 readonly EXPECTED_HOST="ivansevill-vm"
@@ -13,6 +14,7 @@ readonly RELEASE_DIR="/home/ivansevill/infra/releases/portfolio"
 readonly LOCK_FILE="/tmp/portfolio-deploy.lock"
 readonly SCRIPT_PATH="$REPO_DIR/scripts/deploy-vps.sh"
 readonly SHA_PATTERN='^[0-9a-f]{40}$'
+readonly RELEASE_TAG_PATTERN='^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$'
 
 CANDIDATE_CONTAINER=""
 NATIVE_BINDINGS_DIR=""
@@ -26,6 +28,7 @@ Usage:
   scripts/deploy-vps.sh --check
   scripts/deploy-vps.sh --dry-run
   scripts/deploy-vps.sh --deploy <full-commit-sha>
+  scripts/deploy-vps.sh --deploy-tag <vMAJOR.MINOR.PATCH> <full-commit-sha>
   scripts/deploy-vps.sh --help
 
 Modes:
@@ -33,7 +36,9 @@ Modes:
   --dry-run   Run every safe prerequisite check without fetch, pull, npm, build,
               image, container, or service mutations.
   --deploy    Deploy exactly the approved origin/main commit after an interactive
-              full-SHA confirmation. This is the only mode that mutates state.
+               full-SHA confirmation. This is the only mode that mutates state.
+  --deploy-tag Deploy the tagged origin/main commit without an interactive prompt.
+               The verified semantic-version tag is the deployment authorization.
 EOF
 }
 
@@ -141,13 +146,17 @@ check_compose_contract() {
   local contract_context="/tmp/portfolio-compose-context-contract"
 
   if [[ ! -r "$COMPOSE_FILE" ]]; then
-    fail "Pending production preparation: Compose file is not readable at $COMPOSE_FILE"
+    fail "Compose file is not readable at $COMPOSE_FILE"
+    return 1
+  fi
+  if [[ ! -r "$COMPOSE_OVERRIDE" ]]; then
+    fail "Production Compose override is not readable at $COMPOSE_OVERRIDE"
     return 1
   fi
 
   if ! rendered=$(PORTFOLIO_IMAGE="$PRODUCTION_IMAGE" PORTFOLIO_BUILD_CONTEXT="$contract_context" \
-    docker-compose --project-name "$COMPOSE_PROJECT" --file "$COMPOSE_FILE" config --format json); then
-    fail "Pending production preparation: Compose configuration does not render as JSON"
+    docker-compose --project-name "$COMPOSE_PROJECT" --file "$COMPOSE_FILE" --file "$COMPOSE_OVERRIDE" config --format json); then
+    fail "Compose configuration does not render as JSON"
     return 1
   fi
   if ! printf '%s' "$rendered" | PORTFOLIO_EXPECTED_IMAGE="$PRODUCTION_IMAGE" \
@@ -166,7 +175,7 @@ check_compose_contract() {
         } catch { process.exit(1); }
       });
     '; then
-    fail "Pending production preparation: services.portfolio must render the required image, build context, and provenance args"
+    fail "services.portfolio must render the required image, build context, and provenance args"
     return 1
   fi
   ok "Rendered services.portfolio contract is valid"
@@ -290,10 +299,12 @@ show_diagnostics() {
   PORTFOLIO_IMAGE="$PRODUCTION_IMAGE" docker-compose \
     --project-name "$COMPOSE_PROJECT" \
     --file "$COMPOSE_FILE" \
+    --file "$COMPOSE_OVERRIDE" \
     ps "$SERVICE" >&2 || true
   PORTFOLIO_IMAGE="$PRODUCTION_IMAGE" docker-compose \
     --project-name "$COMPOSE_PROJECT" \
     --file "$COMPOSE_FILE" \
+    --file "$COMPOSE_OVERRIDE" \
     logs --no-color --tail=200 "$SERVICE" >&2 || true
 }
 
@@ -307,10 +318,12 @@ rollback() {
   PORTFOLIO_IMAGE="$PRODUCTION_IMAGE" docker-compose \
     --project-name "$COMPOSE_PROJECT" \
     --file "$COMPOSE_FILE" \
+    --file "$COMPOSE_OVERRIDE" \
     up -d --no-deps --no-build "$SERVICE" || return 1
   rollback_container=$(PORTFOLIO_IMAGE="$PRODUCTION_IMAGE" docker-compose \
     --project-name "$COMPOSE_PROJECT" \
     --file "$COMPOSE_FILE" \
+    --file "$COMPOSE_OVERRIDE" \
     ps -q "$SERVICE") || return 1
   [[ -n "$rollback_container" ]] || { fail "Rollback did not recreate the portfolio container"; return 1; }
   restored_image_id=$(docker inspect --format '{{.Image}}' "$rollback_container") || return 1
@@ -361,6 +374,7 @@ write_release_receipt() {
     printf 'service=%s\n' "$SERVICE"
     printf 'deployed_at_utc=%s\n' "$timestamp"
     printf 'commit=%s\n' "$REQUESTED_SHA"
+    printf 'release_tag=%s\n' "${REQUESTED_TAG:-manual}"
     printf 'source=%s\n' "$SOURCE_URL"
     printf 'candidate_image=%s\n' "$CANDIDATE_IMAGE"
     printf 'candidate_image_id=%s\n' "$candidate_image_id"
@@ -376,6 +390,7 @@ deploy() {
   local after_script_blob
   local origin_main
   local current_head
+  local tag_commit
   local candidate_image_id
   local candidate_container
   local running_container
@@ -384,14 +399,27 @@ deploy() {
   local production_container
   local timestamp
   local short_sha
+  local version
 
-  confirm_deployment
+  if [[ "$MODE" == "deploy" ]]; then
+    confirm_deployment
+  fi
 
   before_script_blob=$(git -C "$REPO_DIR" rev-parse "HEAD:scripts/deploy-vps.sh")
-  git -C "$REPO_DIR" fetch origin main
+  if [[ "$MODE" == "deploy-tag" ]]; then
+    git -C "$REPO_DIR" fetch --no-tags origin main "refs/tags/$REQUESTED_TAG:refs/tags/$REQUESTED_TAG"
+    tag_commit=$(git -C "$REPO_DIR" rev-parse "refs/tags/$REQUESTED_TAG^{commit}")
+    if [[ "$tag_commit" != "$REQUESTED_SHA" ]]; then
+      fail "Release tag $REQUESTED_TAG does not resolve to requested commit $REQUESTED_SHA"
+      exit 1
+    fi
+    ok "Release tag $REQUESTED_TAG resolves to the requested commit"
+  else
+    git -C "$REPO_DIR" fetch origin main
+  fi
   origin_main=$(git -C "$REPO_DIR" rev-parse refs/remotes/origin/main)
   if [[ "$REQUESTED_SHA" != "$origin_main" ]]; then
-    fail "Approved SHA must equal origin/main after fetch"
+    fail "Approved SHA must equal origin/main after fetch; stale tags cannot deploy"
     exit 1
   fi
 
@@ -411,6 +439,9 @@ deploy() {
     ok "Deployment script changed after pull; executing the approved version once"
     flock -u 9
     exec 9>&-
+    if [[ "$MODE" == "deploy-tag" ]]; then
+      exec env PORTFOLIO_DEPLOY_REEXECED=1 "$SCRIPT_PATH" --deploy-tag "$REQUESTED_TAG" "$REQUESTED_SHA"
+    fi
     exec env PORTFOLIO_DEPLOY_REEXECED=1 "$SCRIPT_PATH" --deploy "$REQUESTED_SHA"
   fi
 
@@ -434,6 +465,7 @@ deploy() {
   ok "npm validation passed without tracked changes"
 
   short_sha=${REQUESTED_SHA:0:12}
+  version=${REQUESTED_TAG:-$short_sha}
   CANDIDATE_IMAGE="ivansevill/portfolio:$REQUESTED_SHA"
   export CANDIDATE_IMAGE
   BUILD_CONTEXT=$(mktemp -d /tmp/portfolio-build-context.XXXXXX)
@@ -441,10 +473,11 @@ deploy() {
   PORTFOLIO_BUILD_CONTEXT="$BUILD_CONTEXT" PORTFOLIO_IMAGE="$CANDIDATE_IMAGE" docker-compose \
     --project-name "$COMPOSE_PROJECT" \
     --file "$COMPOSE_FILE" \
+    --file "$COMPOSE_OVERRIDE" \
     build \
     --build-arg "SOURCE_URL=$SOURCE_URL" \
     --build-arg "VCS_REF=$REQUESTED_SHA" \
-    --build-arg "VERSION=$short_sha" \
+    --build-arg "VERSION=$version" \
     "$SERVICE"
 
   candidate_image_id=$(docker image inspect --format '{{.Id}}' "$CANDIDATE_IMAGE")
@@ -467,6 +500,7 @@ deploy() {
   running_container=$(PORTFOLIO_IMAGE="$PRODUCTION_IMAGE" docker-compose \
     --project-name "$COMPOSE_PROJECT" \
     --file "$COMPOSE_FILE" \
+    --file "$COMPOSE_OVERRIDE" \
     ps -q "$SERVICE")
   if [[ -z "$running_container" ]]; then
     fail "No running portfolio container is available for rollback capture"
@@ -489,11 +523,13 @@ deploy() {
   PORTFOLIO_IMAGE="$PRODUCTION_IMAGE" docker-compose \
     --project-name "$COMPOSE_PROJECT" \
     --file "$COMPOSE_FILE" \
+    --file "$COMPOSE_OVERRIDE" \
     up -d --no-deps --no-build "$SERVICE"
 
   production_container=$(PORTFOLIO_IMAGE="$PRODUCTION_IMAGE" docker-compose \
     --project-name "$COMPOSE_PROJECT" \
     --file "$COMPOSE_FILE" \
+    --file "$COMPOSE_OVERRIDE" \
     ps -q "$SERVICE")
   if [[ -z "$production_container" ]]; then
     fail "Compose did not return the recreated portfolio container"
@@ -510,6 +546,7 @@ deploy() {
 
 MODE=""
 REQUESTED_SHA=""
+REQUESTED_TAG=""
 CANDIDATE_IMAGE=""
 
 main() {
@@ -527,6 +564,16 @@ main() {
       REQUESTED_SHA=${2:-}
       [[ $# -eq 2 && "$REQUESTED_SHA" =~ $SHA_PATTERN ]] || {
         fail "--deploy requires one lowercase full 40-character commit SHA"
+        usage >&2
+        exit 2
+      }
+      ;;
+    --deploy-tag)
+      MODE="deploy-tag"
+      REQUESTED_TAG=${2:-}
+      REQUESTED_SHA=${3:-}
+      [[ $# -eq 3 && "$REQUESTED_TAG" =~ $RELEASE_TAG_PATTERN && "$REQUESTED_SHA" =~ $SHA_PATTERN ]] || {
+        fail "--deploy-tag requires a vMAJOR.MINOR.PATCH tag and one lowercase full 40-character commit SHA"
         usage >&2
         exit 2
       }

@@ -107,7 +107,7 @@ export default function Experience() {
           <span><i className="legend-solid" />{text.now}: {text.statuses.CURRENT}</span>
           <span><i className="legend-dashed" />{text.future}: {text.statuses.CONFIRMED} / {text.statuses.PLANNED}</span>
         </div>
-        <GitTimeline items={items} laneColors={LANE_COLORS} surfaceColor="#050507" mergedFallback={locale === 'es' ? 'integrado' : 'merged'} />
+        <GitTimeline items={items} laneColors={LANE_COLORS} surfaceColor="var(--bg-color)" order="desc" mergedFallback={locale === 'es' ? 'integrado' : 'merged'} />
       </div>
     </section>
   )

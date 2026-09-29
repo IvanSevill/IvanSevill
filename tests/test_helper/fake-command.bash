@@ -24,8 +24,9 @@ case "$command_name" in
         ;;
       *" show-ref --verify --quiet refs/remotes/origin/main "*) ;;
       *" rev-parse HEAD:scripts/deploy-vps.sh "*) printf '%s\n' 'unchanged-script-blob' ;;
+      *" rev-parse refs/tags/v1.2.3^{commit} "*) printf '%s\n' "$APPROVED_SHA" ;;
       *" rev-parse refs/remotes/origin/main "*|*" rev-parse HEAD ") printf '%s\n' "$APPROVED_SHA" ;;
-      *" fetch origin main "*|*" pull --ff-only origin main "*|*" diff --quiet "*|*" diff --cached --quiet "*) ;;
+      *" fetch origin main "*|*" fetch --no-tags origin main refs/tags/v1.2.3:refs/tags/v1.2.3 "*|*" pull --ff-only origin main "*|*" diff --quiet "*|*" diff --cached --quiet "*) ;;
       *" archive $APPROVED_SHA "*) ;;
       *) printf 'Unexpected git invocation: %s\n' "$*" >&2; exit 90 ;;
     esac

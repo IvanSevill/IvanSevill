@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion as Motion } from 'framer-motion'
-import { ArrowRight, ExternalLink, Github } from 'lucide-react'
+import { ExternalLink, Github } from 'lucide-react'
 import { Link } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { featuredProjects, getLocalizedProject, projectPath, secondaryProjects } from '../data/projects'
@@ -15,7 +15,10 @@ export default function Projects() {
 
   useEffect(() => {
     const dialog = dialogRef.current
-    if (selectedProject && dialog && !dialog.open) dialog.showModal()
+    if (selectedProject && dialog) {
+      if (!dialog.open) dialog.showModal()
+      dialog.scrollTop = 0
+    }
   }, [selectedProject])
 
   const openProject = (event, project) => {
@@ -27,7 +30,7 @@ export default function Projects() {
 
   const openFromCard = (event, project) => {
     if (event.target.closest('a, button')) return
-    const fallback = event.currentTarget.querySelector('.project-primary-link')
+    const fallback = event.currentTarget.querySelector('.project-title-link')
     if (!fallback) return
     returnFocusRef.current = fallback
     setSelectedProject(project)
@@ -66,15 +69,12 @@ export default function Projects() {
                 <div className="terminal-bar" aria-hidden="true"><span /><span /><span /><code>{project.slug}.case-study</code></div>
                 <div className="project-card-body">
                   <div className="project-card-meta"><span>{project.type}</span><span>{project.status}</span></div>
-                  <h3><Link to={projectPath(project.slug)} onClick={(event) => openProject(event, rawProject)}>{project.name}</Link></h3>
+                  <h3><Link className="project-title-link" to={projectPath(project.slug)} onClick={(event) => openProject(event, rawProject)}>{project.name}</Link></h3>
                   <p>{project.summary}</p>
                   <ul className="tech-list" aria-label={`${project.name} stack`}>
                     {project.stack.slice(0, 5).map((technology) => <li key={technology}>{technology}</li>)}
                   </ul>
                   <div className="project-card-links">
-                    <Link className="project-primary-link" to={projectPath(project.slug)} onClick={(event) => openProject(event, rawProject)}>
-                      {spanish ? 'Leer caso' : 'Read case study'} <ArrowRight size={17} aria-hidden="true" />
-                    </Link>
                     {project.links.github && (
                       <a href={project.links.github} target="_blank" rel="noreferrer" aria-label={`${spanish ? 'Código fuente de' : 'Source code for'} ${project.name}`}>
                         <Github size={17} aria-hidden="true" /> {spanish ? 'Código' : 'Source'}

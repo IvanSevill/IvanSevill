@@ -1,106 +1,85 @@
-import React from 'react';
-import { motion as Motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
-import { useTimeMode } from '../context/timeMode';
+import { motion as Motion, useReducedMotion } from 'framer-motion'
+import { ChevronDown } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { useTimeMode } from '../context/timeMode'
 
-const Hero = () => {
-    const { t } = useTranslation();
-    const { resolvedPeriod } = useTimeMode();
+const entrance = {
+  hidden: {},
+  visible: { transition: { delayChildren: 0.18, staggerChildren: 0.15 } },
+}
 
-    return (
-        <section id="hero" className="min-h-screen flex items-end lg:items-center pt-24 pb-32 lg:pb-12 relative overflow-hidden bg-[#05050a]">
-            {/* Background elements */}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-                <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[var(--accent-primary)]/10 rounded-full blur-[120px] animate-pulse"></div>
-            </div>
+const reveal = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+}
 
-            <div className="container mx-auto px-6 relative z-10">
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
-                    {/* Text Content */}
-                    <Motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="text-center lg:text-left z-20"
-                    >
-                        <p className="text-sm text-[var(--accent-primary)]/70 mb-3 tracking-wide">
-                            {t(`hero.bootLine.${resolvedPeriod}`)}
-                        </p>
-                        <h2 className="text-xl md:text-2xl text-[var(--accent-secondary)] mb-4 font-light tracking-[0.4em] uppercase">
-                            <span className="text-[var(--accent-primary)]">$ </span>{t('hero.greeting')}
-                        </h2>
-                        <h1 className="text-6xl md:text-8xl font-bold mb-8 tracking-tighter">
-                            <span className="gradient-text">Iván</span><span className="cursor-blink h-[0.85em] align-middle"></span>
-                        </h1>
-                        <p className="text-lg md:text-xl text-[var(--text-secondary)] mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed font-light">
-                            {t('hero.role')}
-                        </p>
+export default function Hero() {
+  const { t } = useTranslation()
+  const { resolvedPeriod } = useTimeMode()
+  const reduceMotion = useReducedMotion()
 
-                        <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
-                            <a href="#projects" className="btn-primary flex items-center justify-center gap-2 group">
-                                {t('hero.viewWork')}
-                                <span className="group-hover:translate-x-1 transition-transform">→</span>
-                            </a>
-                            <a href="#contact" className="btn-outline">
-                                {t('hero.contactMe')}
-                            </a>
-                        </div>
-                    </Motion.div>
-                </div>
-            </div>
+  return (
+    <section id="hero" className="hero-section relative isolate flex min-h-screen items-end overflow-hidden bg-[#05050a] pt-24 pb-32 lg:items-center lg:pb-12">
+      <div className="hero-section__image absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        <picture>
+          <source type="image/avif" srcSet="/images/responsive/profile-640.avif 640w, /images/responsive/profile-960.avif 960w, /images/responsive/profile-1440.avif 1440w" sizes="100vw" />
+          <source type="image/webp" srcSet="/images/responsive/profile-640.webp 640w, /images/responsive/profile-960.webp 960w, /images/responsive/profile-1440.webp 1440w" sizes="100vw" />
+          <img src="/images/profile.jpg" width="1440" height="1920" fetchPriority="high" decoding="async" alt="" className="hero-section__portrait" />
+        </picture>
+        <div className="hero-section__tint" />
+        <div className="hero-section__shade" />
+      </div>
 
-            {/* Cinematic Background Image */}
-            <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-                <div className="relative w-full h-full">
-                    <picture>
-                        <source
-                            type="image/avif"
-                            srcSet="/images/responsive/profile-640.avif 640w, /images/responsive/profile-960.avif 960w, /images/responsive/profile-1440.avif 1440w"
-                            sizes="100vw"
-                        />
-                        <source
-                            type="image/webp"
-                            srcSet="/images/responsive/profile-640.webp 640w, /images/responsive/profile-960.webp 960w, /images/responsive/profile-1440.webp 1440w"
-                            sizes="100vw"
-                        />
-                        <img
-                            src="/images/profile.jpg"
-                            width="1440"
-                            height="1920"
-                            fetchPriority="high"
-                            decoding="async"
-                            alt="Iván Sevillano"
-                            className="w-full h-full object-cover object-top scale-[1.15] -translate-y-[15%] -translate-x-[5%] lg:translate-x-[20%] lg:translate-y-0 lg:object-right lg:scale-110 brightness-90 lg:brightness-[0.8] contrast-105 transition-transform duration-1000"
-                        />
-                    </picture>
-                    {/* Time-of-day accent tint */}
-                    <div className="absolute inset-0 bg-[var(--accent-primary)]/10 mix-blend-color"></div>
+      <div className="hero-section__atmosphere absolute inset-0 z-[1] pointer-events-none" aria-hidden="true">
+        <span className="hero-section__glow" />
+        <span className="hero-section__grid" />
+        <span className="hero-section__sweep" />
+      </div>
 
-                    {/* Mobile: Gradient covering only the bottom to center the "air" */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#05050a] via-[#05050a]/70 to-transparent lg:hidden"></div>
+      <div className="container relative z-10 w-full">
+        <Motion.div
+          variants={entrance}
+          initial={reduceMotion ? false : 'hidden'}
+          animate="visible"
+          className="hero-section__copy max-w-2xl"
+        >
+          <Motion.div variants={reveal} className="hero-section__chapter" aria-hidden="true">
+            <span>01 / 06</span><span className="hero-section__chapter-line" />
+          </Motion.div>
+          <Motion.p variants={reveal} className="hero-section__boot">
+            {t(`hero.bootLine.${resolvedPeriod}`)}
+          </Motion.p>
+          <Motion.p variants={reveal} className="hero-section__greeting uppercase">
+            <span className="text-[var(--accent-primary)]">$ </span>{t('hero.greeting')}
+          </Motion.p>
+          <Motion.h1 variants={reveal} className="hero-section__headline font-bold tracking-tighter">
+            <span className="gradient-text">Iván</span><span className="cursor-blink h-[0.85em] align-middle" aria-hidden="true" />
+          </Motion.h1>
+          <Motion.p variants={reveal} className="hero-section__role font-light leading-relaxed">
+            {t('hero.role')}
+          </Motion.p>
+          <Motion.div variants={reveal} className="hero-section__actions flex flex-col gap-4 sm:flex-row">
+            <a href="#projects" className="btn-primary group flex items-center justify-center gap-2">
+              {t('hero.viewWork')}
+              <span className="transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+            </a>
+            <a href="#contact" className="btn-outline flex items-center justify-center">
+              {t('hero.contactMe')}
+            </a>
+          </Motion.div>
+        </Motion.div>
+      </div>
 
-                    {/* Desktop: Solid black on the left that fades out to the right - NO MORE CUTS */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#05050a] via-[#05050a] via-[35%] to-transparent hidden lg:block"></div>
-
-                    {/* Bottom blend for section continuity */}
-                    <div className="absolute inset-x-0 bottom-0 h-1/6 bg-gradient-to-t from-[#05050a] to-transparent z-10"></div>
-                </div>
-            </div>
-
-            <Motion.a
-                href="#about"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1, y: [0, 10, 0] }}
-                transition={{ delay: 1, duration: 2, repeat: Infinity }}
-                className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-[var(--text-secondary)] hover:text-[var(--accent-primary)] hidden md:block z-20"
-                aria-label={t('navbar.about')}
-            >
-                <ChevronDown size={32} />
-            </Motion.a>
-        </section>
-    );
-};
-
-export default Hero;
+      <Motion.a
+        href="#about"
+        initial={reduceMotion ? false : { opacity: 0 }}
+        animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: [0, 8, 0] }}
+        transition={reduceMotion ? { duration: 0 } : { delay: 1.3, duration: 2.2, repeat: Infinity }}
+        className="absolute bottom-10 left-1/2 z-20 hidden -translate-x-1/2 text-[var(--text-secondary)] hover:text-[var(--accent-primary)] md:block"
+        aria-label={t('navbar.about')}
+      >
+        <ChevronDown size={32} />
+      </Motion.a>
+    </section>
+  )
+}

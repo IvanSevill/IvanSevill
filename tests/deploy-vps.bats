@@ -103,12 +103,26 @@ teardown() {
 }
 
 @test "verified semantic release tag authorizes a non-interactive deployment" {
+  export FAKE_VERSION="v1.2.3"
+
   run "$DEPLOY_UNDER_TEST" --deploy-tag v1.2.3 "$APPROVED_SHA"
 
   [ "$status" -eq 0 ]
   assert_output_contains "Release tag v1.2.3 resolves to the requested commit"
   assert_output_contains "Portfolio deployed from approved commit $APPROVED_SHA"
   assert_log_contains "git -C $FAKE_REPO fetch --no-tags origin main refs/tags/v1.2.3:refs/tags/v1.2.3"
+  receipts=("$FAKE_RELEASE_DIR"/*.txt)
+  [ -f "${receipts[0]}" ]
+  receipt=$(<"${receipts[0]}")
+  [[ "$receipt" == *"release_tag=v1.2.3"* ]]
+}
+
+@test "tag deployment rejects a candidate whose version label is not the release tag" {
+  run "$DEPLOY_UNDER_TEST" --deploy-tag v1.2.3 "$APPROVED_SHA"
+
+  [ "$status" -eq 1 ]
+  assert_output_contains "Candidate OCI provenance labels do not match the approved release"
+  assert_log_excludes "docker tag $CANDIDATE_IMAGE_ID ivansevill/portfolio:production"
 }
 
 @test "successful deployment validates provenance and writes a release receipt" {

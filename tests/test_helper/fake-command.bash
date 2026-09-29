@@ -122,7 +122,7 @@ case "$command_name" in
             if [[ "${FAKE_SCENARIO:-}" == "invalid-version" ]]; then
               printf '%s\n' 'dev'
             else
-              printf '%s\n' "${APPROVED_SHA:0:12}"
+              printf '%s\n' "${FAKE_VERSION:-${APPROVED_SHA:0:12}}"
             fi
             ;;
           *) printf 'Unexpected docker image format: %s\n' "$format" >&2; exit 92 ;;

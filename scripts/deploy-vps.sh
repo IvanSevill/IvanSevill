@@ -481,9 +481,12 @@ deploy() {
     "$SERVICE"
 
   candidate_image_id=$(docker image inspect --format '{{.Id}}' "$CANDIDATE_IMAGE")
-  [[ "$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.source"}}' "$CANDIDATE_IMAGE")" == "$SOURCE_URL" ]]
-  [[ "$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' "$CANDIDATE_IMAGE")" == "$REQUESTED_SHA" ]]
-  [[ "$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.version"}}' "$CANDIDATE_IMAGE")" == "$short_sha" ]]
+  if ! [[ "$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.source"}}' "$CANDIDATE_IMAGE")" == "$SOURCE_URL" ]] \
+    || ! [[ "$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' "$CANDIDATE_IMAGE")" == "$REQUESTED_SHA" ]] \
+    || ! [[ "$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.version"}}' "$CANDIDATE_IMAGE")" == "$version" ]]; then
+    fail "Candidate OCI provenance labels do not match the approved release"
+    exit 1
+  fi
   ok "Candidate OCI provenance labels match the approved commit"
 
   candidate_container="portfolio-candidate-$short_sha"

@@ -24,7 +24,7 @@ export default function Hero() {
         <picture>
           <source type="image/avif" srcSet="/images/responsive/profile-640.avif 640w, /images/responsive/profile-960.avif 960w, /images/responsive/profile-1440.avif 1440w" sizes="100vw" />
           <source type="image/webp" srcSet="/images/responsive/profile-640.webp 640w, /images/responsive/profile-960.webp 960w, /images/responsive/profile-1440.webp 1440w" sizes="100vw" />
-          <img src="/images/profile.jpg" width="1440" height="1920" fetchPriority="high" decoding="async" alt="" className="hero-section__portrait" />
+          <img src="/images/profile.jpg" width="1440" height="1920" fetchPriority="high" decoding="async" alt="Iván Jesús Sevillano Plaza" className="hero-section__portrait" />
         </picture>
         <div className="hero-section__tint" />
         <div className="hero-section__shade" />

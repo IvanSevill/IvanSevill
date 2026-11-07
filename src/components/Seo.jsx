@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router'
 import { useTranslation } from 'react-i18next'
-
-const SITE_URL = 'https://ivansevill.com'
+import { PERSON, PERSON_JSON_LD, SITE_TITLE, SITE_URL } from '../data/person'
 
 function setMeta(selector, attribute, value) {
   let element = document.head.querySelector(selector)
@@ -23,14 +22,14 @@ export default function Seo({ project, notFound = false }) {
     ? `404 | ${spanish ? 'Ruta no encontrada' : 'Route not found'}`
     : project
     ? `${project.name} | ${spanish ? 'Proyecto de Iván Sevillano' : 'Project by Iván Sevillano'}`
-    : 'IvanSevill | Portfolio'
+    : SITE_TITLE
   const description = notFound
     ? spanish ? 'La ruta solicitada no forma parte de este portfolio.' : 'The requested route is not part of this portfolio.'
     : project
     ? project.summary
     : spanish
-      ? 'Portfolio de ingeniería de software con proyectos de herramientas para desarrolladores, aplicaciones web e infraestructura.'
-      : 'Software engineering portfolio spanning developer tools, web applications and personal infrastructure.'
+      ? 'Portfolio de Iván Jesús Sevillano Plaza (IvanSevill): ingeniería de software con proyectos de herramientas para desarrolladores, aplicaciones web e infraestructura.'
+      : 'Portfolio of Iván Jesús Sevillano Plaza (IvanSevill): software engineering spanning developer tools, web applications and personal infrastructure.'
   const path = project ? `/projects/${project.slug}` : notFound ? location.pathname : '/'
   const canonical = `${SITE_URL}${path}`
 
@@ -40,8 +39,6 @@ export default function Seo({ project, notFound = false }) {
     setMeta('meta[property="og:title"]', 'property=og:title', title)
     setMeta('meta[property="og:description"]', 'property=og:description', description)
     setMeta('meta[property="og:url"]', 'property=og:url', canonical)
-    setMeta('meta[name="twitter:title"]', 'name=twitter:title', title)
-    setMeta('meta[name="twitter:description"]', 'name=twitter:description', description)
     setMeta('meta[name="robots"]', 'name=robots', notFound ? 'noindex,follow' : 'index,follow')
 
     let link = document.head.querySelector('link[rel="canonical"]')
@@ -66,16 +63,12 @@ export default function Seo({ project, notFound = false }) {
           name: project.name,
           description,
           url: canonical,
-          author: { '@type': 'Person', name: 'Iván Sevillano' },
+          author: { '@type': 'Person', name: PERSON.name, url: SITE_URL },
           codeRepository: project.links.github,
         }
       : {
-          '@context': 'https://schema.org',
-          '@type': 'Person',
-          name: 'Iván Sevillano',
-          url: SITE_URL,
-          jobTitle: spanish ? 'Estudiante de Ingeniería del Software' : 'Software Engineering student',
-          sameAs: ['https://github.com/IvanSevill'],
+          ...PERSON_JSON_LD,
+          jobTitle: spanish ? PERSON_JSON_LD.jobTitle : 'Software Engineering student',
         })
     document.head.appendChild(script)
     return () => script.remove()

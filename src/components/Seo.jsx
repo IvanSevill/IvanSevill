@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
-import { useLocation } from 'react-router'
 import { useTranslation } from 'react-i18next'
-import { PERSON, PERSON_JSON_LD, SITE_TITLE, SITE_URL } from '../data/person'
+import { getPageMeta } from '../data/seo'
 
 function setMeta(selector, attribute, value) {
   let element = document.head.querySelector(selector)
@@ -16,63 +15,42 @@ function setMeta(selector, attribute, value) {
 
 export default function Seo({ project, notFound = false }) {
   const { i18n } = useTranslation()
-  const location = useLocation()
   const spanish = i18n.resolvedLanguage?.startsWith('es')
-  const title = notFound
-    ? `404 | ${spanish ? 'Ruta no encontrada' : 'Route not found'}`
-    : project
-    ? `${project.name} | ${spanish ? 'Proyecto de Iván Sevillano' : 'Project by Iván Sevillano'}`
-    : SITE_TITLE
-  const description = notFound
-    ? spanish ? 'La ruta solicitada no forma parte de este portfolio.' : 'The requested route is not part of this portfolio.'
-    : project
-    ? project.summary
-    : spanish
-      ? 'Portfolio de Iván Jesús Sevillano Plaza (IvanSevill): ingeniería de software con proyectos de herramientas para desarrolladores, aplicaciones web e infraestructura.'
-      : 'Portfolio of Iván Jesús Sevillano Plaza (IvanSevill): software engineering spanning developer tools, web applications and personal infrastructure.'
-  const path = project ? `/projects/${project.slug}` : notFound ? location.pathname : '/'
-  const canonical = `${SITE_URL}${path}`
+  const { title, description, canonical, robots, jsonLd } = getPageMeta({ project, notFound, spanish })
+  const jsonLdText = jsonLd ? JSON.stringify(jsonLd) : null
 
   useEffect(() => {
     document.title = title
     setMeta('meta[name="description"]', 'name=description', description)
     setMeta('meta[property="og:title"]', 'property=og:title', title)
     setMeta('meta[property="og:description"]', 'property=og:description', description)
-    setMeta('meta[property="og:url"]', 'property=og:url', canonical)
-    setMeta('meta[name="robots"]', 'name=robots', notFound ? 'noindex,follow' : 'index,follow')
+    setMeta('meta[name="robots"]', 'name=robots', robots)
 
-    let link = document.head.querySelector('link[rel="canonical"]')
-    if (!link) {
-      link = document.createElement('link')
-      link.rel = 'canonical'
-      document.head.appendChild(link)
+    if (canonical) {
+      setMeta('meta[property="og:url"]', 'property=og:url', canonical)
+      let link = document.head.querySelector('link[rel="canonical"]')
+      if (!link) {
+        link = document.createElement('link')
+        link.rel = 'canonical'
+        document.head.appendChild(link)
+      }
+      link.href = canonical
+    } else {
+      document.head.querySelector('meta[property="og:url"]')?.remove()
+      document.head.querySelector('link[rel="canonical"]')?.remove()
     }
-    link.href = canonical
 
     const id = 'portfolio-json-ld'
     document.getElementById(id)?.remove()
-    if (notFound) return undefined
+    if (!jsonLdText) return undefined
 
     const script = document.createElement('script')
     script.id = id
     script.type = 'application/ld+json'
-    script.text = JSON.stringify(project
-      ? {
-          '@context': 'https://schema.org',
-          '@type': 'CreativeWork',
-          name: project.name,
-          description,
-          url: canonical,
-          author: { '@type': 'Person', name: PERSON.name, url: SITE_URL },
-          codeRepository: project.links.github,
-        }
-      : {
-          ...PERSON_JSON_LD,
-          jobTitle: spanish ? PERSON_JSON_LD.jobTitle : 'Software Engineering student',
-        })
+    script.text = jsonLdText
     document.head.appendChild(script)
     return () => script.remove()
-  }, [canonical, description, notFound, project, spanish, title])
+  }, [canonical, description, jsonLdText, robots, title])
 
   return null
 }

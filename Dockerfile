@@ -15,6 +15,10 @@ COPY . .
 RUN npm run lint \
     && VITE_APP_VERSION="$VERSION" VITE_APP_COMMIT="$VCS_REF" npm run build
 
+# Render the social card from the current GitHub avatar; keeps the committed card on failure.
+RUN apk add --no-cache bash imagemagick imagemagick-jpeg font-jetbrains-mono \
+    && bash scripts/build-og-card.sh dist/images/og-card.jpg
+
 FROM nginx:1.29-alpine
 
 ARG SOURCE_URL="https://github.com/IvanSevill/IvanSevill"

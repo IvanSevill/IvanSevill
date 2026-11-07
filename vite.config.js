@@ -1,12 +1,37 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { dirname, resolve } from 'node:path'
+import { getPrerenderRoutes, renderRouteHtml } from './src/data/seo.js'
+
+// Writes route-specific HTML (title, description, canonical, JSON-LD) so crawlers
+// get correct metadata without running JavaScript.
+function prerenderRouteHeads() {
+  let outDir
+  return {
+    name: 'prerender-route-heads',
+    apply: 'build',
+    configResolved(config) {
+      outDir = resolve(config.root, config.build.outDir)
+    },
+    closeBundle() {
+      const template = readFileSync(resolve(outDir, 'index.html'), 'utf8')
+      for (const route of getPrerenderRoutes()) {
+        const file = resolve(outDir, route.file)
+        mkdirSync(dirname(file), { recursive: true })
+        writeFileSync(file, renderRouteHtml(template, route.meta))
+      }
+    },
+  }
+}
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
+    prerenderRouteHeads(),
   ],
   build: {
     rollupOptions: {

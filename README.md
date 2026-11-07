@@ -41,7 +41,6 @@
 
 - **Spanish** (Native)
 - **English** (C1) – Fluent in listening, reading, and writing
-- **French** (A2)
 ---
 
 ### 🚀 Skills & Expertise

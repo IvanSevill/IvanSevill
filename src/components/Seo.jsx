@@ -23,14 +23,14 @@ export default function Seo({ project, notFound = false }) {
     ? `404 | ${spanish ? 'Ruta no encontrada' : 'Route not found'}`
     : project
     ? `${project.name} | ${spanish ? 'Proyecto de Iván Sevillano' : 'Project by Iván Sevillano'}`
-    : 'IvanSevill | Portfolio'
+    : `Iván Sevillano (IvanSevill) | ${spanish ? 'Ingeniero de Software · Portfolio' : 'Software Engineer · Portfolio'}`
   const description = notFound
     ? spanish ? 'La ruta solicitada no forma parte de este portfolio.' : 'The requested route is not part of this portfolio.'
     : project
     ? project.summary
     : spanish
-      ? 'Portfolio de ingeniería de software con proyectos de herramientas para desarrolladores, aplicaciones web e infraestructura.'
-      : 'Software engineering portfolio spanning developer tools, web applications and personal infrastructure.'
+      ? 'Iván Sevillano (IvanSevill), estudiante de Ingeniería del Software en la Universidad de Sevilla. Portfolio con proyectos de herramientas para desarrolladores, aplicaciones web e infraestructura.'
+      : 'Iván Sevillano (IvanSevill), Software Engineering student at the University of Seville. Portfolio spanning developer tools, web applications and personal infrastructure.'
   const path = project ? `/projects/${project.slug}` : notFound ? location.pathname : '/'
   const canonical = `${SITE_URL}${path}`
 
@@ -52,31 +52,24 @@ export default function Seo({ project, notFound = false }) {
     }
     link.href = canonical
 
+    // The Person and WebSite entities live statically in index.html so crawlers see them
+    // without running JavaScript; project pages add a CreativeWork that points to them.
     const id = 'portfolio-json-ld'
     document.getElementById(id)?.remove()
-    if (notFound) return undefined
+    if (notFound || !project) return undefined
 
     const script = document.createElement('script')
     script.id = id
     script.type = 'application/ld+json'
-    script.text = JSON.stringify(project
-      ? {
-          '@context': 'https://schema.org',
-          '@type': 'CreativeWork',
-          name: project.name,
-          description,
-          url: canonical,
-          author: { '@type': 'Person', name: 'Iván Sevillano' },
-          codeRepository: project.links.github,
-        }
-      : {
-          '@context': 'https://schema.org',
-          '@type': 'Person',
-          name: 'Iván Sevillano',
-          url: SITE_URL,
-          jobTitle: spanish ? 'Estudiante de Ingeniería del Software' : 'Software Engineering student',
-          sameAs: ['https://github.com/IvanSevill'],
-        })
+    script.text = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'CreativeWork',
+      name: project.name,
+      description,
+      url: canonical,
+      author: { '@id': `${SITE_URL}/#person`, '@type': 'Person', name: 'Iván Sevillano' },
+      codeRepository: project.links.github,
+    })
     document.head.appendChild(script)
     return () => script.remove()
   }, [canonical, description, notFound, project, spanish, title])

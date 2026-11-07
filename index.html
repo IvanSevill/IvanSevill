@@ -7,18 +7,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#050507" />
   <meta name="robots" content="index,follow" />
-  <title>IvanSevill | Portfolio</title>
+  <title>Iván Sevillano (IvanSevill) | Ingeniero de Software · Portfolio</title>
   <meta name="description"
-    content="Portfolio de Iván Sevillano: ingeniería de software, herramientas para desarrolladores, aplicaciones web e infraestructura." />
+    content="Iván Sevillano (IvanSevill), estudiante de Ingeniería del Software en la Universidad de Sevilla. Portfolio con proyectos de herramientas para desarrolladores, aplicaciones web e infraestructura." />
+  <meta name="author" content="Iván Jesús Sevillano Plaza" />
   <link rel="canonical" href="https://ivansevill.com/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="IvanSevill | Portfolio" />
-  <meta property="og:title" content="IvanSevill | Portfolio" />
-  <meta property="og:description" content="Proyectos de ingeniería de software, herramientas para desarrolladores e infraestructura." />
+  <meta property="og:type" content="profile" />
+  <meta property="og:site_name" content="Iván Sevillano · IvanSevill" />
+  <meta property="og:locale" content="es_ES" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:title" content="Iván Sevillano (IvanSevill) | Ingeniero de Software · Portfolio" />
+  <meta property="og:description" content="Portfolio de Iván Sevillano: proyectos de ingeniería de software, herramientas para desarrolladores e infraestructura." />
   <meta property="og:url" content="https://ivansevill.com/" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="IvanSevill | Portfolio" />
-  <meta name="twitter:description" content="Proyectos de ingeniería de software, herramientas para desarrolladores e infraestructura." />
+  <meta property="og:image" content="https://ivansevill.com/images/about.jpg" />
+  <meta property="og:image:width" content="1440" />
+  <meta property="og:image:height" content="810" />
+  <meta property="og:image:alt" content="Iván Sevillano" />
+  <meta property="profile:first_name" content="Iván" />
+  <meta property="profile:last_name" content="Sevillano" />
+  <meta property="profile:username" content="IvanSevill" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Iván Sevillano (IvanSevill) | Ingeniero de Software · Portfolio" />
+  <meta name="twitter:description" content="Portfolio de Iván Sevillano: proyectos de ingeniería de software, herramientas para desarrolladores e infraestructura." />
+  <meta name="twitter:image" content="https://ivansevill.com/images/about.jpg" />
+  <script type="application/ld+json" id="site-identity-json-ld">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://ivansevill.com/#person",
+        "name": "Iván Sevillano",
+        "givenName": "Iván Jesús",
+        "familyName": "Sevillano Plaza",
+        "alternateName": ["IvanSevill", "Ivan Sevillano", "Iván Jesús Sevillano Plaza", "Ivan Jesus Sevillano Plaza"],
+        "url": "https://ivansevill.com/",
+        "image": "https://ivansevill.com/images/profile.jpg",
+        "jobTitle": "Software Engineering student",
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "Universidad de Sevilla", "url": "https://www.us.es/" },
+        "address": { "@type": "PostalAddress", "addressLocality": "Sevilla", "addressCountry": "ES" },
+        "knowsLanguage": ["es", "en", "fr"],
+        "sameAs": [
+          "https://github.com/IvanSevill",
+          "https://www.instagram.com/ivansevill/",
+          "https://linktr.ee/IvanSevill"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://ivansevill.com/#website",
+        "url": "https://ivansevill.com/",
+        "name": "Iván Sevillano · IvanSevill",
+        "alternateName": ["IvanSevill", "ivansevill.com"],
+        "inLanguage": ["es", "en"],
+        "publisher": { "@id": "https://ivansevill.com/#person" }
+      }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -27,7 +73,22 @@
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <!-- Contenido estático que ven los buscadores antes de que React cargue; React lo reemplaza al montar. -->
+    <main>
+      <h1>Iván Sevillano (IvanSevill)</h1>
+      <p>Portfolio de Iván Jesús Sevillano Plaza, estudiante de Ingeniería del Software en la Universidad de Sevilla.
+        Proyectos de herramientas para desarrolladores, aplicaciones web e infraestructura.</p>
+      <ul>
+        <li><a href="/projects/kaiprompt">Kaiprompt</a></li>
+        <li><a href="/projects/gymhub">GymHub</a></li>
+        <li><a href="/projects/personal-cloud-homelab">Personal Cloud &amp; Homelab</a></li>
+        <li><a href="/projects/quota-watch">quota-watch</a></li>
+        <li><a href="/projects/aiss-miner">AISS-Miner</a></li>
+      </ul>
+      <p><a href="https://github.com/IvanSevill">GitHub</a> · <a href="https://www.instagram.com/ivansevill/">Instagram</a> · <a href="https://linktr.ee/IvanSevill">Linktree</a></p>
+    </main>
+  </div>
   <script type="module" src="/src/main.jsx"></script>
 </body>
 

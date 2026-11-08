@@ -25,7 +25,7 @@ export const featuredProjects = [
       architectureImage: '/images/projects/kaiprompt/architecture.svg',
       media: [
         {
-          src: '/images/projects/kaiprompt/kaiprompt-tui.png',
+          src: '/images/projects/kaiprompt/kaiprompt-tui.webp',
           width: 934,
           height: 431,
           kind: 'terminal',
@@ -145,7 +145,7 @@ export const featuredProjects = [
       architectureImage: '/images/projects/gymhub/architecture.svg',
       media: [
         {
-          src: '/images/projects/gymhub/gymhub-dashboard.png',
+          src: '/images/projects/gymhub/gymhub-dashboard.webp',
           width: 1107,
           height: 631,
           kind: 'screenshot',
@@ -352,7 +352,7 @@ export const featuredProjects = [
       architectureImage: '/images/projects/quota-watch/architecture.svg',
       media: [
         {
-          src: '/images/projects/quota-watch/quota-watch-tui.png',
+          src: '/images/projects/quota-watch/quota-watch-tui.webp',
           width: 430,
           height: 238,
           kind: 'terminal',
@@ -470,7 +470,7 @@ export const featuredProjects = [
       architectureImage: '/images/projects/aiss-miner/architecture.svg',
       media: [
         {
-          src: '/images/projects/aiss-miner/aiss-miner-swagger.png',
+          src: '/images/projects/aiss-miner/aiss-miner-swagger.webp',
           width: 1293,
           height: 551,
           kind: 'screenshot',
@@ -484,7 +484,7 @@ export const featuredProjects = [
           },
         },
         {
-          src: '/images/projects/aiss-miner/aiss-miner-graphiql.png',
+          src: '/images/projects/aiss-miner/aiss-miner-graphiql.webp',
           width: 700,
           height: 501,
           kind: 'screenshot',
